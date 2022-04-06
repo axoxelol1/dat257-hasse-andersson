@@ -1,7 +1,9 @@
+import Card from "../src/card";
+
 export default function Index() {
   return (
     <div>
-      <h1>Hello World</h1>
+      <Card />
     </div>
   );
 }

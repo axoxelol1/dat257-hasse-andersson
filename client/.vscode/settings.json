@@ -1,4 +1,7 @@
 {
   "editor.tabSize": 2,
-  "prettier.tabWidth": 2
+  "prettier.tabWidth": 2,
+  "editor.quickSuggestions": {
+    "strings": true
+  }
 }
