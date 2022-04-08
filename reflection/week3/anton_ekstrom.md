@@ -1,0 +1,11 @@
+## What do I want to learn or understand better?
+We have decided that we will be using MongoDB for persistent data storage, which I haven't used before. Therefore, I want to learn about this so I can contribute to the project. I would like to understand the basics at least, which I don't think will take that much time. I have some experience of document databases from earlier projects. I think it is most important to know how to query the database from nodejs, because I think that is what I will be doing the most. So I will be reading about this in their documentation, which seemed to be quite good.
+
+## How can I help someone else, or the entire team, to learn something new?
+I showed the others my process of setting up the developing environment of our frontend, with Next.js. We went through the process as a group and made sure that everyone was on board. We also discussed choice of database, and how to organize our issues on github. I suppose I did share my knowledge with the others, when I had things to say. I hope I can help the others more next week, when we will hopefully be coding more. I believe I can do this by being present and available while my team members are working, so I can support them. I am also thinking about other ways I can promote and help with learning, but as of this moment, I have yet to come up with a good idea.
+
+## What is my contribution towards the team’s use of Scrum?
+I feel like we as a team know more about scrum now than last we did last week, which is good. This week we did a lot of planning and workshopping our user stories, and I think they are quite ok. I have done some practicing on my own time by planning some of my own projects in a scrum way, mostly so that I can become better at writing user stories. I will continue with doing this, because I believe it has helped me a great in deal in becoming more comfortable with writing them.
+
+## What is my contribution towards the team’s deliveries?
+This week I have contributed by completing user stories. This first sprint had the goal of having a running hello world, which we did achieve. I set up dependencies and such for the frontend, so we can now run a "Hello World" page. Next week, I would like to do more of this.
