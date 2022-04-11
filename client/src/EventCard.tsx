@@ -20,13 +20,6 @@ export default function EventCard({
   link,
   committee,
 }: EventCardProps) {
-  const Thumbnail = ({ src }: { src: string }) => (
-    <div
-      className="w-full bg-cover grow-[3]"
-      style={{ backgroundImage: `url("${src}")` }}
-    />
-  );
-
   return (
     <article className="border-2 border-black inline-flex flex-col aspect-[2/3] w-72">
       <Thumbnail src={thumbnailUrl} />
@@ -44,6 +37,15 @@ export default function EventCard({
         </div>
       </div>
     </article>
+  );
+}
+
+function Thumbnail({ src }: { src: string }) {
+  return (
+    <div
+      className="w-full bg-cover grow-[3]"
+      style={{ backgroundImage: `url("${src}")` }}
+    />
   );
 }
 
