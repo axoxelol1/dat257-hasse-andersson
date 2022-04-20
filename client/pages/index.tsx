@@ -12,10 +12,20 @@ const theKingsManPU: EventCardProps = {
   },
 };
 
-export default function Index() {
+export function getServerSideProps() {
+  return {
+    props: {
+      events: [theKingsManPU],
+    },
+  };
+}
+
+export default function Index({ events }: { events: EventCardProps[] }) {
   return (
     <div className="p-8">
-      <EventCard {...theKingsManPU} />
+      {events.map((event) => (
+        <EventCard {...event} />
+      ))}
     </div>
   );
 }
