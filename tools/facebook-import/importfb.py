@@ -6,6 +6,7 @@ import os
 from datetime import datetime
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
+from pymongo import MongoClient
 
 def parse_date(datestr):
     datestr = datestr.strip() + "00"
@@ -17,6 +18,10 @@ load_dotenv("../../client/.env.local")
 DB_URI = os.getenv("MONGODB_URI")
 if (DB_URI is None):
     raise ValueError("Please specify MONGODB_URI in .env.local in Nextjs client folder or set an environment variable.")
+
+DB_NAME = os.getenv("MONGODB_DB")
+if (DB_NAME is None):
+    raise ValueError("Please specify MONGODB_DB in .env.local in Nextjs client folder or set an environment variable.")
 
 if len(sys.argv) > 1:
     host = sys.argv[1]
@@ -60,4 +65,10 @@ for event in upcoming_events:
     
     events.append(eventDict)
 
-print(events)
+client = MongoClient(DB_URI)
+database = DB_NAME
+collection=client[database].events
+
+for event in events:
+    if (len(list(collection.find(event)))) == 0:
+        collection.insert_one(event)
