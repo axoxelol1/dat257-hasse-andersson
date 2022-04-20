@@ -8,11 +8,13 @@ from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
 
+#Known issue: sets year as current since information is unavailable.
 def parse_date(datestr):
     datestr = datestr.strip() + "00"
     dateobj = datetime.strptime(datestr, "%b %d %a %I:%M %p %Z%z")
     return(str(dateobj.replace(year=int(datetime.today().year))))
 
+#Loads the .env.local file from the nextJS app.
 load_dotenv("../../client/.env.local")
 
 DB_URI = os.getenv("MONGODB_URI")
@@ -52,8 +54,10 @@ for event in upcoming_events:
     
     eventDict["host"] = host
     
+    #The location is weird because it can have two levels to it, one more detailed and more general.
+    #If there is a link to loc1 the name is in an <a> tag, otherwise in a <span> tag.
     loc1 = event.find("div", {"class": "_30n-"}).a
-    if (loc1 is None): #The name is in an <a> tag if there is a link, otherwise span
+    if (loc1 is None): 
         loc1 = event.find("div", {"class": "_30n-"}).span
     loc1 = loc1.string.strip()
     loc2 = event.find("div", {"class": "_30n_"}).text.strip()
@@ -69,6 +73,9 @@ client = MongoClient(DB_URI)
 database = DB_NAME
 collection=client[database].events
 
+#This is probably not optimal since it has to search the database and then insert
+#for every event. An alternative would be to generate an ID from the date and
+#name or something similar.
 for event in events:
     if (len(list(collection.find(event)))) == 0:
         collection.insert_one(event)
