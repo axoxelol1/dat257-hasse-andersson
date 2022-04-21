@@ -5,26 +5,46 @@ export type TimelineProps = {
 };
 
 export function Timeline({ events }: TimelineProps) {
-  const groupedDates = groupEvents(
+  const groupedEvents = groupEvents(
     events.sort((a, b) => (new Date(a.date) as any) - (new Date(b.date) as any))
   );
 
-  console.log({ groupedDates });
+  const bigEvent = groupedEvents[0].shift();
 
   return (
-    <div className="flex flex-col gap-12">
-      {groupedDates.map((group) => (
-        <div className="">
-          <h1 className="text-3xl font-semibold mb-4">
-            {getDateFromEvent(group[0])}
-          </h1>
-          <div className="flex flex-col gap-2">
-            {group.map((event) => (
-              <TimelineEvent {...event} />
-            ))}
+    <div>
+      <div className="mb-6">
+        <TimelineEventLarge {...bigEvent} />
+      </div>
+      <div className="flex flex-col gap-12">
+        {groupedEvents.map((group) => (
+          <div className="">
+            <h1 className="text-3xl font-semibold mb-4">
+              {getDateFromEvent(group[0])}
+            </h1>
+            <div className="flex flex-col gap-2">
+              {group.map((event) => (
+                <TimelineEvent {...event} />
+              ))}
+            </div>
           </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TimelineEventLarge(event: Event) {
+  const { title, link, host, eventImageUrl } = event;
+  return (
+    <div className="bg-white my-16 py-12 px-6 rounded-lg">
+      <div className="flex flex-col">
+        <div className="flex flex-row place-items-center mb-3 gap-6">
+          <h1 className="text-4xl">{title}</h1>
+          <h2 className="text-2xl">{getDateFromEvent(event)}</h2>
         </div>
-      ))}
+        <h3 className="font-semibold text-lg leading-none">{host}</h3>
+      </div>
     </div>
   );
 }

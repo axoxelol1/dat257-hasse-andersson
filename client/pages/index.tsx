@@ -46,7 +46,12 @@ export default function Index({ events }: { events: Event[] }) {
   return (
     <div className="grid place-items-center">
       <div className="p-8 max-w-screen-xl w-full">
-        <h1 className="text-5xl -skew-x-12 mt-6 mb-16 ">Vad händer på campus?</h1>
+        <div className="flex flex-row place-items-center">
+          <img src="/img/VHPC (1).png" className="w-32 h-32" />
+          <h1 className="text-5xl -skew-x-12">
+            Vad händer på campus?
+          </h1>
+        </div>
         <Timeline events={events} />
       </div>
     </div>
