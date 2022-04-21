@@ -1,6 +1,7 @@
 # This is a script for putting facebook events into a mongoDB database. Put the
 # html file of a downloaded event page (facebook.com/pg/{group}/events in ./data
 # named as {host}.html and then run this script with the host as an argument.
+from codecs import ignore_errors
 import sys
 import os
 from datetime import datetime
@@ -11,8 +12,13 @@ from pymongo import MongoClient
 #Known issue: sets year as current since information is unavailable.
 def parse_date(datestr):
     datestr = datestr.strip() + "00"
-    dateobj = datetime.strptime(datestr, "%b %d %a %I:%M %p %Z%z")
-    return(str(dateobj.replace(year=int(datetime.today().year))))
+    print(datestr)
+    try:
+        dateobj = datetime.strptime(datestr, "%b %d %a %I:%M %p %Z%z")
+        return(str(dateobj.replace(year=int(datetime.today().year))))
+    except:
+        dateobj = datetime.strptime(datestr[:6], "%b %d")
+        return(str(dateobj.replace(year=int(datetime.today().year))))
 
 #Loads the .env.local file from the nextJS app.
 load_dotenv("../../client/.env.local")
@@ -76,6 +82,12 @@ collection=client[database].events
 #This is probably not optimal since it has to search the database and then insert
 #for every event. An alternative would be to generate an ID from the date and
 #name or something similar.
+total_events = len(events)
+ignored_events = 0
 for event in events:
     if (len(list(collection.find(event)))) == 0:
         collection.insert_one(event)
+        ignored_events += 1
+print("Total events: " + str(total_events))
+print("Events already in database: " + str(ignored_events))
+print("Events added: " + str(total_events-ignored_events))
