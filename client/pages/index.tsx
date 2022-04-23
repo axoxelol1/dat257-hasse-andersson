@@ -19,7 +19,7 @@ export default function Index() {
       <div className="p-8 relative">
         <EventCard {...theKingsManPU} />
       </div>
-      <div className="absolute top-10 right-10 w-2/5">
+      <div className="absolute top-4 right-4">
         <Filters />
       </div>
     </>
