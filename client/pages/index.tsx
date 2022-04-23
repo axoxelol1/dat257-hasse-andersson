@@ -1,4 +1,5 @@
 import EventCard, { EventCardProps } from "../src/EventCard";
+import Filters from "../src/filter/Filters";
 
 const theKingsManPU: EventCardProps = {
   thumbnailUrl: "./img/kingsman.jpg",
@@ -14,8 +15,13 @@ const theKingsManPU: EventCardProps = {
 
 export default function Index() {
   return (
-    <div className="p-8">
-      <EventCard {...theKingsManPU} />
-    </div>
+    <>
+      <div className="p-8 relative">
+        <EventCard {...theKingsManPU} />
+      </div>
+      <div className="absolute top-10 right-10 w-2/5">
+        <Filters />
+      </div>
+    </>
   );
 }
