@@ -1,7 +1,11 @@
 # This is a script for putting facebook events into a mongoDB database. Put the
 # html file of a downloaded event page (facebook.com/pg/{group}/events in ./data
 # named as {host}.html and then run this script with the host as an argument.
-from codecs import ignore_errors
+
+# Note: This script is for the incognito/not logged in event page which looks
+# like an older design. You do not get images so it is better to use the 
+# other script which uses the logged in variant.
+
 import sys
 import os
 from datetime import datetime
