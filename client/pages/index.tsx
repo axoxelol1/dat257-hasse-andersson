@@ -51,7 +51,7 @@ export default function Index({ events }: { events: Event[] }) {
           <img src="/img/VHPC (1).png" alt="Website logo" className="w-32 h-32" />
           <h1 className="text-5xl -skew-x-12">Vad händer på campus?</h1>
         </div>
-        <div className="flex flex-row w-full gap-4 mt-6">
+        <div className="flex flex-col md:flex-row w-full gap-4 mt-6">
           <Filters />
           <div className="grow">
             <Timeline events={events} />
