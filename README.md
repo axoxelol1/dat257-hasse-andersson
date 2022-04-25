@@ -14,7 +14,13 @@ The first time you run the project you will have to install the dependencies wit
 npm install
 ```
 
-And to run the development server you can write the following:
+Before you run make sure to create a .env.local file in the `/client` directory and add your MongoDB database URI and database name to it:
+```
+MONGODB_URI=<your uri>
+MONGODB_DB=<database name to use>
+```
+
+To run the development server you can now write the following:
 ```powershell
 npm run dev
 ```
