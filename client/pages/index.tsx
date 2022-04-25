@@ -49,7 +49,7 @@ export default function Index({ events }: { events: Event[] }) {
     <div className="grid place-items-center">
       <div className="p-8 max-w-screen-xl w-full">
         <div className="flex flex-row place-items-center">
-          <Image src="/img/VHPC (1).png" alt="Website logo" className="w-32 h-32" />
+          <img src="/img/VHPC (1).png" alt="Website logo" className="w-32 h-32" />
           <h1 className="text-5xl -skew-x-12">Vad händer på campus?</h1>
         </div>
         <div className="flex flex-row w-full gap-4 mt-6">
