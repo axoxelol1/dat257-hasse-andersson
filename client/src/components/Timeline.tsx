@@ -40,7 +40,10 @@ function TimelineEventLarge(event: Event) {
     <div className="bg-white my-16 py-12 px-6 rounded-lg">
       <div className="flex flex-col">
         <div className="flex flex-row place-items-center mb-3 gap-6">
-          <h1 className="text-4xl">{title}</h1>
+          <a className="text-sky-700 flex flex-row place-items-center gap-2" target="_blank" href={link.toString()}>
+            <h1 className="text-4xl leading-none">{title}</h1>
+            <ExternalLinkIcon />
+          </a>
           <h2 className="text-2xl">{getDateFromEvent(event)}</h2>
         </div>
         <h3 className="font-semibold text-lg leading-none">{host}</h3>
@@ -51,7 +54,7 @@ function TimelineEventLarge(event: Event) {
 
 function TimelineEvent({ title, link, host }: Event) {
   return (
-    <a href={link.toString()} className="" target="_blank">
+    <a href={link.toString()} target="_blank">
       <div className="bg-white py-3 px-6 rounded-lg">
         <div className="flex place-items-center gap-2 mb-3">
           <h1 className="text-2xl text-sky-700 leading-none">{title}</h1>
