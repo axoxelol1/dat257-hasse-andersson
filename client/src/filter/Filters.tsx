@@ -71,7 +71,7 @@ function HostFilter() {
       {/* This displays the list of current selected options. */}
       <div className="pt-5">
         {selectedHosts.map((host) => (
-          <p>{host}</p>
+          <p key={host}>{host}</p>
         ))}
       </div>
 
