@@ -12,7 +12,7 @@ export function Timeline({ events }: TimelineProps) {
   const bigEvent = groupedEvents[0].shift();
 
   return (
-    <div>
+    <>
       <div className="mb-6">
         <TimelineEventLarge {...bigEvent} />
       </div>
@@ -23,21 +23,21 @@ export function Timeline({ events }: TimelineProps) {
               {getDateFromEvent(group[0])}
             </h1>
             <div className="flex flex-col gap-2">
-              {group.map((event) => (
-                <TimelineEvent key={event.id} {...event} />
+              {group.map((event, i) => (
+                <TimelineEvent key={event._id?.toString() ?? i} {...event} />
               ))}
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }
 
 function TimelineEventLarge(event: Event) {
   const { title, link, host, eventImageUrl } = event;
   return (
-    <div className="bg-white my-16 py-12 px-6 rounded-lg">
+    <div className="bg-white mb-16 py-12 px-6 rounded-lg">
       <div className="flex flex-col">
         <div className="flex flex-row place-items-center mb-3 gap-6">
           <a className="text-sky-700 flex flex-row place-items-center gap-2" target="_blank" href={link.toString()}>
