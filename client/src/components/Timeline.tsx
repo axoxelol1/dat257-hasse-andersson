@@ -17,14 +17,14 @@ export function Timeline({ events }: TimelineProps) {
         <TimelineEventLarge {...bigEvent} />
       </div>
       <div className="flex flex-col gap-12">
-        {groupedEvents.map((group) => (
-          <div className="">
+        {groupedEvents.map((group, i) => (
+          <div key={i}>
             <h1 className="text-3xl font-semibold mb-4">
               {getDateFromEvent(group[0])}
             </h1>
             <div className="flex flex-col gap-2">
               {group.map((event) => (
-                <TimelineEvent {...event} />
+                <TimelineEvent key={event.id} {...event} />
               ))}
             </div>
           </div>
