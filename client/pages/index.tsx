@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Event } from "../lib/types";
 import { Timeline } from "../src/components/Timeline";
 import Filters from "../src/filter/Filters";
