@@ -6,7 +6,9 @@ export type TimelineProps = {
 
 export function Timeline({ events }: TimelineProps) {
   const groupedEvents = groupEvents(
-    events.sort((a, b) => (new Date(a.date) as any) - (new Date(b.date) as any))
+    events.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    )
   );
 
   const bigEvent = groupedEvents[0].shift();
@@ -35,12 +37,17 @@ export function Timeline({ events }: TimelineProps) {
 }
 
 function TimelineEventLarge(event: Event) {
-  const { title, link, host, eventImageUrl } = event;
+  const { title, link, host } = event;
   return (
     <div className="bg-white mb-16 py-12 px-6 rounded-lg">
       <div className="flex flex-col">
         <div className="flex flex-row place-items-center mb-3 gap-6">
-          <a className="text-sky-700 flex flex-row place-items-center gap-2" target="_blank" href={link.toString()}>
+          <a
+            className="text-sky-700 flex flex-row place-items-center gap-2"
+            target="_blank"
+            href={link.toString()}
+            rel="noreferrer"
+          >
             <h1 className="text-4xl leading-none">{title}</h1>
             <ExternalLinkIcon />
           </a>
@@ -54,7 +61,7 @@ function TimelineEventLarge(event: Event) {
 
 function TimelineEvent({ title, link, host }: Event) {
   return (
-    <a href={link.toString()} target="_blank">
+    <a href={link.toString()} target="_blank" rel="noreferrer">
       <div className="bg-white py-3 px-6 rounded-lg">
         <div className="flex place-items-center gap-2 mb-3">
           <h1 className="text-2xl text-sky-700 leading-none">{title}</h1>
