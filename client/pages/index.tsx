@@ -1,4 +1,6 @@
 import { Event } from "../lib/types";
+import { Logotype } from "../src/components/Logotype";
+import { Page } from "../src/components/Page";
 import { Timeline } from "../src/components/Timeline";
 import Filters from "../src/filter/Filters";
 
@@ -21,7 +23,7 @@ export function getServerSideProps() {
           id: "1",
           title: "Plupp movie",
           link: "https://www.facebook.com/events/340855818101825/?ref=newsfeed",
-          date: new Date("2020-06-01").toJSON(),
+          date: new Date("2020-02-01").toJSON(),
           host: "Plupp Inc",
         },
         {
@@ -45,19 +47,19 @@ export function getServerSideProps() {
 
 export default function Index({ events }: { events: Event[] }) {
   return (
-    <div className="grid place-items-center">
-      <div className="p-8 max-w-screen-xl w-full">
-        <div className="flex flex-row place-items-center">
-          <img src="/img/VHPC (1).png" alt="Website logo" className="w-32 h-32" />
-          <h1 className="text-5xl -skew-x-12">Vad händer på campus?</h1>
-        </div>
-        <div className="flex flex-col md:flex-row w-full gap-4 mt-6">
-          <Filters />
-          <div className="grow">
-            <Timeline events={events} />
-          </div>
-        </div>
+    <Page>
+      <div className="mb-16 flex flex-row place-items-center gap-8">
+        <Logotype />
+        <Filters />
       </div>
-    </div>
+      <img
+        src="img/chalmer.png"
+        alt="Chalmers logo watermark"
+        className="opacity-20 fixed bottom-10 right-12 h-96"
+      />
+      <div className="z-10 relative flex flex-col gap-12">
+        <Timeline events={events} />
+      </div>
+    </Page>
   );
 }

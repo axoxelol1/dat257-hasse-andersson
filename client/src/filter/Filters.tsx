@@ -57,7 +57,7 @@ function HostFilter() {
       <Combobox value="Filter" onChange={(value) => handleSelect(value)}>
         <Combobox.Input onChange={(event) => setQuery(event.target.value)} onMouseDown={() => {setIsOpen(!isOpen)}} className="h-full font-bold text-lg outline-none border-transparent border-b-black border-2"/>
         {isOpen && (
-          <Combobox.Options static className="mt-2">
+          <Combobox.Options static className="mt-2 bg-white">
             {filteredHosts.map((host) => (
               <Combobox.Option key={host} value={host}>
                 <input type="checkbox" checked={isSelected(host)} readOnly className="accent-stone-900 ml-1"/>
