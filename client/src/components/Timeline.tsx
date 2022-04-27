@@ -13,6 +13,10 @@ export function Timeline({ events }: TimelineProps) {
 
   const bigEvent = groupedEvents[0].shift();
 
+  if (groupedEvents[0].length === 0) {
+    groupedEvents.shift();
+  }
+
   return (
     <>
       <div className="mb-6">
