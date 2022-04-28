@@ -11,11 +11,15 @@ export async function getServerSideProps() {
   const client = await clientPromise;
   const result = await client
     .db("campusapp")
-    .collection("events")
+    .collection<Event>("events")
     .find({})
     .toArray();
 
-  const events = result.map((event) => JSON.parse(JSON.stringify(event)));
+  // We need to convert the mongodb ObjectId to a plain javascript object
+  // because NextJS cannot serialize it
+  const events: Event[] = result.map((event) =>
+    JSON.parse(JSON.stringify(event))
+  );
 
   return {
     props: {
