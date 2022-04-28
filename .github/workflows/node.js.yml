@@ -26,6 +26,6 @@ jobs:
     - run: npm ci
     - name: Build
       env: 
-        MONGODB_URI: ${{ secrets.MONGODB_URI }}
-        MONGODB_DB: ${{ secrets.MONGODB_DB }}
+        MONGODB_URI: ${{ ci.MONGODB_URI }}
+        MONGODB_DB: ${{ ci.MONGODB_DB }}
       run: npm run build
