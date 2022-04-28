@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Event } from "../lib/types";
 import { Logotype } from "../src/components/Logotype";
 import { Page } from "../src/components/Page";
@@ -52,11 +53,13 @@ export default function Index({ events }: { events: Event[] }) {
         <Logotype />
         <Filters />
       </div>
-      <img
-        src="img/chalmer.png"
-        alt="Chalmers logo watermark"
-        className="opacity-20 fixed bottom-10 right-12 h-96"
-      />
+      <div className="fixed bottom-10 right-12 hidden md:block w-72 h-72 opacity-20">
+        <Image
+          src="/img/chalmer.png"
+          alt="Chalmers logo watermark"
+          layout="fill"
+        />
+      </div>
       <div className="z-10 relative flex flex-col gap-12">
         <Timeline events={events} />
       </div>

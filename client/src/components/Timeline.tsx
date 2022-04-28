@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Event } from "../../lib/types";
 
 export type TimelineProps = {
@@ -74,10 +75,13 @@ function TimelineEventLarge(event: Event) {
         href={link.toString()}
         rel="noreferrer"
       >
-        <img
-          className="h-80 aspect-auto"
-          src="https://thiscatdoesnotexist.com/"
-        />
+        <div className="relative h-72 aspect-[3/2]">
+          <Image
+            layout="fill"
+            alt="Image for the event."
+            src="https://thiscatdoesnotexist.com/"
+          />
+        </div>
       </a>
     </div>
   );
