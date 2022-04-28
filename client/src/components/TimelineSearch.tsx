@@ -2,6 +2,7 @@ import Searchbar from "./Searchbar";
 import { Timeline } from "./Timeline";
 import { Event } from "../../lib/types";
 import { ChangeEvent, useEffect, useState } from "react";
+import Fuse from "fuse.js"
 
 /**
  * The TimelineSearch components groups the timeline and the searchbar together
@@ -22,11 +23,17 @@ export default function TimelineSearch({events}: TimelineSearchProps) {
   }
 
   useEffect(() => {
+    if (query === "") {
+      setFilteredEvents(events);
+      return;
+    }
+    const options = {
+      keys: ["title", "host"],
+      threshold: 0.3,
+    }
+    const fuse = new Fuse(events, options)
     setFilteredEvents(
-      events.filter((event) =>
-        event.title.toLowerCase().includes(query.toLowerCase()) || 
-        event.host.toLowerCase().includes(query.toLowerCase())
-      )
+      fuse.search(query).map(result => result.item)
     );
   }, [query, events]);
 
