@@ -23,6 +23,10 @@ export function Timeline({ events }: TimelineProps) {
 
   const bigEvent = groupedEvents[0].shift();
 
+  if (groupedEvents[0].length === 0) {
+    groupedEvents.shift();
+  }
+
   return (
     <>
       <div className="mb-6">
@@ -39,8 +43,8 @@ export function Timeline({ events }: TimelineProps) {
               {getDateFromEvent(group[0])}
             </h1>
             <div className="flex flex-col gap-2">
-              {group.map((event, i) => (
-                <TimelineEvent key={event._id?.toString() ?? i} {...event} />
+              {group.map((event) => (
+                <TimelineEvent key={event.id} {...event} />
               ))}
             </div>
           </div>

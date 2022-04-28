@@ -24,4 +24,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: npm run build
+    - name: Build
+      env: 
+        MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        MONGODB_DB: ${{ secrets.MONGODB_DB }}
+      run: npm run build
