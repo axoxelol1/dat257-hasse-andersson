@@ -1,6 +1,6 @@
 import { DatabaseService } from "../lib/db.service";
 import { Event } from "../lib/types";
-import { Timeline } from "../src/components/Timeline";
+import TimelineSearch from "../src/components/TimelineSearch";
 import Filters from "../src/filter/Filters";
 
 /**
@@ -28,9 +28,7 @@ export default function Index({ events }: { events: Event[] }) {
         </div>
         <div className="flex flex-col md:flex-row w-full gap-4 mt-6">
           <Filters />
-          <div className="grow">
-            <Timeline events={events} />
-          </div>
+          <TimelineSearch events={events} />
         </div>
       </div>
     </div>
