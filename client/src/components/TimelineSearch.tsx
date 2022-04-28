@@ -38,11 +38,9 @@ export default function TimelineSearch({events}: TimelineSearchProps) {
   }, [query, events]);
 
   return (
-    <>
-      <div className="grow">
-        <Searchbar searchHandler={searchHandler}/>
-        <Timeline events={filteredEvents} />
-      </div>
-    </>
+    <div className="grow">
+      <Searchbar searchHandler={searchHandler}/>
+      <Timeline events={filteredEvents} />
+    </div>
     );
 }
