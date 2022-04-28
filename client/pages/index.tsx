@@ -1,29 +1,15 @@
-import clientPromise from "../lib/mongodb";
+import { DatabaseService } from "../lib/db.service";
 import { Event } from "../lib/types";
 import { Timeline } from "../src/components/Timeline";
 import Filters from "../src/filter/Filters";
 
 /**
- * This function runs in the backend and can be used to fetch the events from the database in the future.
- * For now we are using mocked data for testing.
+ * This function runs in the backend and is used to fetch the events from the database.
  */
 export async function getServerSideProps() {
-  const client = await clientPromise;
-  const result = await client
-    .db("campusapp")
-    .collection<Event>("events")
-    .find({})
-    .toArray();
-
-  // We need to convert the mongodb ObjectId to a plain javascript object
-  // because NextJS cannot serialize it
-  const events: Event[] = result.map((event) =>
-    JSON.parse(JSON.stringify(event))
-  );
-
   return {
     props: {
-      events,
+      events: await new DatabaseService().getEvents(),
     },
   };
 }
