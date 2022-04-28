@@ -49,7 +49,7 @@ function CalendarIcon({ date }: { date: Date }) {
 function TimelineEventLarge(event: Event) {
   const { title, link, host } = event;
   return (
-    <div className="flex flex-row justify-between">
+    <div className="flex flex-col md:flex-row justify-between">
       <div className="flex flex-col">
         <h1 className="text-2xl font-semibold">Nästa evenemang</h1>
         <div className="py-12 rounded-lg flex flex-row place-items-center gap-6">
