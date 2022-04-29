@@ -1,5 +1,7 @@
-// Fetches events from gasquen's API and syncs it with our database
-// ENDPOINT: https://admin.gasquen.se/api/events
+/**
+ *  Fetches events from gasquen's API
+ * ENDPOINT: https://admin.gasquen.se/api/events
+ */ 
 import { Event, GasqueEvent } from "./types";
 
 export class GasqueService {
