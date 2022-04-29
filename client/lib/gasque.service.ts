@@ -5,6 +5,11 @@
 import { Event, GasqueEvent } from "./types";
 
 export class GasqueService {
+
+    /**
+     * Fetches all events from gasquen's API
+     * @returns Promise<Event[]> 
+     */
     async getGasqueEvents() : Promise<Event[]> {
         const gasqueEvents : GasqueEvent[] = await fetch("https://admin.gasquen.se/api/events").then(res => res.json());
     
@@ -27,7 +32,11 @@ export class GasqueService {
         return convertedGasqueEvents;
     }
 
-    // Parses the date string in format YYYY-MM-DD to a Date object
+    /**
+     * Parses the date string in format YYYY-MM-DD to a Date object
+     * @param gasqueEvent
+     * @returns Date
+     */
     parseGasqueDate(ge : GasqueEvent) : Date {
         const dateString = ge.date;
         const year = parseInt(dateString.substring(0, 4));

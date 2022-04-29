@@ -4,7 +4,7 @@ import TimelineSearch from "../src/components/TimelineSearch";
 import Filters from "../src/filter/Filters";
 
 /**
- * This function runs in the backend and is used to fetch the events from the database.
+ * This function runs in the backend and is used to fetch the events from the data sources.
  */
 export async function getServerSideProps() {
   return {

@@ -10,6 +10,10 @@ import { Event } from "./types";
 
 export class DataService {
 
+    /**
+     * Fetches all events from all of the event sources.
+     * @returns Promise<Event[]>
+     */
     async getEvents(): Promise<Event[]> {
         const gasqueEvents : Event[] = await new GasqueService().getGasqueEvents();
         const dbEvents : Event[] = await new DatabaseService().getEvents();
