@@ -13,7 +13,7 @@ export interface Event {
 
 export interface GasqueEvent {
     id: number;
-    date: Date;
+    date: string;
     club_ticket_price_chalmers: number;
     club_ticket_price_others: number;
     dinner_ticket_price_alcohol: number;

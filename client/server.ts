@@ -13,7 +13,7 @@ app.prepare().then(() => {
     server.all('*', (req : Request, res : Response ) => handle(req, res));
 
     server.listen(port, () => {
-        console.log("Server listening on port " + port);
+        console.log("Server started at http://localhost:" + port+"/");
     });
 
 });
