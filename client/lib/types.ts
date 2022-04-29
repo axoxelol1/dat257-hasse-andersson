@@ -5,7 +5,7 @@ export interface Event {
   id: string;
   title: string;
   host: string;
-  date: Date;
+  date: string;
   link: string;
   eventImageUrl?: string;
   location?: string;

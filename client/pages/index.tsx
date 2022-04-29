@@ -1,4 +1,4 @@
-import { DatabaseService } from "../lib/db.service";
+import { DataService } from "../lib/data.service";
 import { Event } from "../lib/types";
 import TimelineSearch from "../src/components/TimelineSearch";
 import Filters from "../src/filter/Filters";
@@ -9,7 +9,7 @@ import Filters from "../src/filter/Filters";
 export async function getServerSideProps() {
   return {
     props: {
-      events: await new DatabaseService().getEvents(),
+      events: await new DataService().getEvents(),
     },
   };
 }
