@@ -11,6 +11,9 @@ export interface Event {
   location?: string;
 }
 
+/**
+ * Extra interfaces used to convert gasque events to regular events whose type is defined above
+ */
 export interface GasqueEvent {
     id: number;
     date: string;
