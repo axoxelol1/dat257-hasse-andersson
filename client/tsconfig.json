@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx", 
-    "lib/mongodb.ts"],
+    "lib/mongodb.ts", "../tools/gasquesync.ts"],
   "exclude": [
     "node_modules"
   ]
