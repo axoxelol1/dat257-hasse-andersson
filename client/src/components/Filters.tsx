@@ -1,4 +1,3 @@
-import { Combobox } from "@headlessui/react"
 import { useState } from "react"
 
 export default function Filters({eventSetter: setEvents, events: events, hosts: hosts}) {
@@ -17,12 +16,36 @@ function HostFilter({eventSetter: setEvents, events: events, hosts: hosts}) {
   const [selectedHosts, setSelectedHosts] = useState([])
   const [query, setQuery] = useState('')
 
-  const filteredHosts =
-    query === ''
-      ? hostList
-      : hostList.filter((host) => {
-          return host.toLowerCase().includes(query.trim().toLowerCase())
-        })
+  function isSelected(h: string): boolean {
+    return selectedHosts.includes(h);
+  }
+
+  const filteredHosts: string[] =
+    query === '' 
+      ? hostList 
+      : hostList.filter((host) => host.toLowerCase().includes(query.trim().toLowerCase()))
+
+  function handleHostClick(e: React.MouseEvent<HTMLElement>) {
+    const clickedHost: string = e.currentTarget.dataset.hostName
+    const updatedSelection: string[] = 
+      isSelected(clickedHost) 
+        ? selectedHosts.filter(h => h !== clickedHost)
+        : [e.currentTarget.dataset.hostName, ...selectedHosts]
+    setSelectedHosts(updatedSelection)
+    setEvents(getFilteredEvents(updatedSelection))
+  }
+
+  function handleInputText(e: React.ChangeEvent<HTMLInputElement>) {
+    setQuery(e.target.value)
+  }
+
+  function handleArrowClick() {
+    setIsOpen(!isOpen)
+  }
+
+  function handleTextClick() {
+    setIsOpen(true)
+  }
 
   function getShortName(longName: string): string {
     let shortName = ''
@@ -39,58 +62,26 @@ function HostFilter({eventSetter: setEvents, events: events, hosts: hosts}) {
     return hosts.length ? filteredEvents : events
   }
 
-  //The following three functions handle multiselect, because Headless UI does not support it out of the box.
-  function isSelected(value) {
-    return selectedHosts.find((el) => el === value) ? true : false;
-  }
-
-  function handleSelect(value) {
-    if (!isSelected(value)) {
-      const selectedHostsUpdated = [
-        ...selectedHosts,
-        hostList.find((el) => el === value)
-      ];
-      setSelectedHosts(selectedHostsUpdated)
-      const filteredEvents = getFilteredEvents(selectedHostsUpdated)
-      setEvents(filteredEvents)
-    } else {
-      handleDeselect(value);
-    }
-    setIsOpen(true);
-  }
-
-  function handleDeselect(value) {
-    const selectedHostsUpdated = selectedHosts.filter((el) => el !== value)
-    setSelectedHosts(selectedHostsUpdated)
-    const filteredEvents = getFilteredEvents(selectedHostsUpdated)
-    setEvents(filteredEvents)
-    setIsOpen(true);
-  }
-
-  function handleFilterClick(e) {
-    setIsOpen(!isOpen)
-    e.target.value = ''
-  }
-
-  function handleFilterBlur(e) {
-    e.target.value = 'Filter'
-  }
-
   return (
     <div>
-      <Combobox value="Filter" onChange={(value) => handleSelect(value)}>
-        <Combobox.Input onChange={(event) => setQuery(event.target.value)} onMouseDown={handleFilterClick} onBlur={handleFilterBlur} className="h-full font-bold text-lg outline-none border-transparent border-b-black border-2"/>
-        {isOpen && (
-          <Combobox.Options static className="mt-2">
-            {filteredHosts.map((host) => (
-              <Combobox.Option key={host} value={host}>
-                <input type="checkbox" checked={isSelected(host)} readOnly className="accent-stone-900 ml-1"/>
-                <span className={`${isSelected(host) ? "font-semibold" : "font-normal"} ml-2`}>{host}</span>
-              </Combobox.Option>
-            ))}
-          </Combobox.Options>
-        )}
-      </Combobox>
+      <div className="h-full relative">
+        <input type="text" placeholder="Filter" onClick={handleTextClick} onChange={handleInputText} className="h-full outline-none border-transparent border-b-black border-2" />
+        <button onClick={handleArrowClick} className={`w-8 h-8 p-1 absolute right-1 top-2 transition ${isOpen ? "rotate-180" : ""}`}>
+          <img
+              src="/img/arrow.svg"
+              alt="Website logo"
+              className="w-full h-full"
+            />
+        </button>
+      </div>
+      <ul className="flex flex-col">
+        {isOpen && filteredHosts.map((host) => (          
+          <li onClick={handleHostClick} data-host-name={host} key={host} className="rounded-sm hover:bg-gray-200">
+            <input type="checkbox" checked={isSelected(host)} readOnly className="accent-stone-700 ml-1"/>
+            <span className={`${isSelected(host) ? "font-semibold" : "font-normal"} ml-2 select-none`}>{host}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
