@@ -1,5 +1,10 @@
 import { useState } from "react"
 
+/*
+  A component that takes a list of events, then by selecting certain criteria it returns events matching those criteria.
+  Currently only for filtering on specific hosts.
+*/
+
 export default function Filters({eventSetter: setEvents, events: events, hosts: hosts}) {
   return (
     <div className="flex flex-row h-12 w-fit">
@@ -10,16 +15,12 @@ export default function Filters({eventSetter: setEvents, events: events, hosts: 
 
 function HostFilter({eventSetter: setEvents, events: events, hosts: hosts}) {
 
-  const hostList: string[] = hosts.map(host => host.shortName)
-
   const [isOpen, setIsOpen] = useState(false);
   const [selectedHosts, setSelectedHosts] = useState([])
   const [query, setQuery] = useState('')
-
-  function isSelected(h: string): boolean {
-    return selectedHosts.includes(h);
-  }
-
+  
+  const hostList: string[] = hosts.map(host => host.shortName)
+  
   const filteredHosts: string[] =
     query === '' 
       ? hostList 
@@ -35,16 +36,13 @@ function HostFilter({eventSetter: setEvents, events: events, hosts: hosts}) {
     setEvents(getFilteredEvents(updatedSelection))
   }
 
-  function handleInputText(e: React.ChangeEvent<HTMLInputElement>) {
-    setQuery(e.target.value)
+  function isSelected(h: string): boolean {
+    return selectedHosts.includes(h);
   }
 
-  function handleArrowClick() {
-    setIsOpen(!isOpen)
-  }
-
-  function handleTextClick() {
-    setIsOpen(true)
+  function getFilteredEvents(hosts: string[]) {
+    const filteredEvents = events.filter( e => hosts.includes( getShortName(e.host) ) )
+    return hosts.length ? filteredEvents : events
   }
 
   function getShortName(longName: string): string {
@@ -56,22 +54,17 @@ function HostFilter({eventSetter: setEvents, events: events, hosts: hosts}) {
     })
     return shortName
   }
-  
-  function getFilteredEvents(hosts: string[]) {
-    const filteredEvents = events.filter( e => hosts.includes( getShortName(e.host) ) )
-    return hosts.length ? filteredEvents : events
+
+  function handleInputText(e: React.ChangeEvent<HTMLInputElement>) {
+    setQuery(e.target.value)
   }
 
   return (
     <div>
       <div className="h-full relative">
-        <input type="text" placeholder="Filter" onClick={handleTextClick} onChange={handleInputText} className="h-full outline-none border-transparent border-b-black border-2" />
-        <button onClick={handleArrowClick} className={`w-8 h-8 p-1 absolute right-1 top-2 transition ${isOpen ? "rotate-180" : ""}`}>
-          <img
-              src="/img/arrow.svg"
-              alt="Website logo"
-              className="w-full h-full"
-            />
+        <input type="text" placeholder="Filter" onClick={() => setIsOpen(true)} onChange={handleInputText} className="h-full p-2 outline-none border-transparent border-b-black border-2" />
+        <button onClick={() => setIsOpen(!isOpen)} className={`w-8 h-8 p-1 absolute right-1 top-2 transition ${isOpen ? "rotate-180" : ""}`}>
+          <img src="/img/arrow.svg" alt="Downward-facing small arrow" className="w-full h-full"/>
         </button>
       </div>
       <ul className="flex flex-col">
