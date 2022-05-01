@@ -10,3 +10,8 @@ export interface Event {
   eventImageUrl?: string;
   location?: string;
 }
+
+export interface Host {
+  shortName: string;
+  longName: string;
+}
