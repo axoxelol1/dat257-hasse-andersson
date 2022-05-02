@@ -27,7 +27,7 @@ export default function Calendar({ events }: { events: Event[] }) {
   return (
     <>
       <Link href='/' passHref>
-        <div className='flex flex-row place-items-center cursor-pointer'>
+        <div className='inline-flex flex-row place-items-center cursor-pointer'>
           <div className='h-16 w-16 relative'>
             <Image 
               src="/img/VHPC (1).png" 
