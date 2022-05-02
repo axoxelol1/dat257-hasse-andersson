@@ -11,6 +11,11 @@ export interface Event {
   location?: string;
 }
 
+export interface Host {
+  shortName: string;
+  longName: string;
+}
+
 /**
  * Extra interfaces used to convert gasque events to regular events whose type is defined above
  */
