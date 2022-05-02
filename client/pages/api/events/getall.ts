@@ -1,3 +1,8 @@
+/**
+ * Gets all events from the database only!
+ * Used by dashboard to fetch all editable events.
+ */
+
 import { NextApiRequest, NextApiResponse } from "next";
 import { DatabaseService } from "../../../lib/db.service";
 

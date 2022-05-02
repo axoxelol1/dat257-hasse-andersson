@@ -1,10 +1,13 @@
+/**
+ * Dashboard page used to add events manually to the database.
+ */
+
 import Image from "next/image";
 import EventForm from "../src/components/EventForm";
 import EventList from "../src/components/EventList";
 import { Event } from "../lib/types";
 import { DatabaseService } from "../lib/db.service";
 import { useState } from "react";
-
 
 export async function getServerSideProps() {
   return {

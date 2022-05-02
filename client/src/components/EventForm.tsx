@@ -1,3 +1,7 @@
+/**
+ * Form used to add events manually to the database.
+ */
+
 import React, { useState } from "react";
 
 interface EventFormProps {
@@ -40,10 +44,28 @@ export default function EventForm(props : EventFormProps) {
         })
     });
     props.updateEventList();
+    resetForm();
   }
 
   function isValidForm() {
     return state.title !== "" && state.host !== "" && state.date !== "" && state.time !== "";
+  }
+
+  // Clears fields and resets form
+  function resetForm() {
+    setState({
+      title: "",
+      host: "",
+      date: "",
+      time: "",
+      link: "",
+      imageLink: "",
+      location: "",
+    });
+
+    document.querySelectorAll("input").forEach((input) => {
+      input.value = "";
+    });
   }
 
   return ( 
