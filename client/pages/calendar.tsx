@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { DataService } from "../lib/data.service";
-import { DatabaseService } from "../lib/db.service";
-import { Host, Event } from "../lib/types"
-import { Month } from "../src/components/calendar/Month";
+import { DataService } from '../lib/data.service';
+import { Event } from '../lib/types'
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 /**
  * This function runs in the backend and is used to fetch the events from the data sources.
@@ -10,43 +9,29 @@ import { Month } from "../src/components/calendar/Month";
  export async function getServerSideProps() {
   return {
     props: {
-      events: await new DataService().getEvents(),
-      hosts: await new DatabaseService().getHosts()
+      events: await new DataService().getEvents()
     },
   };
 }
 
-export default function Calendar({events, hosts }: { events: Event[], hosts: Host[] }) {
-  const [date, setDate] = useState(new Date());
-
-  const nextMonth = () => {
-    setDate(new Date(date.getFullYear(), date.getMonth() + 1, 1));
-  };
-
-  const prevMonth = () => {
-    setDate(new Date(date.getFullYear(), date.getMonth() - 1, 1));
-  };
-  
+export default function Calendar({ events }: { events: Event[] }) {
+  const calendarEvents = events.map(event => {
+    return {
+      ...event,
+      url: event.link
+    }
+  });
+    
   return (
-    <>
-      <div>
-        <h1 className="text-6xl font-semibold">
-          Calendar
-        </h1>
-      </div>
-      <div className="flex justify-center">
-        <div className="flex flex-col">
-          <div className="flex justify-center flex-row gap-x-3">
-            <button onClick={prevMonth}>{"<"}</button>
-            <div className="w-24 text-center">
-             {date.toLocaleString("en-us", { month: "short", year: "numeric" })}
-            </div>
-            <button onClick={nextMonth}>{">"}</button>
-          </div>
-          <Month events={events} month={date.getMonth()} />
-        </div>
-      </div>
-    </>
-  )
+    <FullCalendar
+      plugins={[ dayGridPlugin ]}
+      initialView="dayGridMonth"
+      events={calendarEvents}
+      eventTimeFormat={{
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      }}
+    />
+  );
 }
-
