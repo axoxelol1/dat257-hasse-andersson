@@ -77,7 +77,7 @@ function TimelineEventLarge(event: Event) {
   );
 }
 
-function TimelineEvent({ title, link, host }: Event) {
+export function TimelineEvent({ title, link, host }: Event) {
   return (
     <a href={link.toString()} target="_blank" rel="noreferrer">
       <div className="bg-white py-3 px-6 rounded-lg">
