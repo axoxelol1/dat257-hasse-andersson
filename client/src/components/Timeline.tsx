@@ -5,6 +5,16 @@ export type TimelineProps = {
 };
 
 export function Timeline({ events }: TimelineProps) {
+  if (events.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full w-full">
+        <h1 className="text-4xl text-center">
+          No events found.
+        </h1>
+      </div>
+    );
+  }
+
   const groupedEvents = groupEvents(
     events.sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
@@ -13,24 +23,32 @@ export function Timeline({ events }: TimelineProps) {
 
   const bigEvent = groupedEvents[0].shift();
 
+  if (groupedEvents[0].length === 0) {
+    groupedEvents.shift();
+  }
+
   return (
     <>
       <div className="mb-6">
         <TimelineEventLarge {...bigEvent} />
       </div>
       <div className="flex flex-col gap-12">
-        {groupedEvents.map((group, i) => (
+        {groupedEvents.map((group, i) => {
+          if (group.length === 0) {
+            return <div />;
+          }
+          return (
           <div key={i}>
             <h1 className="text-3xl font-semibold mb-4">
               {getDateFromEvent(group[0])}
             </h1>
             <div className="flex flex-col gap-2">
-              {group.map((event, i) => (
-                <TimelineEvent key={event._id?.toString() ?? i} {...event} />
+              {group.map((event) => (
+                <TimelineEvent key={event.id} {...event} />
               ))}
             </div>
           </div>
-        ))}
+        );})}
       </div>
     </>
   );
