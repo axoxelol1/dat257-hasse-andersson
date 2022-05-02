@@ -1,16 +1,17 @@
-import { DatabaseService } from "../lib/db.service";
+import { DataService } from "../lib/data.service";
 import { Event, Host } from "../lib/types";
 import TimelineSearch from "../src/components/TimelineSearch";
 import Filters from "../src/components/Filters";
 import { useState } from "react";
+import { DatabaseService } from "../lib/db.service";
 
 /**
- * This function runs in the backend and is used to fetch the events from the database.
+ * This function runs in the backend and is used to fetch the events from the data sources.
  */
 export async function getServerSideProps() {
   return {
     props: {
-      events: await new DatabaseService().getEvents(),
+      events: await new DataService().getEvents(),
       hosts: await new DatabaseService().getHosts()
     },
   };
