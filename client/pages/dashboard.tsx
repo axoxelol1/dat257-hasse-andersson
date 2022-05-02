@@ -3,6 +3,7 @@ import EventForm from "../src/components/EventForm";
 import EventList from "../src/components/EventList";
 import { Event } from "../lib/types";
 import { DatabaseService } from "../lib/db.service";
+import { useState } from "react";
 
 
 export async function getServerSideProps() {
@@ -14,6 +15,15 @@ export async function getServerSideProps() {
 }
 
 export default function Dashboard ({ events } : {events : Event[]}) {
+
+  const [eventList, setEventList] = useState(events);
+  
+  async function updateEventList() {
+    const result = await fetch("http://localhost:3000/api/events/getall");
+    const newEvents : Event[] = await result.json();
+
+    setEventList(newEvents);
+  }
 
   return (
     <div className="grid place-items-center">
@@ -28,8 +38,8 @@ export default function Dashboard ({ events } : {events : Event[]}) {
           <h1 className="text-5xl -skew-x-12">VHPC - Dashboard</h1>
         </div>
         <div className="flex flex-col md:flex-row w-full gap-4 mt-6">
-          <EventForm />
-          <EventList events={events}/>
+          <EventForm updateEventList={updateEventList}/>
+          <EventList events={eventList}/>
         </div>
       </div>
     </div>

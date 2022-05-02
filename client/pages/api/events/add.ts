@@ -1,3 +1,7 @@
+/**
+ * Given an event, inserts an event into the database.
+ */
+
 import { NextApiRequest, NextApiResponse } from "next";
 import { DatabaseService } from "../../../lib/db.service";
 import { Event } from "../../../lib/types";

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-export default function EventForm( ) {
+interface EventFormProps {
+  updateEventList: () => void;
+}
+
+export default function EventForm(props : EventFormProps) {
 
   // Form fields
   const [state, setState] = useState({
@@ -35,6 +39,7 @@ export default function EventForm( ) {
           location: state.location
         })
     });
+    props.updateEventList();
   }
 
   function isValidForm() {
