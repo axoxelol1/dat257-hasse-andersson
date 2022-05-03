@@ -42,6 +42,9 @@ export default function EventForm(props : EventFormProps) {
           eventImageUrl: state.imageLink,
           location: state.location
         })
+    }).catch(err => {
+      console.log(err);
+      return;
     });
     props.updateEventList();
     resetForm();
