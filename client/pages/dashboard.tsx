@@ -22,7 +22,7 @@ export default function Dashboard ({ events } : {events : Event[]}) {
   const [eventList, setEventList] = useState(events);
   
   async function updateEventList() {
-    const result = await fetch("http://localhost:3000/api/events/getall");
+    const result = await fetch("/api/events/getall");
     const newEvents : Event[] = await result.json();
 
     setEventList(newEvents);
