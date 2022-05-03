@@ -20,7 +20,7 @@ export class GasqueService {
                 id : "gasque"+ge.id,
                 title: ge.translation.title,
                 host: "Gasquen",
-                date: ge.date,
+                date: (ge.dinner_start_time) ? ge.date + " " + ge.dinner_start_time : ge.date, // Only include time if it exists
                 link: "https://gasquen.se/",
                 eventImageUrl: ge.posters.portrait_url,
                 location: "Gasquen"
