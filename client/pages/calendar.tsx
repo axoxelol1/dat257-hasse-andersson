@@ -26,35 +26,39 @@ export default function Calendar({ events }: { events: Event[] }) {
     
   return (
     <>
-      <Link href='/' passHref>
-        <div className='inline-flex flex-row place-items-center cursor-pointer'>
-          <div className='h-16 w-16 relative'>
-            <Image 
-              src="/img/VHPC (1).png" 
-              alt="Site logo"
-              layout="fill"
-              objectFit='cover' 
-            />
+      <div className='mx-2 my-2'>
+        <Link href='/' passHref>
+          <div className='inline-flex flex-row place-items-center cursor-pointer'>
+            <div className='h-16 w-16 relative'>
+              <Image 
+                src="/img/VHPC (1).png" 
+                alt="Site logo"
+                layout="fill"
+                objectFit='cover' 
+              />
+            </div>
+            <span className='text-2xl'>Vad händer på campus?</span>
           </div>
-          <span className='text-2xl'>Vad händer på campus?</span>
-        </div>
-      </Link>
-      <FullCalendar
-        plugins={[ dayGridPlugin ]}
-        initialView='dayGridMonth'
-        events={calendarEvents}
-        height={"auto"}
-        contentHeight={"auto"}
-        eventTimeFormat={{
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false,
-        }}
-        weekNumberCalculation={"ISO"}
-        weekNumbers={true}
-        weekNumberFormat={{week: 'numeric'}}
-        titleFormat={{year: 'numeric', month: 'short'}}
-      />
+        </Link>
+      </div>
+      <div className='mx-6'>
+        <FullCalendar
+          plugins={[ dayGridPlugin ]}
+          initialView='dayGridMonth'
+          events={calendarEvents}
+          height={"auto"}
+          contentHeight={"auto"}
+          eventTimeFormat={{
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+          }}
+          weekNumberCalculation={"ISO"}
+          weekNumbers={true}
+          weekNumberFormat={{week: 'numeric'}}
+          titleFormat={{year: 'numeric', month: 'short'}}
+        />
+      </div>
     </>
   );
 }
