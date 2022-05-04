@@ -47,17 +47,17 @@ function CalendarIcon({ date }: { date: Date }) {
 }
 
 function TimelineEventLarge(event: Event) {
-  const { title, link, host } = event;
+  const { title, link, host, eventImageUrl } = event;
   return (
     <div className="flex flex-col md:flex-row justify-between">
       <div className="flex flex-col">
-        <h1 className="text-2xl font-semibold">Nästa evenemang</h1>
-        <div className="py-12 rounded-lg flex flex-row place-items-center gap-6">
+        <h1 className="text-2xl font-semibold">Nästa arrangemang</h1>
+        <div className="py-16 rounded-lg flex flex-row place-items-center gap-6 justify-center md:justify-start">
           <CalendarIcon date={new Date(event.date)} />
           <div className="flex flex-col">
             <div className="flex flex-row place-items-center mb-3 gap-6">
               <a
-                className="flex flex-row place-items-center gap-2 text-blue-700"
+                className="flex flex-row place-items-center gap-2 font-bold"
                 target="_blank"
                 href={link.toString()}
                 rel="noreferrer"
@@ -70,18 +70,20 @@ function TimelineEventLarge(event: Event) {
         </div>
       </div>
       <a
-        className="flex flex-row place-items-center gap-2 text-blue-700"
+        className="flex flex-row place-items-center gap-2"
         target="_blank"
         href={link.toString()}
         rel="noreferrer"
       >
-        <div className="relative h-72 aspect-[3/2]">
-          <Image
-            layout="fill"
-            alt="Image for the event."
-            src="https://thiscatdoesnotexist.com/"
-          />
-        </div>
+        {eventImageUrl && (
+          <div className="relative md:h-72 h-auto w-full aspect-[3/2]">
+            <Image
+              layout="fill"
+              alt="Image for the event."
+              src={eventImageUrl}
+            />
+          </div>
+        )}
       </a>
     </div>
   );
