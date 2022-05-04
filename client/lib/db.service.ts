@@ -1,10 +1,11 @@
 import { ObjectId } from "mongodb";
 import clientPromise from "./mongodb";
-import { Event, Host } from "./types";
+import { Event, Host, User } from "./types";
 
 const DB_NAME = "campusapp";
 const EVENTS_COLLECTION_NAME = "events";
 const HOSTS_COLLECTION_NAME = "committees";
+const USERS_COLLECTION_NAME = "users";
 
 /**
  * This class provides an interface to the events collection in the database.
@@ -30,6 +31,23 @@ export class DatabaseService {
       .toArray();
 
     return result.map(this.serializeId);
+  }
+
+  async getUsers(): Promise<User[]> {
+    const client = await clientPromise;
+    const result = await client
+      .db(DB_NAME)
+      .collection<Omit<User, "id">>(USERS_COLLECTION_NAME)
+      .find()
+      .toArray();
+
+    return result.map(this.serializeId);
+  }
+
+  async addUser(user: User) {
+    const client = await clientPromise;
+    const result = await client.db(DB_NAME).collection(USERS_COLLECTION_NAME).insertOne(user);
+    return result;
   }
 
   // We need to convert the mongodb ObjectId to a plain javascript object
