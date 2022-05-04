@@ -6,8 +6,8 @@ export function Logotype() {
       <Image
         src="/img/VHPC_logo.png"
         alt="Website logo"
-        width={1079 / 8}
-        height={315 / 8}
+        width={1079 / 12}
+        height={315 / 12}
       />
       <h1 className="text-3xl font-bold hidden md:block">Vad händer på campus?</h1>
     </div>
