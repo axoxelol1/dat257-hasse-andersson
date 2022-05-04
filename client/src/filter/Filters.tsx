@@ -1,32 +1,27 @@
-import { Combobox } from "@headlessui/react"
-import { useState } from "react"
+import { Combobox } from "@headlessui/react";
+import { useState } from "react";
 
 export default function Filters() {
   return (
-    <div className="flex flex-row h-12 w-fit">
+    <div className="flex flex-row h-12 w-full">
       <HostFilter />
     </div>
-  )
+  );
 }
 
-const hosts = [
-  'PU',
-  'Festu',
-  'Svea Skivgarde',
-  'Marskalksämbetet'
-]
+const hosts = ["PU", "Festu", "Svea Skivgarde", "Marskalksämbetet"];
 
 function HostFilter() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedHosts, setSelectedHosts] = useState([])
-  const [query, setQuery] = useState('')
+  const [selectedHosts, setSelectedHosts] = useState([]);
+  const [query, setQuery] = useState("");
 
   const filteredHosts =
-    query === ''
+    query === ""
       ? hosts
       : hosts.filter((host) => {
-          return host.toLowerCase().includes(query.trim().toLowerCase())
-        })
+          return host.toLowerCase().includes(query.trim().toLowerCase());
+        });
 
   //The following three functions handle multiselect, because Headless UI does not support it out of the box.
   function isSelected(value) {
@@ -37,7 +32,7 @@ function HostFilter() {
     if (!isSelected(value)) {
       const selectedPersonsUpdated = [
         ...selectedHosts,
-        hosts.find((el) => el === value)
+        hosts.find((el) => el === value),
       ];
       setSelectedHosts(selectedPersonsUpdated);
     } else {
@@ -53,15 +48,32 @@ function HostFilter() {
   }
 
   return (
-    <div>
+    <div className="w-full">
       <Combobox value="Filter" onChange={(value) => handleSelect(value)}>
-        <Combobox.Input onChange={(event) => setQuery(event.target.value)} onMouseDown={() => {setIsOpen(!isOpen)}} className="h-full font-bold text-lg outline-none border-transparent border-b-black border-2"/>
+        <Combobox.Input
+          onChange={(event) => setQuery(event.target.value)}
+          onMouseDown={() => {
+            setIsOpen(!isOpen);
+          }}
+          className="w-full h-full font-bold text-lg outline-none border-transparent border-b-black border-2"
+        />
         {isOpen && (
           <Combobox.Options static className="mt-2 bg-white">
             {filteredHosts.map((host) => (
               <Combobox.Option key={host} value={host}>
-                <input type="checkbox" checked={isSelected(host)} readOnly className="accent-stone-900 ml-1"/>
-                <span className={`${isSelected(host) ? "font-semibold" : "font-normal"} ml-2`}>{host}</span>
+                <input
+                  type="checkbox"
+                  checked={isSelected(host)}
+                  readOnly
+                  className="accent-stone-900 ml-1"
+                />
+                <span
+                  className={`${
+                    isSelected(host) ? "font-semibold" : "font-normal"
+                  } ml-2`}
+                >
+                  {host}
+                </span>
               </Combobox.Option>
             ))}
           </Combobox.Options>
@@ -74,7 +86,6 @@ function HostFilter() {
           <p key={host}>{host}</p>
         ))}
       </div>
-
     </div>
-  )
+  );
 }
