@@ -16,7 +16,7 @@ export default function Loginwindow() {
     </div>
           { isOpen &&  (
               
-              <div className="absolute right-2 top-3 w-60 h-64 bg-slate-300 border-zinc-700 border-2">
+              <div className="absolute right-2 top-3 w-64 h-64 bg-slate-300 border-zinc-700 border-2">
                 <div className="font-bold m-4">
                     Login to your profile
                 </div>
