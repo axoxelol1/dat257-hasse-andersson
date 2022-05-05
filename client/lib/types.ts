@@ -14,6 +14,7 @@ export interface Event {
 export interface Host {
   shortName: string;
   longName: string;
+  color: string;
 }
 
 /**
