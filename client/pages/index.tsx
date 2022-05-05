@@ -4,6 +4,7 @@ import TimelineSearch from "../src/components/TimelineSearch";
 import Filters from "../src/components/Filters";
 import { useState } from "react";
 import { DatabaseService } from "../lib/db.service";
+import Loginwindow from "../src/components/Loginwindow";
 import { Page } from "../src/components/Page";
 import { Logotype } from "../src/components/Logotype";
 import '@fullcalendar/common/main.css'; // @fullcalendar/react imports @fullcalendar/common
@@ -41,6 +42,9 @@ export default function Index({
             hosts={hosts}
           />
           <TimelineSearch events={displayedEvents} />
+          <div>
+            <Loginwindow />
+          </div>
         </div>
       </div>
     </Page>
