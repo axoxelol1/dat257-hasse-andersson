@@ -85,8 +85,8 @@ export default function EventForm(props : EventFormProps) {
         <input className="h-8 w-full rounded" type="text" placeholder="Title" name="title" onChange={handleChange}/>
         <input className="h-8 w-full rounded" type="text" placeholder="Host" name="host" onChange={handleChange}/>
         <div className="flex flex-row gap-x-2">
-          <input className="h-8 w-2/3 rounded" type="date" name="date" onChange={handleChange}/>
-          <input className="h-8 w-1/3 rounded" type="time" name="time" onChange={handleChange}/>
+          <input className="h-8 w-2/3 rounded" type="date" name="date" onChange={handleChange} pattern="\d{4}-\d{2}-\d{2}"/>
+          <input className="h-8 w-1/3 rounded" type="time" name="time" onChange={handleChange} pattern="[0-9]{2}:[0-9]{2}"/>
         </div>
         <input className="h-8 w-full rounded" type="text" placeholder="Link to event" name="link" onChange={handleChange}/>
         <input className="h-8 w-full rounded" type="text" placeholder="Link to image" name="imageLink" onChange={handleChange}/>
