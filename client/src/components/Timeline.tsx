@@ -54,7 +54,7 @@ function TimelineEventLarge(event: Event) {
         <h1 className="text-2xl font-semibold">Nästa arrangemang</h1>
         <div className="py-16 rounded-lg flex flex-row place-items-center gap-6 justify-center md:justify-start">
           <CalendarIcon date={new Date(event.date)} />
-          <div className="flex flex-col">
+          <div className="flex flex-col basis-0 grow">
             <div className="flex flex-row place-items-center mb-3 gap-6">
               <a
                 className="flex flex-row place-items-center gap-2 font-bold"

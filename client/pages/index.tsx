@@ -25,6 +25,7 @@ export function getServerSideProps() {
           link: "https://www.facebook.com/events/340855818101825/?ref=newsfeed",
           date: new Date("2020-02-01").toJSON(),
           host: "Plupp Inc",
+          eventImageUrl: "https://thiscatdoesnotexist.com/",
         },
         {
           id: "1",
