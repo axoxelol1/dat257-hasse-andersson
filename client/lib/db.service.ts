@@ -32,6 +32,18 @@ export class DatabaseService {
     return result.map(this.serializeId);
   }
 
+  /**
+   * Function needs object of type event, where ID is required, but the form does not include it
+   * Therefore send a dummy id to this function and it will be deleted and automatically added
+   * by mongodb.
+   */
+  async addEvent(event : Event) {
+    delete event.id;
+    const client = await clientPromise;
+    const result = await client.db(DB_NAME).collection(EVENTS_COLLECTION_NAME).insertOne(event);
+    return result;
+  }
+
   // We need to convert the mongodb ObjectId to a plain javascript object
   // because NextJS cannot serialize it
   private serializeId<T>(obj: T & { _id: ObjectId }): T & { id: string } {
