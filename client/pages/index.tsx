@@ -6,7 +6,8 @@ import { useState } from "react";
 import { DatabaseService } from "../lib/db.service";
 import { Page } from "../src/components/Page";
 import { Logotype } from "../src/components/Logotype";
-import { Timeline } from "../src/components/Timeline";
+import '@fullcalendar/common/main.css'; // @fullcalendar/react imports @fullcalendar/common
+import '@fullcalendar/daygrid/main.css'; // @fullcalendar/timegrid imports @fullcalendar/daygrid
 
 /**
  * This function runs in the backend and is used to fetch the events from the data sources.
