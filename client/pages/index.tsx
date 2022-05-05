@@ -1,62 +1,46 @@
-import { Event } from "../lib/types";
-import { Logotype } from "../src/components/Logotype";
+import { DataService } from "../lib/data.service";
+import { Event, Host } from "../lib/types";
+import TimelineSearch from "../src/components/TimelineSearch";
+import Filters from "../src/components/Filters";
+import { useState } from "react";
+import { DatabaseService } from "../lib/db.service";
 import { Page } from "../src/components/Page";
+import { Logotype } from "../src/components/Logotype";
 import { Timeline } from "../src/components/Timeline";
-import Filters from "../src/filter/Filters";
 
 /**
- * This function runs in the backend and can be used to fetch the events from the database in the future.
- * For now we are using mocked data for testing.
+ * This function runs in the backend and is used to fetch the events from the data sources.
  */
-export function getServerSideProps() {
+export async function getServerSideProps() {
   return {
     props: {
-      events: [
-        {
-          id: "2",
-          title: "PU-Movie: The Kingen 2",
-          link: "https://www.facebook.com/events/340855818101825/?ref=newsfeed",
-          date: new Date("2020-06-02").toJSON(),
-          host: "PU 2",
-        },
-        {
-          id: "1",
-          title: "Plupp movie",
-          link: "https://www.facebook.com/events/340855818101825/?ref=newsfeed",
-          date: new Date("2020-02-01").toJSON(),
-          host: "Plupp Inc",
-          eventImageUrl: "https://thiscatdoesnotexist.com/",
-        },
-        {
-          id: "1",
-          title: "PU-Movie: The Kingen",
-          link: "https://www.facebook.com/events/340855818101825/?ref=newsfeed",
-          date: new Date("2020-06-01").toJSON(),
-          host: "PU",
-        },
-        {
-          id: "1",
-          title: "jämK-Movie: The Queenen",
-          link: "https://www.facebook.com/events/340855818101825/?ref=newsfeed",
-          date: new Date("2020-07-12").toJSON(),
-          host: "jämK",
-        },
-      ],
+      events: await new DataService().getEvents(),
+      hosts: await new DatabaseService().getHosts(),
     },
   };
 }
 
-export default function Index({ events }: { events: Event[] }) {
+export default function Index({
+  events,
+  hosts,
+}: {
+  events: Event[];
+  hosts: Host[];
+}) {
+  const [displayedEvents, setDisplayedEvents] = useState([...events]);
+
   return (
     <Page>
-      <div className="mb-16 flex flex-row place-items-center gap-8">
+      <div className="max-w-screen-xl w-full">
         <Logotype />
-        <div className="grow">
-          <Filters />
+        <div className="flex flex-col md:flex-row w-full gap-4 mt-6">
+          <Filters
+            eventSetter={setDisplayedEvents}
+            events={events}
+            hosts={hosts}
+          />
+          <TimelineSearch events={displayedEvents} />
         </div>
-      </div>
-      <div className="z-10 relative flex flex-col gap-12">
-        <Timeline events={events} />
       </div>
     </Page>
   );

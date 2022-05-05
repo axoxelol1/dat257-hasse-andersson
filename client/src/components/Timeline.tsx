@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Event } from "../../lib/types";
 
 export type TimelineProps = {
@@ -6,23 +5,40 @@ export type TimelineProps = {
 };
 
 export function Timeline({ events }: TimelineProps) {
+  if (events.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full w-full">
+        <h1 className="text-4xl text-center">
+          No events found.
+        </h1>
+      </div>
+    );
+  }
+
   const groupedEvents = groupEvents(
     events.sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
     )
   );
 
+  const bigEvent = groupedEvents[0].shift();
+
+  if (groupedEvents[0].length === 0) {
+    groupedEvents.shift();
+  }
+
+
   return (
     <div className="flex flex-col gap-8">
-      <TimelineEventLarge {...groupedEvents[0][0]} />
+      <TimelineEventLarge {...bigEvent} />
       {groupedEvents.map((group, i) => (
         <div key={i}>
           <h1 className="text-2xl font-semibold mb-2">
             {getDateFromEvent(group[0])}
           </h1>
           <div className="flex flex-col gap-2">
-            {group.map((event, i) => (
-              <TimelineEvent key={event._id?.toString() ?? i} {...event} />
+            {group.map((event) => (
+              <TimelineEvent key={event.id} {...event} />
             ))}
           </div>
         </div>
@@ -77,9 +93,9 @@ function TimelineEventLarge(event: Event) {
       >
         {eventImageUrl && (
           <div className="relative md:h-72 h-auto w-full aspect-[3/2]">
-            <Image
-              layout="fill"
+            <img
               alt="Image for the event."
+              alt="Event image"
               src={eventImageUrl}
             />
           </div>
