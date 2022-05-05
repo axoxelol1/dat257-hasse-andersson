@@ -10,6 +10,8 @@ interface EventFormProps {
 
 export default function EventForm(props : EventFormProps) {
 
+  const [isInsertError, setIsInsertError] = useState(false);
+
   // Form fields
   const [state, setState] = useState({
     title: "",
@@ -45,8 +47,10 @@ export default function EventForm(props : EventFormProps) {
     });
 
     if (!response.ok) {
-      alert("Failed to add event:\n" + (await response.json()).error);
+      setIsInsertError(true);
       return;
+    } else {
+      setIsInsertError(false);
     }
 
     props.updateEventList();
@@ -87,6 +91,7 @@ export default function EventForm(props : EventFormProps) {
         <input className="h-8 w-full rounded" type="text" placeholder="Link to event" name="link" onChange={handleChange}/>
         <input className="h-8 w-full rounded" type="text" placeholder="Link to image" name="imageLink" onChange={handleChange}/>
         <input className="h-8 w-full rounded" type="text" placeholder="Location" name="location" onChange={handleChange}/>
+        {isInsertError && <span className="text-red-600">Failed to add event</span>}
         <div className="text-center">
           {
             isValidForm() ? 
