@@ -58,7 +58,7 @@ export default function EventForm(props : EventFormProps) {
   }
 
   function isValidForm() {
-    return state.title !== "" && state.host !== "" && state.date !== "";
+    return state.title !== "" && state.host !== "" && state.date !== "" && state.link !== "";
   }
 
   // Clears fields and resets form
@@ -82,16 +82,29 @@ export default function EventForm(props : EventFormProps) {
     <div className="md:w-1/3 h-full w-full">
       <span className="font-bold text-xl">Add event</span>
       <div className="md:w-full flex flex-col border-t-2 gap-4 py-2 border-black">
-        <input className="h-8 w-full rounded" type="text" placeholder="Title" name="title" onChange={handleChange}/>
-        <input className="h-8 w-full rounded" type="text" placeholder="Host" name="host" onChange={handleChange}/>
-        <div className="flex flex-row gap-x-2">
-          <input className="h-8 w-2/3 rounded" type="date" name="date" onChange={handleChange} pattern="\d{4}-\d{2}-\d{2}"/>
-          <input className="h-8 w-1/3 rounded" type="time" name="time" onChange={handleChange} pattern="[0-9]{2}:[0-9]{2}"/>
+        <div className="h-8 w-full flex">
+          <input className="h-8 grow rounded" type="text" placeholder="Title" name="title" onChange={handleChange}/>
+          <span>*</span>
         </div>
-        <input className="h-8 w-full rounded" type="text" placeholder="Link to event" name="link" onChange={handleChange}/>
+        <div className="h-8 w-full flex">
+          <input className="h-8 w-full rounded" type="text" placeholder="Host" name="host" onChange={handleChange}/>
+          <span>*</span>
+        </div>
+        <div className="flex flex-row gap-x-2">
+          <div className="h-8 w-2/3 flex">
+            <input className="h-8 grow rounded" type="date" name="date" onChange={handleChange} />
+            <span>*</span>
+          </div>
+          <input className="h-8 w-1/3 rounded" type="time" name="time" onChange={handleChange} />
+        </div>
+        <div className="h-8 w-full flex">
+          <input className="h-8 grow rounded" type="text" placeholder="Link to event" name="link" onChange={handleChange}/>
+          <span>*</span>
+        </div>
         <input className="h-8 w-full rounded" type="text" placeholder="Link to image" name="imageLink" onChange={handleChange}/>
         <input className="h-8 w-full rounded" type="text" placeholder="Location" name="location" onChange={handleChange}/>
         {isInsertError && <span className="text-red-600">Failed to add event</span>}
+        <span className="text-sm">* required fields</span>
         <div className="text-center">
           {
             isValidForm() ? 

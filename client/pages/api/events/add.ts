@@ -25,5 +25,5 @@ export default async function add(req: NextApiRequest, res: NextApiResponse) {
 }
 
 function inputIsValid(event: Event): boolean {
-  return event.title !== "" && event.date !== "" && event.host !== "";
+  return event.title !== "" && event.date !== "" && event.host !== "" && event.link !== "";
 }
