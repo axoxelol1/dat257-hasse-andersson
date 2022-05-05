@@ -110,7 +110,7 @@ export default function EventForm(props : EventFormProps) {
             isValidForm() ? 
             <button className="h-8 w-1/3 rounded text-white bg-green-600 hover:bg-green-500 transition-colors" onClick={submitEvent}>Add</button>
             :
-            <button className="h-8 w-1/3 rounded text-white bg-slate-400 transition-colors" disabled>Add</button>
+            <button className="h-8 w-1/3 rounded text-white bg-slate-400 transition-colors" disabled>Save</button>
           }
         </div>
       </div>

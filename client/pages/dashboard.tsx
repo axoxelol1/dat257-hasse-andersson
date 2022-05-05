@@ -28,13 +28,29 @@ export default function Dashboard ({ events } : {events : Event[]}) {
     setEventList(newEvents);
   }
 
+  async function deleteEvent(id: string) {
+    await fetch("/api/events/delete", {
+      method: "POST",
+      body: JSON.stringify({
+        id: id,
+      }),
+    });
+
+    updateEventList();
+  }
+
+  async function editEvent(event: Event) {
+    console.log("Editing event: "+event.id);
+    return;
+  } 
+
   return (
     <div className="grid place-items-center">
       <div className="p-8 max-w-screen-xl w-full">
         <Logotype/>
         <div className="flex flex-col md:flex-row w-full gap-4 mt-6">
           <EventForm updateEventList={updateEventList}/>
-          <EventList events={eventList}/>
+          <EventList events={eventList} deleteHandler={deleteEvent} editHandler={editEvent}/>
         </div>
       </div>
     </div>
