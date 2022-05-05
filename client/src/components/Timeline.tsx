@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Event } from "../../lib/types";
 
 export type TimelineProps = {
@@ -95,7 +96,6 @@ function TimelineEventLarge(event: Event) {
           <div className="relative md:h-72 h-auto w-full aspect-[3/2]">
             <img
               alt="Image for the event."
-              alt="Event image"
               src={eventImageUrl}
             />
           </div>
