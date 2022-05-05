@@ -5,6 +5,8 @@ import Filters from "../src/components/Filters";
 import { useState } from "react";
 import { DatabaseService } from "../lib/db.service";
 import Loginwindow from "../src/components/Loginwindow";
+import '@fullcalendar/common/main.css'; // @fullcalendar/react imports @fullcalendar/common
+import '@fullcalendar/daygrid/main.css'; // @fullcalendar/timegrid imports @fullcalendar/daygrid
 
 /**
  * This function runs in the backend and is used to fetch the events from the data sources.
