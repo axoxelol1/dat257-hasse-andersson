@@ -24,7 +24,6 @@ export default function Index({ events, hosts }: { events: Event[], hosts: Host[
 
   return (
 
-    <div>
       <div className="grid place-items-center">
         <div className="p-8 max-w-screen-xl w-full">
           <div className="flex flex-row place-items-center">
@@ -43,7 +42,6 @@ export default function Index({ events, hosts }: { events: Event[], hosts: Host[
           </div>
         </div>
       </div>
-    </div>
     </div>
 
   );
