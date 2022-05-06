@@ -11,7 +11,7 @@ export interface EditableEventProps {
 export default function EditableEvent(props: EditableEventProps) {
 
   function handleDelete() {
-    props.deleteHandler(props.event.id);
+    confirm("Are you sure you want to delete this event?") && props.deleteHandler(props.event.id);
   }
 
   function handleEdit() {
