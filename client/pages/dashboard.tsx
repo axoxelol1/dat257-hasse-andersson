@@ -4,7 +4,7 @@
 
 import EventForm from "../src/components/EventForm";
 import EventList from "../src/components/EventList";
-import { Event } from "../lib/types";
+import { Event, Host } from "../lib/types";
 import { DatabaseService } from "../lib/db.service";
 import { useState } from "react";
 import { Logotype } from "../src/components/Logotype";
@@ -13,11 +13,12 @@ export async function getServerSideProps() {
   return {
     props: {
       events: await new DatabaseService().getEvents(),
+      hosts: await new DatabaseService().getHosts()
     },
   };
 }
 
-export default function Dashboard ({ events } : {events : Event[]}) {
+export default function Dashboard ({ events, hosts } : {hosts: Host[], events: Event[]}) {
 
   const [eventList, setEventList] = useState(events);
   
@@ -49,7 +50,7 @@ export default function Dashboard ({ events } : {events : Event[]}) {
       <div className="p-8 max-w-screen-xl w-full">
         <Logotype/>
         <div className="flex flex-col md:flex-row w-full gap-4 mt-6">
-          <EventForm updateEventList={updateEventList}/>
+          <EventForm updateEventList={updateEventList} hosts={hosts}/>
           <EventList events={eventList} deleteHandler={deleteEvent} editHandler={editEvent}/>
         </div>
       </div>

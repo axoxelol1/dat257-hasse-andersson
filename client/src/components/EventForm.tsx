@@ -3,9 +3,12 @@
  */
 
 import React, { useState } from "react";
+import { Host } from "../../lib/types";
+import Select from 'react-select';
 
 interface EventFormProps {
   updateEventList: () => void;
+  hosts: Host[];
 }
 
 export default function EventForm(props : EventFormProps) {
@@ -30,6 +33,21 @@ export default function EventForm(props : EventFormProps) {
       [event.target.name]: event.target.value,
     })
   }
+
+  // Update host on select change
+  function handleSelectChange(newValue : {label : string, value : string}) {
+    setState({
+      ...state,
+      host: newValue.value,
+    })
+  }
+
+  // Creates select options for hosts
+  const hostSelectOptions = props.hosts.map((host) => {
+    return {label: host.longName, value: host.longName};
+  });
+  // Add default option
+  hostSelectOptions.unshift({label: "Select host", value: ""});
 
   async function submitEvent(event : React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -64,13 +82,13 @@ export default function EventForm(props : EventFormProps) {
   // Clears fields and resets form
   function resetForm() {
     setState({
+      ...state,
       title: "",
-      host: "",
       date: "",
       time: "",
       link: "",
       imageLink: "",
-      location: "",
+      location: ""
     });
 
     document.querySelectorAll("input").forEach((input) => {
@@ -82,14 +100,26 @@ export default function EventForm(props : EventFormProps) {
     <div className="md:w-1/3 h-full w-full">
       <span className="font-bold text-xl">Add event</span>
       <div className="md:w-full flex flex-col border-t-2 gap-4 py-2 border-black">
+
+        {/* Title */}
         <div className="h-8 w-full flex">
           <input className="h-8 grow rounded" type="text" placeholder="Title" name="title" onChange={handleChange}/>
           <span>*</span>
         </div>
+
+        {/* Host */}
         <div className="h-8 w-full flex">
-          <input className="h-8 w-full rounded" type="text" placeholder="Host" name="host" onChange={handleChange}/>
+          <Select 
+            className="h-8 grow rounded"
+            options={hostSelectOptions}
+            onChange={handleSelectChange}
+            defaultValue={hostSelectOptions[0]}
+            isSearchable={true}
+          />
           <span>*</span>
         </div>
+
+        {/* Date and time */}
         <div className="flex flex-row gap-x-2">
           <div className="h-8 w-2/3 flex">
             <input className="h-8 grow rounded" type="date" name="date" onChange={handleChange} />
@@ -97,14 +127,22 @@ export default function EventForm(props : EventFormProps) {
           </div>
           <input className="h-8 w-1/3 rounded" type="time" name="time" onChange={handleChange} />
         </div>
+
+        {/* Link */}
         <div className="h-8 w-full flex">
           <input className="h-8 grow rounded" type="text" placeholder="Link to event" name="link" onChange={handleChange}/>
           <span>*</span>
         </div>
+
+        {/* Image link */}
         <input className="h-8 w-full rounded" type="text" placeholder="Link to image" name="imageLink" onChange={handleChange}/>
+
+        {/* Location */}
         <input className="h-8 w-full rounded" type="text" placeholder="Location" name="location" onChange={handleChange}/>
+
         {isInsertError && <span className="text-red-600">Failed to add event</span>}
         <span className="text-sm">* required fields</span>
+
         <div className="text-center">
           {
             isValidForm() ? 
