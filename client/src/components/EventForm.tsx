@@ -115,6 +115,7 @@ export default function EventForm(props : EventFormProps) {
             onChange={handleSelectChange}
             defaultValue={hostSelectOptions[0]}
             isSearchable={true}
+            instanceId="hostSelect"
           />
           <span>*</span>
         </div>
