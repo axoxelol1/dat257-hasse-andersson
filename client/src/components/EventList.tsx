@@ -18,10 +18,7 @@ export default function EventList(props : EventListProps) {
   const [showPastEvents, setShowPastEvents] = useState(false);
 
   return (
-    <>
-      <div className="flex flex-col w-full">
-        <span className="text-xl w-full border-b-2 border-black font-bold">Events</span>
-        
+      <div className="flex flex-col w-full">        
         <div>
           <input type="checkbox" className="text-sm font-bold" name="pastevents" onClick={() => setShowPastEvents(!showPastEvents)}/>
           <label> Show past events</label>
@@ -36,7 +33,6 @@ export default function EventList(props : EventListProps) {
           ))}
         </div>
       </div>
-    </>
   )
 
 }
