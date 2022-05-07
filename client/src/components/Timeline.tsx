@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Event } from "../../lib/types";
 
 export type TimelineProps = {
@@ -27,67 +28,94 @@ export function Timeline({ events }: TimelineProps) {
     groupedEvents.shift();
   }
 
+
   return (
-    <>
-      <div className="mb-6">
-        <TimelineEventLarge {...bigEvent} />
-      </div>
-      <div className="flex flex-col gap-12">
-        {groupedEvents.map((group, i) => {
-          if (group.length === 0) {
-            return <div />;
-          }
-          return (
-          <div key={i}>
-            <h1 className="text-3xl font-semibold mb-4">
-              {getDateFromEvent(group[0])}
-            </h1>
-            <div className="flex flex-col gap-2">
-              {group.map((event) => (
-                <TimelineEvent key={event.id} {...event} />
-              ))}
-            </div>
+    <div className="flex flex-col gap-8">
+      <TimelineEventLarge {...bigEvent} />
+      {groupedEvents.map((group, i) => (
+        <div key={i}>
+          <h1 className="text-2xl font-semibold mb-2">
+            {getDateFromEvent(group[0])}
+          </h1>
+          <div className="flex flex-col gap-2">
+            {group.map((event) => (
+              <TimelineEvent key={event.id} {...event} />
+            ))}
           </div>
-        );})}
-      </div>
-    </>
+        </div>
+      ))}
+    </div>
   );
 }
 
-function TimelineEventLarge(event: Event) {
-  const { title, link, host } = event;
+function CalendarIcon({ date }: { date: Date }) {
   return (
-    <div className="bg-white mb-16 py-12 px-6 rounded-lg">
-      <div className="flex flex-col">
-        <div className="flex flex-row place-items-center mb-3 gap-6">
-          <a
-            className="text-sky-700 flex flex-row place-items-center gap-2"
-            target="_blank"
-            href={link.toString()}
-            rel="noreferrer"
-          >
-            <h1 className="text-4xl leading-none">{title}</h1>
-            <ExternalLinkIcon />
-          </a>
-          <h2 className="text-2xl">{getDateFromEvent(event)}</h2>
-        </div>
-        <h3 className="font-semibold text-lg leading-none">{host}</h3>
+    <div className="shadow-md w-24 h-24 rounded-lg overflow-clip bg-white">
+      <div className="w-full bg-red-600 flex justify-center text-lg">
+        <span className="text-white font-semibold">
+          {date.toLocaleString("sv", { month: "long" })}
+        </span>
+      </div>
+      <div className="w-full mt-3 grid place-items-center">
+        <span className="text-2xl font-semibold">{date.getDate()}</span>
       </div>
     </div>
   );
 }
 
-function TimelineEvent({ title, link, host }: Event) {
+function TimelineEventLarge(event: Event) {
+  const { title, link, host, eventImageUrl } = event;
   return (
-    <a href={link.toString()} target="_blank" rel="noreferrer">
-      <div className="bg-white py-3 px-6 rounded-lg">
-        <div className="flex place-items-center gap-2 mb-3">
-          <h1 className="text-2xl text-sky-700 leading-none">{title}</h1>
-          <div className="text-gray-700">
-            <ExternalLinkIcon />
+    <div className="flex flex-col md:flex-row justify-between">
+      <div className="flex flex-col">
+        <h1 className="text-2xl font-semibold">Nästa arrangemang</h1>
+        <div className="py-16 rounded-lg flex flex-row place-items-center gap-6 justify-center md:justify-start">
+          <CalendarIcon date={new Date(event.date)} />
+          <div className="flex flex-col basis-0 grow">
+            <div className="flex flex-row place-items-center mb-3 gap-6">
+              <a
+                className="flex flex-row place-items-center gap-2 font-bold"
+                target="_blank"
+                href={link.toString()}
+                rel="noreferrer"
+              >
+                <h1 className="text-4xl leading-none">{title}</h1>
+              </a>
+            </div>
+            <span className="text-base leading-none">{host}</span>
           </div>
         </div>
-        <p className="font-semibold text-lg leading-none">{host}</p>
+      </div>
+      <a
+        className="flex flex-row place-items-center gap-2"
+        target="_blank"
+        href={link.toString()}
+        rel="noreferrer"
+      >
+        {eventImageUrl && (
+          <div className="relative md:h-72 h-auto w-full aspect-[3/2]">
+            <img
+              alt="Image for the event."
+              src={eventImageUrl}
+            />
+          </div>
+        )}
+      </a>
+    </div>
+  );
+}
+
+export function TimelineEvent({ title, link, host }: Event) {
+  return (
+    <a href={link.toString()} target="_blank" rel="noreferrer">
+      <div className="bg-white py-3 px-6 rounded-lg flex flex-row justify-between place-items-center">
+        <div>
+          <div className="mb-3">
+            <h1 className="text-2xl leading-none">{title}</h1>
+          </div>
+          <p className="text-base leading-none">{host}</p>
+        </div>
+        <ExternalLinkIcon />
       </div>
     </a>
   );
