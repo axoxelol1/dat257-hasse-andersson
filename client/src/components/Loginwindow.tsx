@@ -1,7 +1,7 @@
 import { useState } from "react"
 import bcrypt from "bcryptjs"
-import React from "react";
-import { User } from "../../lib/types";
+import React from "react"
+import { User } from "../../lib/types"
 
 export default function Loginwindow({users: users}: {users: User[]}) {
 
@@ -41,7 +41,7 @@ export default function Loginwindow({users: users}: {users: User[]}) {
     bcrypt.genSalt(10, function(err, salt) {
       bcrypt.hash(pw, salt, async function(err, hash) {
 
-        const response = await fetch("/api/addUser", {
+        const response = await fetch("/api/auth/addUser", {
           method: "POST",
           body: JSON.stringify({
               username: name,
@@ -65,9 +65,20 @@ export default function Loginwindow({users: users}: {users: User[]}) {
 
     if (userExists(name)) {
       const hash = getHash(name)
-      bcrypt.compare(pw, hash, function(err, res) {
+      bcrypt.compare(pw, hash, async function(err, res) {
         if (res) {
           alert("Hashes match, user should be logged in")
+
+          const response = await fetch("/api/auth/login", {
+            method: "POST",
+            body: JSON.stringify({
+              username: name,
+            })
+          });
+
+          const success = (await response.json()).success
+          console.log(success)
+
         } else {
           alert("Hashes do not match. Do not log in user")
         }
@@ -75,6 +86,12 @@ export default function Loginwindow({users: users}: {users: User[]}) {
     } else {
       alert("User does not exist")
     }
+  }
+
+  const logout = async () => {
+    await fetch("/api/auth/logout", {
+      method: "GET"
+    })
   }
 
 
@@ -102,12 +119,15 @@ export default function Loginwindow({users: users}: {users: User[]}) {
             <input type={"password"} id="pw"></input>
           </div>
 
-          <div className="flex absolute right-20 m-4">
+          <div className="flex absolute m-4 gap-2">
             <button className="border-2 border-zinc-800" onClick={createUser}>
               Create user
             </button>
             <button className="border-2 border-zinc-800" onClick={login}>
               Login
+            </button>
+            <button className="border-2 border-zinc-800" onClick={logout}>
+              Logout
             </button>
           </div>
 

@@ -20,6 +20,12 @@ MONGODB_URI=<your uri>
 MONGODB_DB=<database name to use>
 ```
 
+You also need to add a random byte string for the JWT. You can generate one here `https://catonmat.net/tools/generate-random-bytes`.
+32 random hexadecimal bytes works nicely. Then place it in your env.local:
+```
+JWT_SECRET=<random byte string>
+```
+
 To run the development server you can now write the following:
 ```powershell
 npm run dev
