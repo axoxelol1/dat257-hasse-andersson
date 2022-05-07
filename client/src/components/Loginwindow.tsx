@@ -6,7 +6,7 @@ import { User } from "../../lib/types"
 export default function Loginwindow({users: users}: {users: User[]}) {
 
   const userExists = (name: string): boolean => {
-    let userExists: boolean = false
+    let userExists = false
 
     users.forEach(u => {
       if (u.username === name) userExists = true
@@ -16,7 +16,7 @@ export default function Loginwindow({users: users}: {users: User[]}) {
   }
 
   const getHash = (name: string) => {
-    let hash: string = ''
+    let hash = ''
     users.forEach(u => {
       if (u.username === name) hash = u.salthash
     })
