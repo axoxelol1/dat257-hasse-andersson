@@ -4,11 +4,13 @@
  */
 
 import { Event } from "../../lib/types";
-import { TimelineEvent } from "./Timeline";
 import { useState } from "react";
+import EditableEvent from "./EditableEvent";
 
 export interface EventListProps {
   events: Event[];
+  deleteHandler: (id: string) => void;
+  editHandler: (event: Event) => void;
 }
 
 export default function EventList(props : EventListProps) {
@@ -16,10 +18,7 @@ export default function EventList(props : EventListProps) {
   const [showPastEvents, setShowPastEvents] = useState(false);
 
   return (
-    <>
-      <div className="flex flex-col w-full">
-        <span className="text-xl w-full border-b-2 border-black font-bold">Events</span>
-        
+      <div className="flex flex-col w-full">        
         <div>
           <input type="checkbox" className="text-sm font-bold" name="pastevents" onClick={() => setShowPastEvents(!showPastEvents)}/>
           <label> Show past events</label>
@@ -30,12 +29,10 @@ export default function EventList(props : EventListProps) {
             .filter((e) => !(Date.parse(e.date) < Date.now()) || showPastEvents)
             .sort((a,b) => (Date.parse(a.date) < Date.parse(b.date)) ? 1 : -1)
             .map((event,id) => (
-            <TimelineEvent key={id} {...event} />
+            <EditableEvent key={id} event={event} deleteHandler={props.deleteHandler} editHandler={props.editHandler} />
           ))}
         </div>
-        
       </div>
-    </>
   )
 
 }

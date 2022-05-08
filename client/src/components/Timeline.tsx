@@ -6,7 +6,6 @@ export type TimelineProps = {
 };
 
 export function Timeline({ events }: TimelineProps) {
-  events = events.filter(event => new Date(event.date).getTime() > Date.now());
   if (events.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full w-full">
