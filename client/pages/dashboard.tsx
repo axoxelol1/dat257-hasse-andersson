@@ -114,8 +114,8 @@ export default function Dashboard ({ events, hosts } : {hosts: Host[], events: E
           </div>
         </div>
       </div>
-      <Dialog className="fixed flex inset-0 z-50 bg-slate-200 bg-opacity-80 place-items-center justify-center" open={isOpen} onClose={() => setIsOpen(false)}>
-        <Dialog.Panel className="bg-white p-4 rounded-xl md:w-1/3 w-5/6">
+      <Dialog className="fixed flex inset-0 z-50 bg-gray-700 bg-opacity-80 place-items-center justify-center" open={isOpen} onClose={() => setIsOpen(false)}>
+        <Dialog.Panel className="bg-gray-100 p-4 rounded-xl md:w-1/3 w-5/6">
           <Dialog.Title>Editing event</Dialog.Title>
           <EventForm hosts={hosts} event={currentEvent} updateEventList={updateEventList} onSubmit={editEvent}/>
         </Dialog.Panel>
