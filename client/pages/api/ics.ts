@@ -11,5 +11,5 @@ export default async function ics(_: never, res: NextApiResponse) {
     res.status(500).send(error);
   }
 
-  res.status(200).send(value);
+  res.setHeader("Content-Type", "text/calendar").status(200).send(value);
 }
