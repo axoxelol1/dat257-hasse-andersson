@@ -8,6 +8,7 @@ import jwt, { JwtPayload } from "jsonwebtoken"
 export default async function verifyToken(req: NextApiRequest, res: NextApiResponse) {
   
   if (!process.env.JWT_SECRET) {
+    res.status(500).json({error: "Token encoding error"})
     throw new Error("Missing JWT secret in .env.local")
   }
 
@@ -20,6 +21,6 @@ export default async function verifyToken(req: NextApiRequest, res: NextApiRespo
     res.status(200).json({username: username})
   } catch(err) {
     console.log(err)
-    res.status(401).json({message: "User not logged in or session expired"})
+    res.status(401).json({error: "User not logged in or session expired"})
   }
 }
