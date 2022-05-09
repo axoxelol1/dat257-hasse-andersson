@@ -1,4 +1,4 @@
-# Hasse Andersson team reflection - Week 4 / Sprint 2
+# Hasse Andersson team reflection - Week 6 / Sprint 4
 
 ## Design decisions and product structure
 We’ve chosen to have three endpoints of data. We parse event pages from facebook and store in a database, fetch events from gasquens API, as well as offering the functionality for admin users to add and edit events manually in a dashboard page. This makes sure that the information displayed on the page is relevant, and the manual editing opportunities assures quality of the information.
