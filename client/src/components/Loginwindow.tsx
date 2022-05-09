@@ -2,18 +2,9 @@ import { useState } from "react"
 import bcrypt from "bcryptjs"
 import React from "react"
 import { User } from "../../lib/types"
+import { AuthService } from "../../lib/frontend_auth.service"
 
 export default function Loginwindow({users: users}: {users: User[]}) {
-
-  const userExists = (name: string): boolean => {
-    let userExists = false
-
-    users.forEach(u => {
-      if (u.username === name) userExists = true
-    })
-
-    return userExists
-  }
 
   const getHash = (name: string) => {
     let hash = ''
@@ -23,69 +14,26 @@ export default function Loginwindow({users: users}: {users: User[]}) {
     return hash
   }
 
+  const auth = new AuthService()
+
   const createUser = () => {
 
     const name: string = (document.getElementById("name") as HTMLInputElement).value
     const pw: string = (document.getElementById("pw") as HTMLInputElement).value
-
-    if (userExists(name)) {
-      console.log(`User ${name} already exists`)
-      return
-    }
 
     if (name === '' || pw === '') {
       console.log(`Input fields empty`)
       return
     }
 
-    bcrypt.genSalt(10, function(err, salt) {
-      bcrypt.hash(pw, salt, async function(err, hash) {
-
-        const response = await fetch("/api/auth/addUser", {
-          method: "POST",
-          body: JSON.stringify({
-              username: name,
-              salthash: hash,
-            })
-        });
-    
-        if (!response.ok) {
-          alert("Failed to add user:\n" + (await response.json()).error);
-          return;
-        } else {
-          alert("Added user. Please refresh")
-        }
-      })
-    })
+    auth.createUser(name, pw)
   }
   
   const login = () => {
     const name: string = (document.getElementById("name") as HTMLInputElement).value
     const pw: string = (document.getElementById("pw") as HTMLInputElement).value
 
-    if (userExists(name)) {
-      const hash = getHash(name)
-      bcrypt.compare(pw, hash, async function(err, res) {
-        if (res) {
-          alert("Hashes match, user should be logged in")
 
-          const response = await fetch("/api/auth/login", {
-            method: "POST",
-            body: JSON.stringify({
-              username: name,
-            })
-          });
-
-          const success = (await response.json()).success
-          console.log(success)
-
-        } else {
-          alert("Hashes do not match. Do not log in user")
-        }
-      });
-    } else {
-      alert("User does not exist")
-    }
   }
 
   const logout = async () => {

@@ -14,5 +14,5 @@ export default async function logout(req: NextApiRequest, res: NextApiResponse) 
   })
 
   res.setHeader("Set-Cookie", serialized)
-  res.json({success: true})
+  res.status(204)
 }

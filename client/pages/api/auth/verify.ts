@@ -8,8 +8,8 @@ import jwt, { JwtPayload } from "jsonwebtoken"
 export default async function verifyToken(req: NextApiRequest, res: NextApiResponse) {
   
   if (!process.env.JWT_SECRET) {
-    res.status(500).json({error: "Token encoding error"})
-    throw new Error("Missing JWT secret in .env.local")
+    res.status(500).send({ error: "Token encoding error" })
+    return
   }
 
   const { cookies } = req //Picks out the cookies from the request using object destructuring
@@ -19,8 +19,7 @@ export default async function verifyToken(req: NextApiRequest, res: NextApiRespo
     const payload = (jwt.verify(token, process.env.JWT_SECRET) as JwtPayload)
     const username = payload.username
     res.status(200).json({username: username})
-  } catch(err) {
-    console.log(err)
-    res.status(401).json({error: "User not logged in or session expired"})
+  } catch {
+    res.status(401).send({ error: "User not logged in or session expired" })
   }
 }

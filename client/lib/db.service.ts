@@ -33,15 +33,14 @@ export class DatabaseService {
     return result.map(this.serializeId);
   }
 
-  async getUsers(): Promise<User[]> {
+  async getUser(username: string): Promise<User> {
     const client = await clientPromise;
     const result = await client
       .db(DB_NAME)
       .collection<Omit<User, "id">>(USERS_COLLECTION_NAME)
-      .find()
-      .toArray();
-
-    return result.map(this.serializeId);
+      .find({username: username})
+      .toArray()[0];
+    return result;
   }
 
   async addUser(user: User) {
@@ -49,6 +48,7 @@ export class DatabaseService {
     const result = await client.db(DB_NAME).collection(USERS_COLLECTION_NAME).insertOne(user);
     return result;
   }
+
   /**
    * Function needs object of type event, where ID is required, but the form does not include it
    * Therefore send a dummy id to this function and it will be deleted and automatically added

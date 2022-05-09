@@ -9,7 +9,7 @@ import cookie from "cookie"
 export default async function createTokenAndCookie(req: NextApiRequest, res: NextApiResponse) {
   
   if (!process.env.JWT_SECRET) {
-    res.status(500).json({error: "Token encoding error"})
+    res.status(500).send({ error: "Token encoding error" })
     throw new Error("Missing JWT secret in .env.local")
   }
 
@@ -24,5 +24,5 @@ export default async function createTokenAndCookie(req: NextApiRequest, res: Nex
   })
 
   res.setHeader("Set-Cookie", serialized)
-  res.json({success: "true"})
+  res.status(204)
 }

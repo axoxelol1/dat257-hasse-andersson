@@ -18,7 +18,6 @@ export async function getServerSideProps() {
     props: {
       events: await new DataService().getEvents(),
       hosts: await new DatabaseService().getHosts(),
-      users: await new DatabaseService().getUsers() //I really don't think we should be retrieving all users... it seems wrong
     },
   };
 }
