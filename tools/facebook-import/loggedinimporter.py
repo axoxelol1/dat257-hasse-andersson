@@ -43,6 +43,16 @@ def parse_date(datestr):
         dateobj = datetime.strptime(datestr, "%Y-%m-%d %I %p")
         return(str(dateobj))
     try:
+        dateobj = datetime.strptime(datestr, "%a, %b %d, %Y AT %I:%M %p")
+        return(str(dateobj))
+    except ValueError:
+        pass
+    try:
+        dateobj = datetime.strptime(datestr, "%a, %b %d, %Y AT %I %p")
+        return(str(dateobj))
+    except ValueError:
+        pass
+    try:
         dateobj = datetime.strptime(datestr, "%a, %b %d AT %I %p")
         return(str(dateobj.replace(year=int(datetime.today().year))))
     except ValueError:
@@ -95,7 +105,7 @@ for event in upcoming_events:
     eventDict["link"] = unescape(name_tag["href"].strip())
     eventDict["date"] = parse_date(event.find("span", {"class": "d2edcug0 hpfvmrgz qv66sw1b c1et5uql b0tq1wua a8c37x1j fe6kdd0r mau55g9w c8b282yb keod5gw0 nxhoafnm aigsh9s9 tia6h79c iv3no6db e9vueds3 j5wam9gi lrazzd5p jdix4yx3 hzawbc8m"}).text.strip())
     host_location = event.find("span", {"class": "d2edcug0 hpfvmrgz qv66sw1b c1et5uql b0tq1wua a8c37x1j fe6kdd0r mau55g9w c8b282yb keod5gw0 nxhoafnm aigsh9s9 tia6h79c hrzyx87i a5q79mjw g1cxx5fr b1v8xokw oo9gr5id hzawbc8m"}).text.strip()
-    (host, location) = host_location.strip().split(" - ")
+    (host, location) = host_location.strip().rsplit(" - ", 1)
     eventDict["host"] = host.strip()
     eventDict["location"] = location.strip()
     eventDict["eventImageUrl"] = unescape(event.find("img", {"class": "k4urcfbm bixrwtb6 datstx6m q9uorilb"})["src"].strip())
