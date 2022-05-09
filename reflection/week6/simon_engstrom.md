@@ -1,4 +1,4 @@
-# Weekly reflection W3 - Simon Engström 
+# Weekly reflection W4 - Simon Engström 
 
 ## What do I want to learn or understand better? 
 This week I have done more frontend work like I wished for and I really feel like my skills improved from what I've done this week. I had to do some backend aswell and had to do some different things there aswell that I hadn't done before which I learned from aswell. All in all a really giving week. I think I'd still want to do more frontend work since I feel there is room to improve the site visually in a number of ways, where I can contribute.
