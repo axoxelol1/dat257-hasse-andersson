@@ -1,11 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-import { Event } from "../../lib/types";
+import Image from "next/image";
+import { Event, Host } from "../../lib/types";
 
 export type TimelineProps = {
   events: Event[];
+  hosts: Host[];
 };
 
-export function Timeline({ events }: TimelineProps) {
+export function Timeline({ events, hosts }: TimelineProps) {
   events = events.filter(event => new Date(event.date).getTime() > Date.now());
 
   if (events.length === 0) {
@@ -30,7 +32,6 @@ export function Timeline({ events }: TimelineProps) {
     groupedEvents.shift();
   }
 
-
   return (
     <div className="flex flex-col gap-8">
       <TimelineEventLarge {...bigEvent} />
@@ -41,7 +42,7 @@ export function Timeline({ events }: TimelineProps) {
           </h1>
           <div className="flex flex-col gap-2">
             {group.map((event) => (
-              <TimelineEvent key={event.id} {...event} />
+              <TimelineEvent key={event.id} event={event} host={hosts.find((h) => h.longName == event.host)} />
             ))}
           </div>
         </div>
@@ -65,8 +66,20 @@ function CalendarIcon({ date }: { date: Date }) {
   );
 }
 
-function TimelineEventLarge(event: Event) {
-  const { title, link, host, eventImageUrl } = event;
+function TimelineEventLarge(event : Event) {
+  
+  function getTimeIfExists() {
+    const date = new Date(event.date);
+    if (date.getHours() === 0 && date.getMinutes() === 0) {
+      return "";
+    } else {
+      return date.toLocaleString("sv", {
+        hour: "numeric",
+        minute: "numeric",
+      });
+    }
+  }
+  
   return (
     <div className="flex flex-col md:flex-row justify-between">
       <div className="flex flex-col">
@@ -78,27 +91,29 @@ function TimelineEventLarge(event: Event) {
               <a
                 className="flex flex-row place-items-center gap-2 font-bold"
                 target="_blank"
-                href={link.toString()}
+                href={event.link.toString()}
                 rel="noreferrer"
               >
-                <h1 className="text-4xl leading-none">{title}</h1>
+                <h1 className="text-4xl leading-none">{event.title}</h1>
               </a>
             </div>
-            <span className="text-base leading-none">{host}</span>
+            <span>{event.host}</span>
+            <span>{event.location ? (event.location + " 📌") : ""}</span>
+            <span>{getTimeIfExists()}</span>
           </div>
         </div>
       </div>
       <a
         className="flex flex-row place-items-center gap-2"
         target="_blank"
-        href={link.toString()}
+        href={event.link.toString()}
         rel="noreferrer"
       >
-        {eventImageUrl && (
+        {event.eventImageUrl && (
           <div className="relative md:h-72 h-auto w-full aspect-[3/2]">
             <img
               alt="Image for the event."
-              src={eventImageUrl}
+              src={event.eventImageUrl}
             />
           </div>
         )}
@@ -107,17 +122,42 @@ function TimelineEventLarge(event: Event) {
   );
 }
 
-export function TimelineEvent({ title, link, host }: Event) {
+interface TimelineEventProps {
+  event: Event;
+  host: Host;
+}
+
+export function TimelineEvent({ event, host }: TimelineEventProps) {
+
+  const style = {
+    'borderColor': host.color ? host.color : '#080808',
+  }
+
   return (
-    <a href={link.toString()} target="_blank" rel="noreferrer">
-      <div className="bg-white py-3 px-6 rounded-lg flex flex-row justify-between place-items-center">
+    <a href={event.link.toString()} target="_blank" rel="noreferrer">
+      <div style={style} className="bg-white py-3 px-6 rounded-lg flex flex-row justify-between place-items-center border-l-4">
         <div>
           <div className="mb-3">
-            <h1 className="text-2xl leading-none">{title}</h1>
+            <h1 className="text-2xl leading-none">{event.title}</h1>
           </div>
-          <p className="text-base leading-none">{host}</p>
+          <div className="flex flex-row place-items-center">
+            <Image 
+              src={"/img/CommittePics/"+host.shortName+".png"}
+              width={32}
+              height={32}
+              className="rounded-full"
+              alt="Host logo"
+            />
+            <p className="text-base leading-none ml-2">{host.longName}</p>
+          </div>
         </div>
-        <ExternalLinkIcon />
+        <div className="flex flex-col grow place-items-end px-2">
+          <span className="mb-3">{event.location ? (event.location + " 📌") : ""}</span>
+          <span>{event.date}</span>
+        </div>
+        <div className="shrink-0">
+          <ExternalLinkIcon />
+        </div>
       </div>
     </a>
   );
