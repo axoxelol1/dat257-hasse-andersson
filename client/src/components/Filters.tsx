@@ -1,19 +1,26 @@
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
+import { Host, Event } from "../../lib/types";
 
 /*
   A component that takes a list of events, then by selecting certain criteria it returns events matching those criteria.
   Currently only for filtering on specific hosts.
 */
 
-export default function Filters({eventSetter: setEvents, events: events, hosts: hosts}) {
+interface FiltersProps {
+  eventSetter: Dispatch<SetStateAction<Event[]>>,
+  events: Event[],
+  hosts: Host[],
+}
+
+export default function Filters(props: FiltersProps) {
   return (
     <div className="flex flex-row h-12 w-fit">
-      <HostFilter eventSetter={setEvents} events={[...events]} hosts={hosts}/> {/* Passes on all props */}
+      <HostFilter {...props} />
     </div>
   )
 }
 
-function HostFilter({eventSetter: setEvents, events: events, hosts: hosts}) {
+function HostFilter({eventSetter: setEvents, events: events, hosts: hosts}: FiltersProps) {
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedHosts, setSelectedHosts] = useState([])
