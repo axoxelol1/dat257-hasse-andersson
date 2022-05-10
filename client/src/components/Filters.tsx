@@ -15,7 +15,7 @@ export default function Filters({eventSetter: setEvents, events: events, hosts: 
 
 function HostFilter({eventSetter: setEvents, events: events, hosts: hosts}) {
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [selectedHosts, setSelectedHosts] = useState([])
   const [query, setQuery] = useState('')
   

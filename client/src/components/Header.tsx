@@ -3,21 +3,29 @@ import { Transition } from "@headlessui/react";
 import { Logotype } from "./Logotype";
 import Loginwindow from "./Loginwindow";
 import { Icon } from "@iconify/react";
+import { useRouter } from "next/router";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   function NavTab({link, label, icon}: {link: string, label: string, icon: string}) {
+
+    const router = useRouter();
+
+    const isActive = router.pathname === link;
+
     return (
-      <a href={link} className="flex justify-center items-center text-black hover:bg-gray-700 hover:text-white px-3 text-xl font-medium">
-        <Icon className="mr-2" icon={icon} height={24} width={24}/> {label}
-      </a>
+      <div className={(isActive ? "border-b-2 border-black" : "")+ " flex h-full"}>
+        <a href={link} className="flex justify-center items-center text-black hover:-translate-y-0.5 transition-transform px-3 text-xl font-medium ">
+          <Icon className="mr-2" icon={icon} height={24} width={24}/> {label}
+        </a>
+      </div>
     );
   }
 
   return (
     <div className="mb-4">
-      <nav className="border-b-2 border-black">
+      <nav>
         <div className="w-full px-4">
           <div className="flex items-center justify-between h-16">
             <div className="flex flex-row h-full items-center grow">
@@ -25,7 +33,7 @@ function Header() {
                 <Logotype/>
               </div>
               <div className="hidden h-full md:block grow">
-                <div className="ml-10 h-full flex space-x-4 place-content-end align-middle">
+                <div className="ml-10 h-full flex place-content-end align-middle">
                   <NavTab link={"/"} label={"Timeline"} icon={"octicon:home-16"}/>
                   <NavTab link={"/calendar"} label={"Calendar"} icon={"octicon:calendar-16"}/>
                   <NavTab link={"/dashboard"} label={"Dashboard"} icon={"octicon:table-16"}/>
