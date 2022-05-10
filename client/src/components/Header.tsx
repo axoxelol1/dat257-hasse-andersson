@@ -1,40 +1,35 @@
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
 import { Logotype } from "./Logotype";
+import Loginwindow from "./Loginwindow";
+import { Icon } from "@iconify/react";
 
-function Nav() {
+function Header() {
   const [isOpen, setIsOpen] = useState(false);
+
+  function NavTab({link, label, icon}: {link: string, label: string, icon: string}) {
+    return (
+      <a href={link} className="flex justify-center items-center text-black hover:bg-gray-700 hover:text-white px-3 text-xl font-medium">
+        <Icon className="mr-2" icon={icon} height={24} width={24}/> {label}
+      </a>
+    );
+  }
+
   return (
-    <div>
-      <nav className="bg-gray-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="mb-4">
+      <nav className="border-b-2 border-black">
+        <div className="w-full px-4">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
+            <div className="flex flex-row h-full items-center grow">
               <div className="flex-shrink-0">
                 <Logotype/>
               </div>
-              <div className="hidden md:block">
-                <div className="ml-10 flex items-baseline space-x-4">
-                  <a
-                    href="/"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Timeline
-                  </a>
-
-                  <a
-                    href="/calendar"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Calendar
-                  </a>
-
-                  <a
-                    href="/dashboard"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Dashboard
-                  </a>
+              <div className="hidden h-full md:block grow">
+                <div className="ml-10 h-full flex space-x-4 place-content-end align-middle">
+                  <NavTab link={"/"} label={"Timeline"} icon={"octicon:home-16"}/>
+                  <NavTab link={"/calendar"} label={"Calendar"} icon={"octicon:calendar-16"}/>
+                  <NavTab link={"/dashboard"} label={"Dashboard"} icon={"octicon:table-16"}/>
+                  <Loginwindow />
                 </div>
               </div>
             </div>
@@ -140,4 +135,4 @@ function Nav() {
   );
 }
 
-export default Nav;
+export default Header;
