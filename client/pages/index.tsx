@@ -41,7 +41,7 @@ export default function Index({
             events={events}
             hosts={hosts}
           />
-          <TimelineSearch events={displayedEvents} />
+          <TimelineSearch events={displayedEvents} hosts={hosts} />
           <div>
             <Loginwindow />
           </div>
