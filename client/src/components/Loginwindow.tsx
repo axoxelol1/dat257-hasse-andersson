@@ -2,7 +2,7 @@ import { useState } from "react"
 import bcrypt from "bcryptjs"
 import React from "react"
 import { User } from "../../lib/types"
-import { AuthService } from "../../lib/frontend_auth.service"
+import { AuthService } from "../../lib/auth.service"
 
 export default function Loginwindow({users: users}: {users: User[]}) {
 
@@ -33,7 +33,12 @@ export default function Loginwindow({users: users}: {users: User[]}) {
     const name: string = (document.getElementById("name") as HTMLInputElement).value
     const pw: string = (document.getElementById("pw") as HTMLInputElement).value
 
+    if (name === '' || pw === '') {
+      console.log(`Input fields empty`)
+      return
+    }
 
+    auth.login(name, pw)
   }
 
   const logout = async () => {

@@ -11,8 +11,7 @@ export class AuthService {
   async createUser(username: string, password: string) {
 
     if (await this.userExists(username)) {
-      //TODO throw error here that username doesnt exist
-      return
+      throw new Error("User already exists")
     }
 
     bcrypt.genSalt(10, function(err, salt) {
@@ -20,17 +19,14 @@ export class AuthService {
         const response = await fetch("/api/auth/addUser", {
           method: "POST",
           body: JSON.stringify({
-              username: username,
-              salthash: hash,
-            })
+            username: username,
+            salthash: hash,
+          })
         })
     
         if (!response.ok) {
-          alert("Failed to add user:\n" + (await response.json()).error)
-          return
-        } else {
-          alert("Added user. Please refresh")
-        }
+          throw new Error("Failed to add user")
+        } 
       })
     })
   }
@@ -54,14 +50,25 @@ export class AuthService {
         })
 
         if (!response.ok) {
-          //Throw error user login failed in api
-          return
-        } else {
-          //User logged in successfully.
+          throw new Error("Login failed")
         }
       } else {
         throw new Error("Passwords do not match")
       }
     })
+  }
+
+  async logout() {
+    await fetch("/api/auth/logout", {
+      method: "GET"
+    })
+  }
+
+  async verify(): Promise<string> {
+    const response = await fetch("/api/auth/verify", {
+      method: "GET"
+    })
+
+    return (await response.json()).username
   }
 }
