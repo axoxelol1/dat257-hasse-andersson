@@ -8,10 +8,12 @@
 
 import sys
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
+import calendar
+import time
 
 # This is for HTML chars that get escaped when saving the file.
 def unescape(s):
@@ -21,10 +23,25 @@ def unescape(s):
     s = s.replace("&amp;", "&")
     return s
 
+def nextDay(x):
+    today = datetime.today()
+    return(today + timedelta((x-today.weekday()) % 7))
+
 def parse_date(datestr):
     datestr = datestr.strip()
     if datestr.lower() == "happening now":
         return "now"
+    if datestr.lower().split()[-1] == "more": # Remove and x more
+        datestr = " ".join(datestr.lower().split()[:-3])
+    if datestr.lower()[:4] == "this":
+        datestr = datestr.lower()[5:].strip()
+        weekday = datestr.split()[0]
+        days = dict(zip(map(lambda x: x.lower(), calendar.day_name), range(7))); 
+        date = nextDay(days[weekday]).strftime("%Y-%m-%d")
+        time = " ".join(datestr.split()[-2:])
+        datestr = date + " " + time
+        dateobj = datetime.strptime(datestr, "%Y-%m-%d %I %p")
+        return(str(dateobj))
     try:
         dateobj = datetime.strptime(datestr, "%a, %b %d AT %I %p")
         return(str(dateobj.replace(year=int(datetime.today().year))))
@@ -42,6 +59,7 @@ def parse_date(datestr):
         return(str(dateobj.replace(year=int(datetime.today().year))))
     except ValueError:
         pass
+    raise ValueError("Unable to parse date")
 
 #Loads the .env.local file from the nextJS app.
 load_dotenv("../../client/.env.local")
@@ -110,8 +128,16 @@ for event in events:
         if already_registered:
             continue
     if len(list(collection.find(event))) == 0:
-        collection.insert_one(event)
-        inserted += 1
+        print("Do you want to insert: " + str(event) + "?")
+        while True:
+            userinput = input("Y/N: ")
+            if userinput.lower() == "y":
+                collection.insert_one(event)
+                inserted += 1
+                break
+            if userinput.lower() == "n":
+                break
+
 print("Total events: " + str(total_events))
 print("Events already in database: " + str(total_events-inserted))
 print("Events added: " + str(inserted))
