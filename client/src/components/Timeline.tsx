@@ -142,7 +142,7 @@ export function TimelineEvent({ event, host }: TimelineEventProps) {
           </div>
           <div className="flex flex-row place-items-center">
             <Image 
-              src={"/img/CommittePics/"+host.shortName+".png"}
+              src={"/img/CommittePics/"+host.shortName.toLowerCase()+".png"}
               width={32}
               height={32}
               className="rounded-full"
