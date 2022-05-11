@@ -5,19 +5,39 @@ import Loginwindow from "./Loginwindow";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
 
+/*
+  * This is the header component.
+  * It is used to display the logo and the navigation bar.
+  * It also contains the login window.
+*/
+
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [logInOpen, setLogInOpen] = useState(false);
 
   function NavTab({link, label, icon}: {link: string, label: string, icon: string}) {
-
     const router = useRouter();
-
     const isActive = router.pathname === link;
 
     return (
       <div className={(isActive ? "border-b-2 border-black" : "")+ " flex h-full"}>
         <a href={link} className="flex justify-center items-center text-black hover:-translate-y-0.5 transition-transform px-3 text-xl font-medium ">
           <Icon className="mr-2" icon={icon} height={24} width={24}/> {label}
+        </a>
+      </div>
+    );
+  }
+  
+  function MobileNavTab({link, label, icon}: {link: string, label: string, icon: string}) {
+    const router = useRouter();
+    const isActive = router.pathname === link;
+    
+    return (
+      <div className={"flex h-full"}>
+        <a href={link} className="flex justify-center items-center text-black hover:-translate-y-0.5 transition-transform px-3 text-xl font-medium ">
+          <Icon className="mr-2" icon={icon} height={24} width={24}/>
+          {label}
+          {isActive && <Icon className="ml-2" icon="octicon:dot-fill-16" height={24} width={24}/>}
         </a>
       </div>
     );
@@ -41,6 +61,7 @@ function Header() {
                 </div>
               </div>
             </div>
+            {/* Mobile below */}
             <div className="-mr-2 flex md:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -100,40 +121,26 @@ function Header() {
           {(ref) => (
             <div className="md:hidden" id="mobile-menu">
               <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a
-                  href="#"
-                  className="hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Dashboard
-                </a>
-
-                <a
-                  href="#"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Team
-                </a>
-
-                <a
-                  href="#"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Projects
-                </a>
-
-                <a
-                  href="#"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Calendar
-                </a>
-
-                <a
-                  href="#"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Reports
-                </a>
+                <MobileNavTab link={"/"} label={"Timeline"} icon={"octicon:home-16"}/>
+                <MobileNavTab link={"/calendar"} label={"Calendar"} icon={"octicon:calendar-16"}/>
+                <MobileNavTab link={"/dashboard"} label={"Dashboard"} icon={"octicon:table-16"}/>
+                <div>
+                  <button onClick={() => setLogInOpen(!logInOpen)} type="button" className="flex justify-center items-center text-black hover:-translate-y-0.5 transition-transform px-3 text-xl font-medium">
+                    {logInOpen ? (<Icon className="ml-2" icon="octicon:chevron-down-16" height={24} width={24}/>) : (<Icon className="ml-2" icon="octicon:chevron-right-16" height={24} width={24}/>)}
+                    Login
+                  </button>
+                  {logInOpen && (
+                    <div className="flex mx-6 flex-col">
+                      <p>Username</p>
+                      <input type="text" className="border border-gray-300 p-2 rounded-md" />
+                      <p>Password</p>
+                      <input type="password" className="border border-gray-300 p-2 rounded-md" />
+                      <button type="button" className="my-2 py-2 flex justify-center items-center text-white bg-gray-900 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <span>Login</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           )}
