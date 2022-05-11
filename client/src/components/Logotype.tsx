@@ -9,7 +9,7 @@ export function Logotype() {
         width={1079 / 12}
         height={315 / 12}
       />
-      <h1 className="text-3xl font-bold hidden lg:block">Vad händer på campus?</h1>
+      <h1 className="text-3xl font-bold hidden xl:block">Vad händer på campus?</h1>
     </div>
   );
 }
