@@ -40,6 +40,7 @@ export class DatabaseService {
       .collection<Omit<User, "id">>(USERS_COLLECTION_NAME)
       .find({username: username})
       .toArray()[0];
+    console.log(result + " från databasen")
     return result;
   }
 

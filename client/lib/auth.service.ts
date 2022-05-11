@@ -1,11 +1,23 @@
 import bcrypt from "bcryptjs"
-import { DatabaseService } from "./db.service"
+import { User } from "./types"
 
 export class AuthService {
 
   private async userExists(username: string): Promise<boolean> {
-    const db = new DatabaseService()
-    return !!(await db.getUser(username))
+    console.log("ASSÅ HALLÅÅÅÅ")
+    console.log(!!this.getUser(username) + " hejhej")
+    return !!this.getUser(username)
+  }
+
+  private async getUser(username: string): Promise<User> {
+    const response = await fetch("/api/auth/getUser", {
+      method: "POST",
+      body: JSON.stringify({
+        username: username
+      })
+    })
+    if (!response.ok) return null
+    else return (await response.json()).user
   }
 
   async createUser(username: string, password: string) {
@@ -33,29 +45,29 @@ export class AuthService {
 
   async login(username: string, password: string) {
 
-    if (!(await this.userExists(username))) {
+    this.userExists(username)
+
+    if (!(this.userExists(username))) {
       throw new Error("User does not exists")
-    }
-
-    const db = new DatabaseService()
-
-    const hash = (await db.getUser(username)).salthash
-    bcrypt.compare(password, hash, async function(err, res) {
-      if (res) {
-        const response = await fetch("/api/auth/login", {
-          method: "POST",
-          body: JSON.stringify({
-            username: username,
+    } else {
+      const hash = (await this.getUser(username)).salthash
+      bcrypt.compare(password, hash, async function(err, res) {
+        if (res) {
+          const response = await fetch("/api/auth/login", {
+            method: "POST",
+            body: JSON.stringify({
+              username: username,
+            })
           })
-        })
-
-        if (!response.ok) {
-          throw new Error("Login failed")
+  
+          if (!response.ok) {
+            throw new Error("Login failed")
+          }
+        } else {
+          throw new Error("Passwords do not match")
         }
-      } else {
-        throw new Error("Passwords do not match")
-      }
-    })
+      })
+    }
   }
 
   async logout() {
