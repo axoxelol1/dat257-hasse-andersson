@@ -3,16 +3,9 @@ import bcrypt from "bcryptjs"
 import React from "react"
 import { User } from "../../lib/types"
 import { AuthService } from "../../lib/auth.service"
+import { Db } from "mongodb"
 
 export default function Loginwindow({users: users}: {users: User[]}) {
-
-  const getHash = (name: string) => {
-    let hash = ''
-    users.forEach(u => {
-      if (u.username === name) hash = u.salthash
-    })
-    return hash
-  }
 
   const auth = new AuthService()
 
@@ -42,9 +35,7 @@ export default function Loginwindow({users: users}: {users: User[]}) {
   }
 
   const logout = async () => {
-    await fetch("/api/auth/logout", {
-      method: "GET"
-    })
+    auth.logout()
   }
 
 

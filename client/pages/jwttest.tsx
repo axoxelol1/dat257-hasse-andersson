@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { AuthService } from "../lib/auth.service"
 
 /*
   Simple page to show that users can be verified as logged in
@@ -9,13 +10,11 @@ export default function JWTTest() {
 
   const verifyUser = async () => {
 
-    const response = await fetch("/api/auth/verify", {
-      method: "GET"
-    })
+    const auth = new AuthService()
   
-    const user = (await response.json()).username
-    if (user) {
-      setLoggedInUser(user)
+    const username = await auth.verify()
+    if (username) {
+      setLoggedInUser(username)
     } else {
       setLoggedInUser("No user logged in or session expired")
     }
