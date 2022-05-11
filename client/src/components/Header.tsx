@@ -44,7 +44,7 @@ function Header() {
   }
 
   return (
-    <div className="mb-4">
+    <div className="mb-4 w-full">
       <nav>
         <div className="w-full px-4">
           <div className="flex items-center justify-between h-16">
