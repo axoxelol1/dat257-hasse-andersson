@@ -1,6 +1,6 @@
 import Searchbar from "./Searchbar";
 import { Timeline } from "./Timeline";
-import { Event } from "../../lib/types";
+import { Event, Host } from "../../lib/types";
 import { ChangeEvent, useEffect, useState } from "react";
 import Fuse from "fuse.js"
 
@@ -12,9 +12,10 @@ import Fuse from "fuse.js"
 
 export type TimelineSearchProps = {
   events: Event[];
+  hosts: Host[];
 };
 
-export default function TimelineSearch({events}: TimelineSearchProps) {
+export default function TimelineSearch({events, hosts}: TimelineSearchProps) {
   const [filteredEvents, setFilteredEvents] = useState(events);
   const [query, setQuery] = useState("");
 
@@ -40,7 +41,7 @@ export default function TimelineSearch({events}: TimelineSearchProps) {
   return (
     <div className="grow">
       <Searchbar searchHandler={searchHandler}/>
-      <Timeline events={filteredEvents} />
+      <Timeline events={filteredEvents} hosts={hosts}/>
     </div>
     );
 }
