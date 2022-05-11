@@ -126,7 +126,7 @@ function Header() {
                 <MobileNavTab link={"/dashboard"} label={"Dashboard"} icon={"octicon:table-16"}/>
                 <div>
                   <button onClick={() => setLogInOpen(!logInOpen)} type="button" className="flex justify-center items-center text-black hover:-translate-y-0.5 transition-transform px-3 text-xl font-medium">
-                    {logInOpen ? (<Icon className="ml-2" icon="octicon:chevron-down-16" height={24} width={24}/>) : (<Icon className="ml-2" icon="octicon:chevron-right-16" height={24} width={24}/>)}
+                    {logInOpen ? (<Icon className="mr-2" icon="octicon:chevron-down-16" height={24} width={24}/>) : (<Icon className="mr-2" icon="octicon:chevron-right-16" height={24} width={24}/>)}
                     Login
                   </button>
                   {logInOpen && (
