@@ -21,14 +21,9 @@ export async function getServerSideProps() {
   };
 }
 
-export default function Index({
-  events,
-  hosts,
-}: {
-  events: Event[];
-  hosts: Host[];
-}) {
-  const [displayedEvents, setDisplayedEvents] = useState([...events]);
+export default function Index({ events, hosts }: { events: Event[], hosts: Host[] }) {
+
+  const [displayedEvents, setDisplayedEvents] = useState([...events])
 
   return (
     <div>
