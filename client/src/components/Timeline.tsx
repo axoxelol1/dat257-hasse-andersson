@@ -104,16 +104,16 @@ function TimelineEventLarge(event : Event) {
         </div>
       </div>
       <a
-        className="flex flex-row place-items-center gap-2"
+        className="flex flex-row place-items-center justify-center gap-2"
         target="_blank"
         href={event.link.toString()}
         rel="noreferrer"
       >
         {event.eventImageUrl && (
-          <div className="relative md:h-72 h-auto w-full aspect-[3/2]">
+          <div className="relative max-w-[60%]">
             <img
               alt="Image for the event."
-              src={event.eventImageUrl}
+              src={event.eventImageUrl ? event.eventImageUrl : "/img/chalmers.png"}
             />
           </div>
         )}
