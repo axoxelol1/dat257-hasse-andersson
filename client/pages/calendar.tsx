@@ -2,9 +2,8 @@ import { DataService } from '../lib/data.service';
 import { Event, Host } from '../lib/types'
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import Image from 'next/image';
-import Link from 'next/link';
 import { DatabaseService } from '../lib/db.service';
+import Header from '../src/components/Header';
 
 /**
  * This function runs in the backend and is used to fetch the events from the data sources.
@@ -30,21 +29,7 @@ export default function Calendar({ events, hosts }: { events: Event[], hosts: Ho
     
   return (
     <>
-      <div className='mx-2 my-2'>
-        <Link href='/' passHref>
-          <div className='inline-flex flex-row place-items-center cursor-pointer'>
-            <div className='h-16 w-16 relative'>
-              <Image 
-                src="/img/VHPC (1).png" 
-                alt="Site logo"
-                layout="fill"
-                objectFit='cover' 
-              />
-            </div>
-            <span className='text-2xl'>Vad händer på campus?</span>
-          </div>
-        </Link>
-      </div>
+      <Header/>
       <div className='mx-6'>
         <FullCalendar
           plugins={[ dayGridPlugin ]}

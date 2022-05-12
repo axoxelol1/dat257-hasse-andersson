@@ -7,8 +7,8 @@ import EventList from "../src/components/EventList";
 import { Event, Host } from "../lib/types";
 import { DatabaseService } from "../lib/db.service";
 import { useState } from "react";
-import { Logotype } from "../src/components/Logotype";
 import { Dialog } from "@headlessui/react";
+import Header from "../src/components/Header";
 
 export async function getServerSideProps() {
   return {
@@ -96,9 +96,9 @@ export default function Dashboard ({ events, hosts } : {hosts: Host[], events: E
 
   return (
     <div>
+      <Header/>
       <div className="grid place-items-center">
-        <div className="p-8 max-w-screen-xl w-full">
-          <Logotype/>
+        <div className="max-w-screen-xl w-full">
           <div className="flex flex-col md:flex-row w-full gap-4 mt-6">
 
             <div className="md:w-1/3 h-full w-full">
