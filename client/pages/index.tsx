@@ -1,5 +1,5 @@
 import { DataService } from "../lib/data.service";
-import { Event, Host, User } from "../lib/types";
+import { Event, Host } from "../lib/types";
 import TimelineSearch from "../src/components/TimelineSearch";
 import Filters from "../src/components/Filters";
 import { useState } from "react";
@@ -22,7 +22,7 @@ export async function getServerSideProps() {
   };
 }
 
-export default function Index({ events, hosts, users }: { events: Event[], hosts: Host[], users: User[] }) {
+export default function Index({ events, hosts }: { events: Event[], hosts: Host[] }) {
 
   const [displayedEvents, setDisplayedEvents] = useState([...events])
 
@@ -38,7 +38,7 @@ export default function Index({ events, hosts, users }: { events: Event[], hosts
           />
           <TimelineSearch events={displayedEvents} hosts={hosts} />
           <div>
-            <Loginwindow users={users}/>
+            <Loginwindow />
           </div>
         </div>
       </div>
