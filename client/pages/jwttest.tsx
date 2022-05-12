@@ -11,8 +11,9 @@ export default function JWTTest() {
   const verifyUser = async () => {
 
     const auth = new AuthService()
-  
     const username = await auth.verify()
+    console.log(username)
+    
     if (username) {
       setLoggedInUser(username)
     } else {

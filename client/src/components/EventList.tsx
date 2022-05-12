@@ -9,7 +9,7 @@ import EditableEvent from "./EditableEvent";
 
 export interface EventListProps {
   events: Event[];
-  deleteHandler: (id: string) => void;
+  deleteHandler: (id: string, host: string) => void;
   editHandler: (event: Event) => void;
 }
 

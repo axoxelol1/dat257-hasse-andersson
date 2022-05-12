@@ -6,20 +6,19 @@ import EventForm from "../src/components/EventForm";
 import EventList from "../src/components/EventList";
 import { Event, Host } from "../lib/types";
 import { DatabaseService } from "../lib/db.service";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import Header from "../src/components/Header";
 
 export async function getServerSideProps() {
   return {
     props: {
-      events: await new DatabaseService().getEvents(),
       hosts: await new DatabaseService().getHosts()
     },
   };
 }
 
-export default function Dashboard ({ events, hosts } : {hosts: Host[], events: Event[]}) {
+export default function Dashboard ({ hosts } : {hosts: Host[]}) {
   
   const defaultEvent: Event = {
     id: "",
@@ -29,22 +28,23 @@ export default function Dashboard ({ events, hosts } : {hosts: Host[], events: E
     link: ""
   }
   
-  const [eventList, setEventList] = useState(events);
+  const [eventList, setEventList] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [currentEvent, setCurrentEvent] = useState<Event>(defaultEvent);
   
   async function updateEventList() {
     const result = await fetch("/api/events/getall");
-    const newEvents : Event[] = await result.json();
+    const newEvents: Event[] = await result.json();
 
     setEventList(newEvents);
   }
 
-  async function deleteEvent(id: string) {
+  async function deleteEvent(id: string, host: string) {
     await fetch("/api/events/delete", {
       method: "POST",
       body: JSON.stringify({
         id: id,
+        host: host,
       }),
     });
 
@@ -93,6 +93,11 @@ export default function Dashboard ({ events, hosts } : {hosts: Host[], events: E
     setIsOpen(false);
     return response;
   }
+
+  useEffect(() => {
+    console.log("updateEventList")
+    updateEventList()
+  }, [])
 
   return (
     <div>
