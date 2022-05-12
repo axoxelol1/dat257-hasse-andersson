@@ -8,6 +8,7 @@ export default function Loginwindow() {
 
   const auth = new AuthService()
 
+  /*
   const addUser = () => {
 
     const name: string = (document.getElementById("name") as HTMLInputElement).value
@@ -20,6 +21,7 @@ export default function Loginwindow() {
 
     auth.addUser(name, pw)
   }
+  */
   
   const login = () => {
     const name: string = (document.getElementById("name") as HTMLInputElement).value
@@ -33,10 +35,11 @@ export default function Loginwindow() {
     auth.login(name, pw)
   }
 
+  /*
   const logout = async () => {
     auth.logout()
   }
-
+  */
 
   const [isOpen, setIsOpen] = useState(false);
 
