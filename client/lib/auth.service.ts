@@ -20,6 +20,10 @@ export class AuthService {
    */
   async createUser(username: string, password: string): Promise<string> {
 
+    if (!(username && password)) {
+      return "Error: Fields empty"
+    }
+
     const hash = this.hashPassword(username, password)
  
     const response = await fetch("/api/auth/addUser", {
@@ -33,7 +37,7 @@ export class AuthService {
       })
     })
 
-    if (!response.ok) {
+    if (response.ok) {
       return "Error: " + (await response.json()).error
     } else {
       return (await response.json()).message
@@ -47,6 +51,10 @@ export class AuthService {
    * @returns message of how to it went
    */
   async login(username: string, password: string): Promise<string> {
+
+    if (!(username && password)) {
+      return "Error: Fields empty"
+    }
 
     const hash = this.hashPassword(username, password)
 

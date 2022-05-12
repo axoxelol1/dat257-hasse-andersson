@@ -33,7 +33,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
   const hash = user.salthash
   bcrypt.compare(clientHash, hash, async function(err, response) {
     if (!response) {
-      res.status(400).send({ error: "Wrong password" })
+      res.status(403).send({ error: "Wrong password" })
       return
     } else {
 
