@@ -36,7 +36,7 @@ export default function Index({ events, hosts, users }: { events: Event[], hosts
             events={events}
             hosts={hosts}
           />
-          <TimelineSearch events={displayedEvents} />
+          <TimelineSearch events={displayedEvents} hosts={hosts} />
           <div>
             <Loginwindow users={users}/>
           </div>
