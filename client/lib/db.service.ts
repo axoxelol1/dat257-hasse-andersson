@@ -39,9 +39,8 @@ export class DatabaseService {
       .db(DB_NAME)
       .collection<Omit<User, "id">>(USERS_COLLECTION_NAME)
       .find({username: username})
-      .toArray()[0];
-    console.log(result + " från databasen")
-    return result;
+      .toArray()
+    return result[0]
   }
 
   async addUser(user: User) {

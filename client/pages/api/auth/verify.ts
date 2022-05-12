@@ -8,7 +8,7 @@ import jwt, { JwtPayload } from "jsonwebtoken"
 export default async function verifyToken(req: NextApiRequest, res: NextApiResponse) {
   
   if (!process.env.JWT_SECRET) {
-    res.status(500).send({ error: "Token encoding error" })
+    res.status(503).send({ error: "Token encoding error" })
     return
   }
 

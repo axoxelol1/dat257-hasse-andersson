@@ -1,81 +1,86 @@
-import bcrypt from "bcryptjs"
-import { User } from "./types"
+import sha256 from "crypto-js/sha256"
 
 export class AuthService {
 
-  private async userExists(username: string): Promise<boolean> {
-    console.log("ASSÅ HALLÅÅÅÅ")
-    console.log(!!this.getUser(username) + " hejhej")
-    return !!this.getUser(username)
+  /* 
+    Hash username and password together using SHA256
+    Not really necessary since HTTPS protects passwords in transport
+    but the backend will then not know the users plain text password
+    Username appended as a sort of salt
+  */ 
+  private hashPassword(username: string, password: string): string {
+    return sha256(password + username).toString()
   }
 
-  private async getUser(username: string): Promise<User> {
-    const response = await fetch("/api/auth/getUser", {
+  /**
+   * Adds user to database
+   * @param username username
+   * @param password password
+   * @returns message of how it went
+   */
+  async createUser(username: string, password: string): Promise<string> {
+
+    const hash = this.hashPassword(username, password)
+ 
+    const response = await fetch("/api/auth/addUser", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
-        username: username
+        username: username,
+        hashedPassword: hash,
       })
     })
-    if (!response.ok) return null
-    else return (await response.json()).user
-  }
 
-  async createUser(username: string, password: string) {
-
-    if (await this.userExists(username)) {
-      throw new Error("User already exists")
-    }
-
-    bcrypt.genSalt(10, function(err, salt) {
-      bcrypt.hash(password, salt, async function(err, hash) {
-        const response = await fetch("/api/auth/addUser", {
-          method: "POST",
-          body: JSON.stringify({
-            username: username,
-            salthash: hash,
-          })
-        })
-    
-        if (!response.ok) {
-          throw new Error("Failed to add user")
-        } 
-      })
-    })
-  }
-
-  async login(username: string, password: string) {
-
-    this.userExists(username)
-
-    if (!(this.userExists(username))) {
-      throw new Error("User does not exists")
+    if (!response.ok) {
+      return "Error: " + (await response.json()).error
     } else {
-      const hash = (await this.getUser(username)).salthash
-      bcrypt.compare(password, hash, async function(err, res) {
-        if (res) {
-          const response = await fetch("/api/auth/login", {
-            method: "POST",
-            body: JSON.stringify({
-              username: username,
-            })
-          })
-  
-          if (!response.ok) {
-            throw new Error("Login failed")
-          }
-        } else {
-          throw new Error("Passwords do not match")
-        }
-      })
+      return (await response.json()).message
     }
   }
 
+  /**
+   * Logs user in
+   * @param username username
+   * @param password password
+   * @returns message of how to it went
+   */
+  async login(username: string, password: string): Promise<string> {
+
+    const hash = this.hashPassword(username, password)
+
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: username,
+        hashedPassword: hash,
+      })
+    })
+
+    if (!response.ok) {
+      return "Error: " + (await response.json()).error
+    } else {
+      return (await response.json()).message
+    }
+  }
+
+  /**
+   * Logs the user out by removing the authorization cookie
+   */
   async logout() {
     await fetch("/api/auth/logout", {
       method: "GET"
     })
   }
 
+  /**
+   * Validates JWT in cookies against secret key
+   * @returns username of logged in user if it exists
+   */
   async verify(): Promise<string> {
     const response = await fetch("/api/auth/verify", {
       method: "GET"

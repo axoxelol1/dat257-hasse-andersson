@@ -18,7 +18,6 @@ export default function JWTTest() {
     } else {
       setLoggedInUser("No user logged in or session expired")
     }
-
   } 
 
   return (

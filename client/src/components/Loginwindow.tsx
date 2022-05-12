@@ -1,9 +1,7 @@
 import { useState } from "react"
-import bcrypt from "bcryptjs"
 import React from "react"
 import { User } from "../../lib/types"
 import { AuthService } from "../../lib/auth.service"
-import { Db } from "mongodb"
 
 export default function Loginwindow({users: users}: {users: User[]}) {
 
