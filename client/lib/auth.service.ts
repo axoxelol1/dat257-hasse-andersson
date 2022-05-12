@@ -18,7 +18,7 @@ export class AuthService {
    * @param password password
    * @returns message of how it went
    */
-  async createUser(username: string, password: string): Promise<string> {
+  async addUser(username: string, password: string): Promise<string> {
 
     if (!(username && password)) {
       return "Error: Fields empty"
