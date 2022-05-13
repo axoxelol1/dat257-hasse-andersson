@@ -1,3 +1,7 @@
+/**
+ * This component is used to list editable events in the dashboard
+ * Needs handlers for delete and edit buttons, aswell as the event itself
+ */
 
 import { Event } from "../../lib/types";
 import { Icon } from '@iconify/react';
