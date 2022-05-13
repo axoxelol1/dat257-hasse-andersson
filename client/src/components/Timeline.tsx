@@ -110,7 +110,7 @@ function TimelineEventLarge(event : Event) {
         rel="noreferrer"
       >
         {event.eventImageUrl && (
-          <div className="relative max-w-[60%]">
+          <div className="relative max-w-[60%] md:invisible lg:visible">
             <img
               alt="Image for the event."
               src={event.eventImageUrl ? event.eventImageUrl : "/img/chalmers.png"}
