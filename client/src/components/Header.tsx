@@ -4,6 +4,7 @@ import { Logotype } from "./Logotype";
 import LargeLoginwindow from "./LargeLoginwindow";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
+import MobileLogin from "./MobileLogin";
 
 /*
   * This is the header component.
@@ -124,23 +125,7 @@ function Header() {
                 <MobileNavTab link={"/"} label={"Timeline"} icon={"octicon:home-16"}/>
                 <MobileNavTab link={"/calendar"} label={"Calendar"} icon={"octicon:calendar-16"}/>
                 <MobileNavTab link={"/dashboard"} label={"Dashboard"} icon={"octicon:table-16"}/>
-                <div>
-                  <button onClick={() => setLogInOpen(!logInOpen)} type="button" className="flex justify-center items-center text-black hover:-translate-y-0.5 transition-transform px-3 text-xl font-medium">
-                    {logInOpen ? (<Icon className="mr-2" icon="octicon:chevron-down-16" height={24} width={24}/>) : (<Icon className="mr-2" icon="octicon:chevron-right-16" height={24} width={24}/>)}
-                    Login
-                  </button>
-                  {logInOpen && (
-                    <div className="flex mx-6 flex-col">
-                      <p>Username</p>
-                      <input type="text" className="border border-gray-300 p-2 rounded-md" />
-                      <p>Password</p>
-                      <input type="password" className="border border-gray-300 p-2 rounded-md" />
-                      <button type="button" className="my-2 py-2 flex justify-center items-center text-white bg-gray-900 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                        <span>Login</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
+                <MobileLogin/>
               </div>
             </div>
           )}
