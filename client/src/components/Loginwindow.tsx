@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import React from "react"
 import { AuthService } from "../../lib/auth.service"
 import { Icon } from "@iconify/react"
@@ -7,19 +7,6 @@ import { Icon } from "@iconify/react"
 export default function Loginwindow() {
 
   const auth = new AuthService()
-
-  const addUser = () => {
-
-    const name: string = (document.getElementById("name") as HTMLInputElement).value
-    const pw: string = (document.getElementById("pw") as HTMLInputElement).value
-
-    if (name === '' || pw === '') {
-      console.log(`Input fields empty`)
-      return
-    }
-
-    auth.addUser(name, pw)
-  }
 
   const login = () => {
     const name: string = (document.getElementById("name") as HTMLInputElement).value
@@ -31,15 +18,21 @@ export default function Loginwindow() {
     }
 
     auth.login(name, pw)
+    auth.verify().then(setLoggedInUser)
   }
 
-  /*
   const logout = async () => {
     auth.logout()
+    setLoggedInUser(null)
   }
-  */
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  useEffect(() => {
+    auth.verify().then(setLoggedInUser)
+  }, [loggedInUser])
 
   return (
     <div className="flex h-full">
@@ -48,28 +41,33 @@ export default function Loginwindow() {
         <span className="font-medium text-xl">Login</span>
       </button>
       {isOpen && (
-        <div className="absolute right-4 top-20 w-64 h-64 bg-slate-300 border-zinc-700 border-2">
-          <div className="font-bold m-4">
-            Login to your profile
-          </div>
-          <div className="m-4">
-            <p> Username: </p>
-            <input className="rounded-md" id="name" type={"email"}></input>
-          </div>
+        <div className="absolute right-4 top-20 w-64 bg-gray-200 p-4 flex flex-col gap-3 z-50">
+          {loggedInUser ? (
+            <>
+              <div>
+                Logged in as <span className="font-bold">{loggedInUser}</span>
+              </div>
+              <button onClick={logout} className=" rounded-md px-2 py-1 border-2 border-black">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <div className="">
+                <p> Username: </p>
+                <input className="rounded-md" id="name" type={"email"}></input>
+              </div>
 
-          <div className="m-4 items-center">
-            <p>Password: </p>
-            <input className="rounded-md" id="pw" type={"password"}></input>
-          </div>
+              <div className="">
+                <p>Password: </p>
+                <input className="rounded-md w-auto" id="pw" type={"password"}></input>
+              </div>
+              <button onClick={login} className="rounded-md px-2 py-1 border-2 border-black">
+                Login
+              </button>
+            </>
+          )}
 
-          <div className="w-full flex flex-row justify-evenly">
-            <button onClick={addUser} className="py-1 px-3 rounded-md m-4 border-2 border-zinc-800 ">
-              Add user
-            </button>
-            <button onClick={login} className="py-1 px-3 rounded-md m-4 border-2 border-zinc-800 ">
-              Login
-            </button>
-          </div>
         </div>
       )}
     </div>
