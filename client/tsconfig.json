@@ -22,8 +22,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", 
-    "lib/mongodb.ts", "src/components/SlideShow.js"],
+    "**/*.tsx"
+  ],
   "exclude": [
     "node_modules"
   ]
