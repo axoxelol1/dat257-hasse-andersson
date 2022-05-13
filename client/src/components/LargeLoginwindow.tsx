@@ -3,10 +3,10 @@ import React from "react"
 import { AuthService } from "../../lib/auth.service"
 import { Icon } from "@iconify/react"
 
+const auth = new AuthService()
 
 export default function LargeLoginwindow() {
 
-  const auth = new AuthService()
 
   const login = async () => {
     const name: string = (document.getElementById("name") as HTMLInputElement).value
@@ -38,7 +38,7 @@ export default function LargeLoginwindow() {
 
   useEffect(() => {
     auth.verify().then(setLoggedInUser)
-  }, [auth, loggedInUser])
+  }, [loggedInUser])
   
 
   return (
