@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
 import { Logotype } from "./Logotype";
-import Loginwindow from "./Loginwindow";
+import LargeLoginwindow from "./LargeLoginwindow";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
 
@@ -57,7 +57,7 @@ function Header() {
                   <NavTab link={"/"} label={"Timeline"} icon={"octicon:home-16"}/>
                   <NavTab link={"/calendar"} label={"Calendar"} icon={"octicon:calendar-16"}/>
                   <NavTab link={"/dashboard"} label={"Dashboard"} icon={"octicon:table-16"}/>
-                  <Loginwindow />
+                  <LargeLoginwindow />
                 </div>
               </div>
             </div>

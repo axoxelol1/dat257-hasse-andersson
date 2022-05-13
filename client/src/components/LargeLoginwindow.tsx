@@ -4,7 +4,7 @@ import { AuthService } from "../../lib/auth.service"
 import { Icon } from "@iconify/react"
 
 
-export default function Loginwindow() {
+export default function LargeLoginwindow() {
 
   const auth = new AuthService()
 
