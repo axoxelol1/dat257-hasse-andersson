@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx", 
-    "lib/mongodb.ts"],
+    "lib/mongodb.ts", "src/components/SlideShow.js"],
   "exclude": [
     "node_modules"
   ]
