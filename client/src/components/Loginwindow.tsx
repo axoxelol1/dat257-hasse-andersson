@@ -8,31 +8,38 @@ export default function Loginwindow() {
 
   const auth = new AuthService()
 
-  const login = () => {
+  const login = async () => {
     const name: string = (document.getElementById("name") as HTMLInputElement).value
     const pw: string = (document.getElementById("pw") as HTMLInputElement).value
 
     if (name === '' || pw === '') {
-      console.log(`Input fields empty`)
-      return
+      setErrorMessage("Please fill in all fields");
+      return;
+    } else {
+      setErrorMessage("");
     }
 
-    auth.login(name, pw)
-    auth.verify().then(setLoggedInUser)
+    await auth.login(name, pw)
+    const user = await auth.verify()
+    if (!user) {
+      setErrorMessage("Wrong username or password");
+    }
+    setLoggedInUser(user)
   }
 
   const logout = async () => {
-    auth.logout()
-    setLoggedInUser(null)
+    await auth.logout();
+    setLoggedInUser(null);
   }
 
   const [isOpen, setIsOpen] = useState(false);
-
+  const [errorMessage, setErrorMessage] = useState("");
   const [loggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(() => {
     auth.verify().then(setLoggedInUser)
-  }, [loggedInUser])
+  }, [auth, loggedInUser])
+  
 
   return (
     <div className="flex h-full">
@@ -61,6 +68,9 @@ export default function Loginwindow() {
               <div className="">
                 <p>Password: </p>
                 <input className="rounded-md w-auto" id="pw" type={"password"}></input>
+              </div>
+              <div className="text-red-500 text-xs italic">
+                {errorMessage}
               </div>
               <button onClick={login} className="rounded-md px-2 py-1 border-2 border-black">
                 Login
