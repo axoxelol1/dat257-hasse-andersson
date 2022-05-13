@@ -135,12 +135,12 @@ export function TimelineEvent({ event, host }: TimelineEventProps) {
 
   return (
     <a href={event.link.toString()} target="_blank" rel="noreferrer">
-      <div style={style} className="bg-white py-3 px-6 rounded-lg flex flex-row justify-between place-items-center border-l-4">
-        <div>
-          <div className="mb-3">
+      <div style={style} className="bg-white py-3 px-6 rounded-lg flex flex-col sm:flex-row gap-y-2 justify-between place-items-center border-l-4">
+        <div className="flex flex-col place-items-center gap-y-2 sm:place-items-start">
+          <div className="sm:mb-3 text-center sm:text-left">
             <h1 className="text-2xl leading-none">{event.title}</h1>
           </div>
-          <div className="flex flex-row place-items-center">
+          <div className="flex flex-row place-items-center sm:justify-start justify-center">
             <Image 
               src={"/img/CommittePics/"+host.shortName.toLowerCase()+".png"}
               width={32}
@@ -151,8 +151,8 @@ export function TimelineEvent({ event, host }: TimelineEventProps) {
             <p className="text-base leading-none ml-2">{host.longName}</p>
           </div>
         </div>
-        <div className="flex flex-col grow place-items-end px-2">
-          <span className="mb-3">{event.location ? (event.location + " 📌") : ""}</span>
+        <div className="flex flex-col grow place-items-center sm:place-items-end px-2 gap-y-2">
+          <span className="">{event.location ? (event.location + " 📌") : ""}</span>
           <span>{event.date}</span>
         </div>
         <div className="shrink-0">
