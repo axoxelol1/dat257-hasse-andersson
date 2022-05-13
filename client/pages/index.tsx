@@ -5,6 +5,7 @@ import Filters from "../src/components/Filters";
 import { useState } from "react";
 import { DatabaseService } from "../lib/db.service";
 import Loginwindow from "../src/components/Loginwindow";
+import BackgroundImage from "../src/components/BackgroundImage";
 import { Page } from "../src/components/Page";
 import { Logotype } from "../src/components/Logotype";
 import '@fullcalendar/common/main.css'; // @fullcalendar/react imports @fullcalendar/common
@@ -32,6 +33,12 @@ export default function Index({
   const [displayedEvents, setDisplayedEvents] = useState([...events]);
 
   return (
+
+    <>
+    
+    <div className="bg-[url('/img/IMG_3063.jpg')] blur-sm w-screen h-screen fixed bg-center scale-110 -z-20 opacity-90">
+    </div>
+
     <Page>
       <div className="max-w-screen-xl w-full">
         <Logotype />
@@ -48,5 +55,13 @@ export default function Index({
         </div>
       </div>
     </Page>
+
+    </>
+
+
+
+
+
+
   );
 }
