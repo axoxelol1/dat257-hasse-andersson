@@ -14,7 +14,6 @@ import MobileLogin from "./MobileLogin";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [logInOpen, setLogInOpen] = useState(false);
 
   function NavTab({link, label, icon}: {link: string, label: string, icon: string}) {
     const router = useRouter();
