@@ -1,10 +1,11 @@
 import { ObjectId } from "mongodb";
 import clientPromise from "./mongodb";
-import { Event, Host } from "./types";
+import { Event, Host, User } from "./types";
 
 const DB_NAME = "campusapp";
 const EVENTS_COLLECTION_NAME = "events";
 const HOSTS_COLLECTION_NAME = "committees";
+const USERS_COLLECTION_NAME = "users";
 
 /**
  * This class provides an interface to the events collection in the database.
@@ -32,12 +33,28 @@ export class DatabaseService {
     return result.map(this.serializeId);
   }
 
+  async getUser(username: string): Promise<User> {
+    const client = await clientPromise;
+    const result = await client
+      .db(DB_NAME)
+      .collection<Omit<User, "id">>(USERS_COLLECTION_NAME)
+      .find({username: username})
+      .toArray()
+    return result[0]
+  }
+
+  async addUser(user: User) {
+    const client = await clientPromise;
+    const result = await client.db(DB_NAME).collection(USERS_COLLECTION_NAME).insertOne(user);
+    return result;
+  }
+
   /**
    * Function needs object of type event, where ID is required, but the form does not include it
    * Therefore send a dummy id to this function and it will be deleted and automatically added
    * by mongodb.
    */
-  async addEvent(event : Event) {
+  async addEvent(event: Event) {
     delete event.id;
     const client = await clientPromise;
     const result = await client.db(DB_NAME).collection(EVENTS_COLLECTION_NAME).insertOne(event);

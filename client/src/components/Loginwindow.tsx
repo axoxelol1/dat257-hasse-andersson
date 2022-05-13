@@ -1,9 +1,45 @@
 import { useState } from "react"
-import React from "react";
+import React from "react"
+import { AuthService } from "../../lib/auth.service"
 import { Icon } from "@iconify/react"
 
 
 export default function Loginwindow() {
+
+  const auth = new AuthService()
+
+  /*
+  const addUser = () => {
+
+    const name: string = (document.getElementById("name") as HTMLInputElement).value
+    const pw: string = (document.getElementById("pw") as HTMLInputElement).value
+
+    if (name === '' || pw === '') {
+      console.log(`Input fields empty`)
+      return
+    }
+
+    auth.addUser(name, pw)
+  }
+  */
+  
+  const login = () => {
+    const name: string = (document.getElementById("name") as HTMLInputElement).value
+    const pw: string = (document.getElementById("pw") as HTMLInputElement).value
+
+    if (name === '' || pw === '') {
+      console.log(`Input fields empty`)
+      return
+    }
+
+    auth.login(name, pw)
+  }
+
+  /*
+  const logout = async () => {
+    auth.logout()
+  }
+  */
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -19,16 +55,16 @@ export default function Loginwindow() {
                 Login to your profile
             </div>
               <div className="m-4">
-                <p> Email: </p>
-                <input className="rounded-md" type={"email"}></input>
+                <p> Username: </p>
+                <input className="rounded-md" id="name" type={"email"}></input>
               </div>
 
               <div className="m-4 items-center">
                 <p>Password: </p>
-                <input className="rounded-md" type={"password"}></input>
+                <input className="rounded-md" id="pw" type={"password"}></input>
               </div>
 
-              <button className="py-1 px-3 rounded-md absolute right-20 m-4 border-2 border-zinc-800 ">
+              <button onClick={login} className="py-1 px-3 rounded-md absolute right-20 m-4 border-2 border-zinc-800 ">
                   Login
               </button>
           </div>
