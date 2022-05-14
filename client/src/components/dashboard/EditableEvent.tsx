@@ -3,7 +3,7 @@
  * Needs handlers for delete and edit buttons, aswell as the event itself
  */
 
-import { Event } from "../../lib/types";
+import { Event } from "../../../lib/types";
 import { Icon } from '@iconify/react';
 
 export interface EditableEventProps {

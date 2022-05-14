@@ -4,14 +4,13 @@
  */
 
 import { NextApiRequest, NextApiResponse } from "next";
-import { AuthService } from "../../../lib/auth.service";
+import { BackendAuthService } from "../../../lib/backend_auth.service";
 import { DatabaseService } from "../../../lib/db.service";
 
 export default async function getall(req: NextApiRequest, res: NextApiResponse) {
 
-  const auth = new AuthService()
-  const authedUser = await auth.verify()
-  console.log(authedUser)
+  const bauth = new BackendAuthService()
+  const authedUser = bauth.verifyToken(req)
   
   if ( !authedUser ) {
     res.status(401).send({ error: "Could not get events because user is not logged in" });
@@ -19,10 +18,13 @@ export default async function getall(req: NextApiRequest, res: NextApiResponse) 
   }
 
   const db = new DatabaseService();
-  db.getEvents().then(result => {
-    const filteredResult = result.filter( event => event.host === authedUser)
-    console.log(authedUser)
-    console.log(filteredResult)
+  let longName = ""
+  await db.getHosts().then(hosts => {
+    longName = hosts.filter( host => host.shortName === authedUser)[0].longName
+  })
+
+  await db.getEvents().then(result => {
+    const filteredResult = result.filter( event => event.host === longName)
     res.status(200).json(filteredResult);
   }).catch(err => {
     res.status(500).json(err);

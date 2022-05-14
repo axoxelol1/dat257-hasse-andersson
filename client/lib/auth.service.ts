@@ -90,7 +90,7 @@ export class AuthService {
    * @returns username of logged in user if it exists
    */
   async verify(): Promise<string> {
-    const response = await fetch("http://localhost:3000/api/auth/verify", {
+    const response = await fetch("/api/auth/verify", {
       method: "GET"
     })
 

@@ -3,7 +3,7 @@
  * Consists of TimeLineEvent components.
  */
 
-import { Event } from "../../lib/types";
+import { Event } from "../../../lib/types";
 import { useState } from "react";
 import EditableEvent from "./EditableEvent";
 
@@ -25,7 +25,7 @@ export default function EventList(props : EventListProps) {
         </div>
 
         <div className="flex flex-col py-2 gap-y-2 ">
-          {props.events
+          {props.events && props.events
             .filter((e) => !(Date.parse(e.date) < Date.now()) || showPastEvents)
             .sort((a,b) => (Date.parse(a.date) < Date.parse(b.date)) ? 1 : -1)
             .map((event,id) => (
