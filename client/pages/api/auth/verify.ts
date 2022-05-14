@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import jwt, { JwtPayload } from "jsonwebtoken"
 import { BackendAuthService } from "../../../lib/backend_auth.service";
 
 /*
