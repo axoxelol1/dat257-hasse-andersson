@@ -20,13 +20,17 @@ export default async function getall(req: NextApiRequest, res: NextApiResponse) 
   const db = new DatabaseService();
   let longName = ""
   await db.getHosts().then(hosts => {
-    longName = hosts.filter( host => host.shortName === authedUser)[0].longName
+    longName = hosts.filter( host => host.shortName === authedUser)[0]?.longName
   })
 
   await db.getEvents().then(result => {
-    const filteredResult = result.filter( event => event.host === longName || authedUser === "admin" )
+    if ( authedUser === "admin") {
+      res.status(200).json(result);
+      return
+    }
+    const filteredResult = result.filter( event => event.host === longName )
     res.status(200).json(filteredResult);
   }).catch(err => {
-    res.status(500).json(err);
+    res.status(500).json({ error: err  });
   })
 }
