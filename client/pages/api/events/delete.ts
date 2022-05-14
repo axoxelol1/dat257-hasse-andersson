@@ -20,7 +20,7 @@ export default async function deleteEvent(req: NextApiRequest, res: NextApiRespo
     return;
   }
 
-  if ( authedUser !== host ) {
+  if ( authedUser !== host || authedUser === "admin" ) {
     res.status(403).send({ error: "User can only delete events that they host themselves" });
     return;
   }

@@ -24,7 +24,7 @@ export default async function getall(req: NextApiRequest, res: NextApiResponse) 
   })
 
   await db.getEvents().then(result => {
-    const filteredResult = result.filter( event => event.host === longName)
+    const filteredResult = result.filter( event => event.host === longName || authedUser === "admin" )
     res.status(200).json(filteredResult);
   }).catch(err => {
     res.status(500).json(err);

@@ -23,7 +23,7 @@ export default async function add(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  if ( authedUser !== event.host ) {
+  if ( authedUser !== event.host || authedUser === "admin" ) {
     res.status(403).send({ error: "User can only edit events they host themselves" });
     return;
   }
