@@ -14,5 +14,5 @@ export default async function logout(req: NextApiRequest, res: NextApiResponse) 
   })
 
   res.setHeader("Set-Cookie", serialized)
-  res.status(204)
+  res.status(200).send( { message: "User logged out" } )
 }

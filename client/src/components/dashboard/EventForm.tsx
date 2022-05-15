@@ -2,9 +2,10 @@
  * Form used to add events manually to the database.
  */
 
-import React, { useState } from "react";
-import { Host, Event } from "../../lib/types";
+import React, { useEffect, useState } from "react";
+import { Host, Event } from "../../../lib/types";
 import Select from 'react-select';
+import { AuthService } from "../../../lib/auth.service";
 
 interface EventFormProps {
   updateEventList: () => void;
@@ -58,10 +59,18 @@ export default function EventForm( {hosts, event, onSubmit} : EventFormProps) {
     })
   }
 
+
   // Creates select options for hosts
-  const hostSelectOptions = hosts.map((host) => {
+  const [authedUser, setAuthedUser] = useState("")
+  useEffect(() => {
+    new AuthService().verify().then(setAuthedUser)
+  }, [])
+  const hostSelectOptions = hosts.filter( host => {
+    return host.shortName === authedUser
+  }).map((host) => {
     return {label: host.longName, value: host.longName};
-  });
+  })
+
   // Add default option
   hostSelectOptions.unshift({label: "Select host", value: ""});
 

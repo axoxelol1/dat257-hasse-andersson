@@ -3,19 +3,19 @@
  * Needs handlers for delete and edit buttons, aswell as the event itself
  */
 
-import { Event } from "../../lib/types";
+import { Event } from "../../../lib/types";
 import { Icon } from '@iconify/react';
 
 export interface EditableEventProps {
   event: Event;
-  deleteHandler: (id: string) => void;
+  deleteHandler: (id: string, host: string) => void;
   editHandler: (event: Event) => void;
 }
 
 export default function EditableEvent(props: EditableEventProps) {
 
   function handleDelete() {
-    confirm("Are you sure you want to delete this event?") && props.deleteHandler(props.event.id);
+    confirm("Are you sure you want to delete this event?") && props.deleteHandler(props.event.id, props.event.host);
   }
 
   function handleEdit() {

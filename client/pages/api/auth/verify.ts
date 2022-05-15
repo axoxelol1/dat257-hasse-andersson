@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import jwt, { JwtPayload } from "jsonwebtoken"
+import { BackendAuthService } from "../../../lib/backend_auth.service";
 
 /*
   Takes in a JSON web token and checks against the JWT secret if it is valid. 
@@ -12,14 +12,12 @@ export default async function verifyToken(req: NextApiRequest, res: NextApiRespo
     return
   }
 
-  const { cookies } = req //Picks out the cookies from the request using object destructuring
-  const token = cookies.JWT
+  const bauth = new BackendAuthService()
+  const username = bauth.verifyToken(req)
 
-  try {
-    const payload = (jwt.verify(token, process.env.JWT_SECRET) as JwtPayload)
-    const username = payload.username
+  if (username) {
     res.status(200).json({username: username})
-  } catch {
+  } else {
     res.status(401).send({ error: "User not logged in or session expired" })
   }
 }
