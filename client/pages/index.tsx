@@ -29,7 +29,7 @@ export default function Index({ events, hosts }: { events: Event[], hosts: Host[
 
   return (
     <>
-      <div className="block blur-sm w-screen h-screen fixed center scale-110 -z-20 opacity-75">
+      <div className="fixed h-screen w-screen scale-110 -z-20 opacity-50">
         <SlideShow/>
       </div>
             
