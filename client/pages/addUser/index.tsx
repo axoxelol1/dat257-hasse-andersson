@@ -4,7 +4,7 @@ import { AuthService } from "../../lib/auth.service"
 /*
   Page only accessible by admin user where they can send rquests to add new users.
 */
-export default function addUser() {
+export default function AddUser() {
 
   const [formValid, setFormValid] = useState(false)
   const [username, setUsername] = useState("")
