@@ -38,9 +38,9 @@ export class AuthService {
     })
 
     if (response.ok) {
-      return "Error: " + (await response.json()).error
-    } else {
       return (await response.json()).message
+    } else {
+      return "Error: " + (await response.json()).error
     }
   }
 

@@ -9,9 +9,11 @@ export default function addUser() {
   const [formValid, setFormValid] = useState(false)
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [msg, setMsg] = useState("")
 
-  function addUser() {
-    new AuthService().addUser(username, password)
+  async function addUser() {
+    const response = await new AuthService().addUser(username, password)
+    setMsg(await response)
     setUsername("")
     setPassword("")
   }
@@ -25,6 +27,7 @@ export default function addUser() {
       <div className="w-1/6 flex flex-col items-center gap-4 py-12">
         <input id="username" className="h-8 rounded w-full pl-2" type="text" placeholder="Username" onChange={e => setUsername(e.target.value)} value={username}/>
         <input id="password" className="h-8 rounded w-full pl-2" type="text" placeholder="Password" onChange={e => setPassword(e.target.value)} value={password}/>
+        <div className={`h-6 text-center text-red-700 ${ msg.includes("Error") ? "" : "text-green-600"}`}>{msg}</div>
         {formValid ?
           <button className="h-8 w-1/3 rounded text-white bg-green-600 hover:bg-green-500 transition-colors" onClick={addUser}>Add user</button>
           :
