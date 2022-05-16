@@ -7,11 +7,6 @@ import { Event } from "../../lib/types";
 
 type FilterDates = [begin: Date, end: Date];
 
-export type CalendarQueries = {
-  hosts?: string[];
-  begin?: Date;
-  end?: Date;
-};
 
 /**
  * Returns an iCalendar file with the events in the database. Accepts queries "hosts", "begin", "end" for filtering the events.

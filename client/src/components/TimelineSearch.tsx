@@ -43,7 +43,7 @@ export default function TimelineSearch({ events, hosts }: TimelineSearchProps) {
           <Searchbar searchHandler={searchHandler} />
         </div>
         <div className="hidden md:block">
-          <ExportCalendar hosts={hosts.map(({ shortName }) => shortName)} />
+          <ExportCalendar hosts={hosts} />
         </div>
       </div>
       <Timeline events={filteredEvents} hosts={hosts} />

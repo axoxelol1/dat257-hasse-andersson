@@ -1,9 +1,13 @@
-import { CalendarQueries } from "../../pages/api/ics";
 import { Icon } from "@iconify/react";
+import { Host } from "../../lib/types";
 
-export type ExportCalendarProps = {
-  hosts: CalendarQueries["hosts"];
+export type CalendarQueries = {
+  hosts?: Host[];
+  begin?: Date;
+  end?: Date;
 };
+
+export type ExportCalendarProps = Pick<CalendarQueries, "hosts">;
 
 export function ExportCalendar({ hosts }: ExportCalendarProps) {
   const url = createCalendarUrl({ hosts });
@@ -58,6 +62,10 @@ export function createCalendarUrl(
   const url = new URL(origin + "/api/ics");
   begin && url.searchParams.set("begin", begin.toISOString());
   end && url.searchParams.set("end", end.toISOString());
-  hosts && url.searchParams.set("hosts", hosts.join(","));
+  hosts &&
+    url.searchParams.set(
+      "hosts",
+      hosts.map(({ shortName }) => shortName).join(",")
+    );
   return url.toString();
 }

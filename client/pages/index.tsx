@@ -30,7 +30,7 @@ export default function Index({
   events: Event[];
   hosts: Host[];
 }) {
-  const [displayedEvents, setDisplayedEvents] = useState([...events]);
+  const [selectedHosts, setSelectedHosts] = useState<Host[]>([]);
 
   return (
     <>
@@ -45,24 +45,23 @@ export default function Index({
             <div className="flex flex-col md:flex-row w-full gap-4">
               <div className="flex flex-row justify-between">
                 <Filters
-                  onChange={(hosts) =>
-                    setDisplayedEvents(
-                      hosts.length === 0
-                        ? events
-                        : events.filter((e) =>
-                            hosts.some((h) => h.longName == e.host)
-                          )
-                    )
-                  }
+                  onChange={(hosts) => setSelectedHosts(hosts)}
                   hosts={hosts}
                 />
                 <div className="md:hidden">
-                  <ExportCalendar
-                    hosts={hosts.map(({ shortName }) => shortName)}
-                  />
+                  <ExportCalendar hosts={selectedHosts} />
                 </div>
               </div>
-              <TimelineSearch events={displayedEvents} hosts={hosts} />
+              <TimelineSearch
+                events={
+                  selectedHosts.length === 0
+                    ? events
+                    : events.filter((e) =>
+                        selectedHosts.some((h) => h.longName == e.host)
+                      )
+                }
+                hosts={hosts}
+              />
             </div>
           </div>
         </Page>
