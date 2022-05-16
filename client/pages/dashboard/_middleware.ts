@@ -14,8 +14,7 @@ export async function middleware(req: NextRequest) {
 
     //If token is invalid, an error is thrown sending us to the catch-statement
     return NextResponse.next()
-  } catch (err) {
-    console.log(err)
+  } catch {
     return NextResponse.json("User not logged in")
   }
 }
