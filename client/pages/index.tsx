@@ -8,6 +8,8 @@ import { Page } from "../src/components/Page";
 import '@fullcalendar/common/main.css'; // @fullcalendar/react imports @fullcalendar/common
 import '@fullcalendar/daygrid/main.css'; // @fullcalendar/timegrid imports @fullcalendar/daygrid
 import Navbar from "../src/components/Header";
+import SlideShow from "../src/components/SlideShow";
+
 
 /**
  * This function runs in the backend and is used to fetch the events from the data sources.
@@ -27,7 +29,10 @@ export default function Index({ events, hosts }: { events: Event[], hosts: Host[
 
   return (
     <>
-      <div className="bg-[url('/img/IMG_3063.jpg')] blur-sm w-screen h-screen fixed bg-center scale-110 -z-20 opacity-90"></div>
+      <div className="block blur-sm w-screen h-screen fixed center scale-110 -z-20 opacity-90">
+        <SlideShow/>
+      </div>
+            
       <div>
         <Navbar/>
         <Page>
