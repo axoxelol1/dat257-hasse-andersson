@@ -74,9 +74,9 @@ function HostFilter({eventSetter: setEvents, events: events, hosts: hosts}: Filt
           <img src="/img/arrow.svg" alt="Downward-facing small arrow" className="w-full h-full"/>
         </button>
       </div>
-      <ul className="flex flex-col bg-white/95 md:bg-transparent">
-        {isOpen && filteredHosts.map((host) => (          
-          <li onClick={handleHostClick} data-host-name={host} key={host} className="rounded-sm hover:bg-gray-200 p-1 md:p-0.5">
+      <ul className="flex flex-col bg-gray-50/95 md:bg-transparent">
+        {isOpen && filteredHosts.sort((a,b) => (a > b) ? 1 : -1).map((host) => (          
+          <li onClick={handleHostClick} data-host-name={host} key={host} className="rounded-sm hover:bg-gray-200/80 p-1 md:p-0.5">
             <input type="checkbox" checked={isSelected(host)} readOnly className="accent-stone-700 ml-1"/>
             <span className={`${isSelected(host) ? "font-semibold" : "font-normal"} ml-2 select-none`}>{host}</span>
           </li>
