@@ -1,5 +1,5 @@
 ## What do I want to learn or understand better?
-I still haven't found anything more that I could learn.
+I want to learn how to become a better person.
 
 ## How can I help someone else, or the entire team, to learn something new?
 I feel that everyone has found an efficient way to work independently, and find ways to solve our problems and learn new things by ourselves. Therefore, I think the significance of me personally helping the others has decreased over time.
