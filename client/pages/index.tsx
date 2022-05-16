@@ -45,8 +45,15 @@ export default function Index({
             <div className="flex flex-col md:flex-row w-full gap-4">
               <div className="flex flex-row justify-between">
                 <Filters
-                  eventSetter={setDisplayedEvents}
-                  events={events}
+                  onChange={(hosts) =>
+                    setDisplayedEvents(
+                      hosts.length === 0
+                        ? events
+                        : events.filter((e) =>
+                            hosts.some((h) => h.longName == e.host)
+                          )
+                    )
+                  }
                   hosts={hosts}
                 />
                 <div className="md:hidden">
