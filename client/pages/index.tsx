@@ -5,11 +5,11 @@ import Filters from "../src/components/Filters";
 import { useState } from "react";
 import { DatabaseService } from "../lib/db.service";
 import { Page } from "../src/components/Page";
-import '@fullcalendar/common/main.css'; // @fullcalendar/react imports @fullcalendar/common
-import '@fullcalendar/daygrid/main.css'; // @fullcalendar/timegrid imports @fullcalendar/daygrid
+import "@fullcalendar/common/main.css"; // @fullcalendar/react imports @fullcalendar/common
+import "@fullcalendar/daygrid/main.css"; // @fullcalendar/timegrid imports @fullcalendar/daygrid
 import Navbar from "../src/components/Header";
 import SlideShow from "../src/components/SlideShow";
-
+import { ExportCalendar } from "../src/components/ExportCalendar";
 
 /**
  * This function runs in the backend and is used to fetch the events from the data sources.
@@ -23,26 +23,38 @@ export async function getServerSideProps() {
   };
 }
 
-export default function Index({ events, hosts }: { events: Event[], hosts: Host[] }) {
-
-  const [displayedEvents, setDisplayedEvents] = useState([...events])
+export default function Index({
+  events,
+  hosts,
+}: {
+  events: Event[];
+  hosts: Host[];
+}) {
+  const [displayedEvents, setDisplayedEvents] = useState([...events]);
 
   return (
     <>
       <div className="fixed h-screen w-screen scale-110 -z-20 opacity-50">
-        <SlideShow/>
+        <SlideShow />
       </div>
-            
+
       <div>
-        <Navbar/>
+        <Navbar />
         <Page>
           <div className="max-w-screen-xl w-full">
             <div className="flex flex-col md:flex-row w-full gap-4">
-              <Filters
-                eventSetter={setDisplayedEvents}
-                events={events}
-                hosts={hosts}
-              />
+              <div className="flex flex-row justify-between">
+                <Filters
+                  eventSetter={setDisplayedEvents}
+                  events={events}
+                  hosts={hosts}
+                />
+                <div className="md:hidden">
+                  <ExportCalendar
+                    hosts={hosts.map(({ shortName }) => shortName)}
+                  />
+                </div>
+              </div>
               <TimelineSearch events={displayedEvents} hosts={hosts} />
             </div>
           </div>

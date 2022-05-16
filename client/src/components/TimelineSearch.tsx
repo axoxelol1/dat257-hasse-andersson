@@ -2,20 +2,20 @@ import Searchbar from "./Searchbar";
 import { Timeline } from "./Timeline";
 import { Event, Host } from "../../lib/types";
 import { ChangeEvent, useEffect, useState } from "react";
-import Fuse from "fuse.js"
+import Fuse from "fuse.js";
+import { ExportCalendar } from "./ExportCalendar";
 
 /**
  * The TimelineSearch components groups the timeline and the searchbar together
  * and adds functionality to the searchbar.
  */
 
-
 export type TimelineSearchProps = {
   events: Event[];
   hosts: Host[];
 };
 
-export default function TimelineSearch({events, hosts}: TimelineSearchProps) {
+export default function TimelineSearch({ events, hosts }: TimelineSearchProps) {
   const [filteredEvents, setFilteredEvents] = useState(events);
   const [query, setQuery] = useState("");
 
@@ -31,17 +31,22 @@ export default function TimelineSearch({events, hosts}: TimelineSearchProps) {
     const options = {
       keys: ["title", "host"],
       threshold: 0.3,
-    }
-    const fuse = new Fuse(events, options)
-    setFilteredEvents(
-      fuse.search(query).map(result => result.item)
-    );
+    };
+    const fuse = new Fuse(events, options);
+    setFilteredEvents(fuse.search(query).map((result) => result.item));
   }, [query, events]);
 
   return (
     <div className="grow">
-      <Searchbar searchHandler={searchHandler}/>
-      <Timeline events={filteredEvents} hosts={hosts}/>
+      <div className="grow flex flex-row gap-4 mb-2">
+        <div className="grow">
+          <Searchbar searchHandler={searchHandler} />
+        </div>
+        <div className="hidden md:block">
+          <ExportCalendar hosts={hosts.map(({ shortName }) => shortName)} />
+        </div>
+      </div>
+      <Timeline events={filteredEvents} hosts={hosts} />
     </div>
-    );
+  );
 }
