@@ -10,7 +10,6 @@ import '@fullcalendar/daygrid/main.css'; // @fullcalendar/timegrid imports @full
 import Navbar from "../src/components/Header";
 import SlideShow from "../src/components/SlideShow";
 
-
 /**
  * This function runs in the backend and is used to fetch the events from the data sources.
  */
