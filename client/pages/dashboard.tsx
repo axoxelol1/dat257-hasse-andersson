@@ -111,7 +111,7 @@ export default function Dashboard({ hosts }: { hosts: Host[] }) {
   return (
     <div>
       <Header />
-      <div className="grid place-items-center">
+      <div className="grid place-items-center mx-6">
         <div className="max-w-screen-xl w-full">
           <div className="flex flex-col md:flex-row w-full gap-4 mt-6">
 
