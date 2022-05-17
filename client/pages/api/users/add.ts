@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { DatabaseService } from "../../../lib/db.service";
 import { User } from "../../../lib/types";
 import bcrypt from "bcrypt"
-import { BackendAuthService } from "../../../lib/backend_auth.service";
+import { BackendAuthService } from "../../../lib/admin.service";
 
 /*
   Adds a user to the database using a database service
@@ -42,7 +42,7 @@ export default async function addUser(req: NextApiRequest, res: NextApiResponse)
 
       const result = await db.addUser(user)
       if (result.acknowledged) {
-        res.status(201).send({ message: "User added succesfully"})
+        res.status(201).send({ message: username + " added succesfully"})
       } else {
         res.status(500).send({ error: "Database failed to add user" })
       }

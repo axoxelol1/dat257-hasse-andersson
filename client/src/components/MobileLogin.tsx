@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
-import { AuthService } from "../../lib/auth.service";
+import { AuthService } from "../../lib/admin.service";
 
 const auth = new AuthService()
 

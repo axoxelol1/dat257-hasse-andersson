@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import React from "react"
-import { AuthService } from "../../lib/auth.service"
+import { AuthService } from "../../lib/admin.service"
 import { Icon } from "@iconify/react"
 import Link from "next/link"
 
@@ -67,9 +67,9 @@ export default function LargeLoginwindow() {
                   Logout
                 </button>
                 { isAdmin && (
-                  <Link href="/addUser">
+                  <Link href="/users">
                     <a className="rounded-md px-2 py-1 border-2 border-black">
-                      Add user
+                      Manage users
                     </a>
                   </Link>
                 )}

@@ -43,9 +43,26 @@ export class DatabaseService {
     return result[0]
   }
 
+  async getUsers(): Promise<User[]> {
+    const client = await clientPromise;
+    const result = await client
+      .db(DB_NAME)
+      .collection<Omit<User, "id">>(USERS_COLLECTION_NAME)
+      .find()
+      .toArray();
+
+    return result.map(this.serializeId);
+  }
+
   async addUser(user: User) {
     const client = await clientPromise;
     const result = await client.db(DB_NAME).collection(USERS_COLLECTION_NAME).insertOne(user);
+    return result;
+  }
+
+  async deleteUser(username: string) {
+    const client = await clientPromise;
+    const result = await client.db(DB_NAME).collection(USERS_COLLECTION_NAME).deleteOne({ username: username });
     return result;
   }
 
