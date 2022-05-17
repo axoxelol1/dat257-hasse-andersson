@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react"
-import { AuthService, UserService } from "../../lib/admin.service"
+import { UserService } from "../../lib/admin.service"
 import { User } from "../../lib/types";
 
 /*
