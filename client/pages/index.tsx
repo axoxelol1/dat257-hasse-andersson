@@ -61,6 +61,7 @@ export default function Index({
                       )
                 }
                 hosts={hosts}
+                selectedHosts={selectedHosts}
               />
             </div>
           </div>
