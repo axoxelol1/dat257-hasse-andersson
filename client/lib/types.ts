@@ -17,6 +17,11 @@ export interface Host {
   color: string;
 }
 
+export interface User {
+  username: string;
+  salthash: string;
+}
+
 /**
  * Extra interfaces used to convert gasque events to regular events whose type is defined above
  */
