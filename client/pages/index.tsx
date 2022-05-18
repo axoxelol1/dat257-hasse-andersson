@@ -32,7 +32,7 @@ export default function Index({ events, hosts }: { events: Event[], hosts: Host[
         <SlideShow />
       </div>
 
-      <div>
+      <div className="w-screen overflow-hidden">
         <Navbar />
         <div className="flex flex-col items-center m-8">
           <div className="max-w-screen-xl w-full">
