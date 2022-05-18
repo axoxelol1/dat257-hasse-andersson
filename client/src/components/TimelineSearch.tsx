@@ -13,9 +13,10 @@ import { ExportCalendar } from "./ExportCalendar";
 export type TimelineSearchProps = {
   events: Event[];
   hosts: Host[];
+  selectedHosts: Host[];
 };
 
-export default function TimelineSearch({ events, hosts }: TimelineSearchProps) {
+export default function TimelineSearch({ events, hosts, selectedHosts }: TimelineSearchProps) {
   const [filteredEvents, setFilteredEvents] = useState(events);
   const [query, setQuery] = useState("");
 
@@ -43,7 +44,7 @@ export default function TimelineSearch({ events, hosts }: TimelineSearchProps) {
           <Searchbar searchHandler={searchHandler} />
         </div>
         <div className="hidden md:block">
-          <ExportCalendar hosts={hosts} />
+          <ExportCalendar hosts={selectedHosts} />
         </div>
       </div>
       <Timeline events={filteredEvents} hosts={hosts} />
