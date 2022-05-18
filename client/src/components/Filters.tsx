@@ -69,12 +69,12 @@ function HostFilter({eventSetter: setEvents, events: events, hosts: hosts}: Filt
   return (
     <div className="z-10">
       <div className="h-full relative">
-        <input type="text" placeholder="Filter" onClick={() => setIsOpen(true)} onChange={handleInputText} className="h-full p-2 outline-none border-transparent border-b-black border-2" />
+        <input type="text" placeholder="Filter" className="bg-transparent text-lg h-full pl-2 outline-none border-transparent border-b-black border-b-2 placeholder:text-black/80 placeholder:italic" onClick={() => setIsOpen(true)} onChange={handleInputText} />
         <button onClick={() => setIsOpen(!isOpen)} className={`w-8 h-8 p-1 absolute right-1 top-2 transition ${isOpen ? "rotate-180" : ""}`}>
           <img src="/img/arrow.svg" alt="Downward-facing small arrow" className="w-full h-full"/>
         </button>
       </div>
-      <ul className="flex flex-col bg-white/95 md:bg-transparent">
+      <ul className="flex flex-col bg-white/95 md:bg-transparent last:rounded-b">
         {isOpen && filteredHosts.map((host) => (          
           <li onClick={handleHostClick} data-host-name={host} key={host} className="rounded-sm hover:bg-gray-200 p-1 md:p-0.5">
             <input type="checkbox" checked={isSelected(host)} readOnly className="accent-stone-700 ml-1"/>
