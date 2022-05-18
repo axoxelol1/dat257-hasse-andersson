@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AuthService } from "../../lib/admin.service";
 
@@ -32,20 +33,34 @@ export default function MobileLogin () {
   const [errorMessage, setErrorMessage] = useState("");
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    auth.verify().then(setLoggedInUser)
+    (
+      async () => {
+        const username = await auth.verify()
+        setLoggedInUser(username)
+        setIsAdmin(username === "admin")
+      }
+    )()
   }, [loggedInUser])
   
   return (
     (loggedInUser ? (
-      <div className="flex justify-center items-center h-full w-30">
+      <div className="flex flex-col items-start h-full w-30 gap-2 ml-4">
         <div>
           Logged in as <span className="font-bold">{loggedInUser}</span>
         </div>
         <button onClick={logout} className="rounded-md px-2 py-1 border-2 border-black">
           Logout
         </button>
+        { isAdmin && (
+          <Link href="/users">
+            <a className="rounded-md px-2 py-1 border-2 border-black">
+              Manage users
+            </a>
+          </Link>
+        )}
       </div>
     ) : (
       <div>
