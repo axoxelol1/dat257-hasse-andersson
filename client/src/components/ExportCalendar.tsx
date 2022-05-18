@@ -13,16 +13,16 @@ export function ExportCalendar({ hosts }: ExportCalendarProps) {
   const url = createCalendarUrl({ hosts });
 
   return (
-    <div className="relative flex flex-row h-full bg-white px-4 gap-2">
+    <div className="relative flex flex-row h-full bg-white px-4 gap-2 rounded-md">
       <span className="h-full flex place-items-center w-max font-semibold mr-2">
-        Export Calendar
+        Export calendar
       </span>
       <button
         className="relative group overflow-visible grid place-items-center"
         onClick={() => copyToClipboard(url)}
       >
         <Icon icon="octicon:copy-16" className="cursor-pointer" fontSize={20} />
-        <span className="absolute -top-8 right-1/2 translate-x-1/2 bg-green-400 hidden group-focus-within:grid font-bold p-2 place-items-center w-max">
+        <span className="absolute -top-8 right-1/2 translate-x-1/2 bg-green-400 hidden group-focus-within:grid font-bold p-2 place-items-center w-max rounded">
           Link copied!
         </span>
       </button>
