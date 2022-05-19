@@ -23,9 +23,9 @@ export default function EditableEvent(props: EditableEventProps) {
   }
 
   return(
-    <div className="bg-white py-3 px-6 rounded-lg flex flex-row justify-between place-items-center">
+    <div className="bg-white py-3 px-6 rounded-lg flex flex-col gap-y-2 md:flex-row justify-between place-items-center">
       <div>
-        <div className="mb-3">
+        <div className="md:mb-3">
           <h1 className="text-2xl leading-none">{props.event.title}</h1>
         </div>
         <p className="text-base leading-none">{props.event.host}</p>
