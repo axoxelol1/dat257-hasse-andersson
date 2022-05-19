@@ -4,7 +4,6 @@ import TimelineSearch from "../src/components/TimelineSearch";
 import Filters from "../src/components/Filters";
 import { useState } from "react";
 import { DatabaseService } from "../lib/db.service";
-import { Page } from "../src/components/Page";
 import "@fullcalendar/common/main.css"; // @fullcalendar/react imports @fullcalendar/common
 import "@fullcalendar/daygrid/main.css"; // @fullcalendar/timegrid imports @fullcalendar/daygrid
 import Navbar from "../src/components/Header";
@@ -38,34 +37,32 @@ export default function Index({
         <SlideShow />
       </div>
 
-      <div>
+      <div className="w-screen overflow-hidden">
         <Navbar />
-        <Page>
+        <div className="flex flex-col items-center m-8">
           <div className="max-w-screen-xl w-full">
-            <div className="flex flex-col md:flex-row w-full gap-4">
-              <div className="flex flex-row justify-between">
-                <Filters
-                  onChange={(hosts) => setSelectedHosts(hosts)}
-                  hosts={hosts}
-                />
-                <div className="md:hidden">
-                  <ExportCalendar hosts={selectedHosts} />
-                </div>
-              </div>
-              <TimelineSearch
-                events={
-                  selectedHosts.length === 0
-                    ? events
-                    : events.filter((e) =>
-                        selectedHosts.some((h) => h.longName == e.host)
-                      )
-                }
+            <div className="flex flex-col md:flex-row w-full gap-4 h-fit">
+              <Filters
+                onChange={(hosts) => setSelectedHosts(hosts)}
                 hosts={hosts}
-                selectedHosts={selectedHosts}
               />
+              <div className="md:hidden">
+                <ExportCalendar hosts={selectedHosts} />
+              </div>
             </div>
+            <TimelineSearch
+              events={
+                selectedHosts.length === 0
+                  ? events
+                  : events.filter((e) =>
+                      selectedHosts.some((h) => h.longName == e.host)
+                    )
+              }
+              hosts={hosts}
+              selectedHosts={selectedHosts}
+            />
           </div>
-        </Page>
+        </div>
       </div>
     </>
   );

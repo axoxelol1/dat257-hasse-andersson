@@ -13,26 +13,28 @@ export function ExportCalendar({ hosts }: ExportCalendarProps) {
   const url = createCalendarUrl({ hosts });
 
   return (
-    <div className="relative flex flex-row h-full bg-white px-4 rounded-md">
-      <span className="h-full flex place-items-center w-max font-semibold mr-2">
+    <div className="relative flex flex-row h-full bg-white px-4 rounded-md place-items-center justify-between">
+      <span className="h-full flex place-items-center w-max font-semibold">
         Export calendar
       </span>
-      <button
-        className="relative group overflow-visible grid place-items-center"
-        onClick={() => copyToClipboard(url)}
-      >
-        <Icon icon="octicon:copy-16" className="cursor-pointer hover:bg-slate-200 p-1.5 box-border rounded" fontSize={28} />
-        <span className="absolute -top-8 right-1/2 translate-x-1/2 bg-green-400 hidden group-focus-within:grid font-bold p-2 place-items-center w-max rounded">
-          Link copied!
-        </span>
-      </button>
-      <button onClick={() => downloadFile(url)}>
-        <Icon
-          icon="octicon:download-16"
-          className="cursor-pointer hover:bg-slate-200 p-1.5 box-border rounded"
-          fontSize={30}
-        />
-      </button>
+      <div className="flex flex-row place-items-center">
+        <button
+          className="relative group overflow-visible grid place-items-center"
+          onClick={() => copyToClipboard(url)}
+        >
+          <Icon icon="octicon:copy-16" className="cursor-pointer hover:bg-slate-200 p-1.5 box-border rounded" fontSize={28} />
+          <span className="absolute -top-8 right-1/2 translate-x-1/2 bg-green-400 hidden group-focus-within:grid font-bold p-2 place-items-center w-max rounded">
+            Link copied!
+          </span>
+        </button>
+        <button onClick={() => downloadFile(url)}>
+          <Icon
+            icon="octicon:download-16"
+            className="cursor-pointer hover:bg-slate-200 p-1.5 box-border rounded"
+            fontSize={30}
+          />
+        </button>
+      </div>
     </div>
   );
 }

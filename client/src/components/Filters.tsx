@@ -72,14 +72,14 @@ function HostFilter({ onChange, hosts }: FiltersProps) {
           />
         </button>
       </div>
-      <ul className="flex flex-col bg-white/95 md:bg-transparent last:rounded-b">
+      <ul className="flex flex-col bg-gray-50/95 md:bg-transparent last:rounded-b">
         {isOpen &&
           filteredHostsList.map((host) => (
             <li
               onClick={handleHostClick}
               data-host-name={host.shortName}
               key={host.shortName}
-              className="rounded-sm hover:bg-gray-200 p-1 md:p-0.5"
+              className="rounded-sm hover:bg-gray-200/80 p-1 md:p-0.5"
             >
               <input
                 type="checkbox"
