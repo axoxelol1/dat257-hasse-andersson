@@ -47,7 +47,12 @@ export default function LargeLoginwindow() {
       }
     )()
   }, [loggedInUser])
-  
+
+  const handleKeypress = (e: { keyCode: number }) => {
+    if (e.keyCode === 13) {
+      login();
+    }
+  };
 
   return (
     <div className="flex h-full">
@@ -79,12 +84,12 @@ export default function LargeLoginwindow() {
             <>
               <div className="">
                 <p> Username: </p>
-                <input className="rounded-md" id="name" type={"email"}></input>
+                <input className="rounded-md" onKeyDown={handleKeypress} id="name" type={"email"}></input>
               </div>
 
               <div className="">
                 <p>Password: </p>
-                <input className="rounded-md w-auto" id="pw" type={"password"}></input>
+                <input className="rounded-md w-auto" onKeyDown={handleKeypress} id="pw" type={"password"}></input>
               </div>
               <div className="text-red-500 text-xs italic">
                 {errorMessage}
