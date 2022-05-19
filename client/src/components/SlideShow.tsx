@@ -30,7 +30,7 @@ export default function SlideShow() {
         {fadeImages.map((fadeImage, index) => (
           <div className="each-fade blur" key={index}>
             <div className="image-container blur">
-              <img className="object-none h-screen w-screen" src={fadeImage.url} alt="background image" />
+              <img className="object-cover h-screen w-screen" src={fadeImage.url} alt="background image" />
             </div>
             <h2>{fadeImage.caption}</h2>
           </div>
