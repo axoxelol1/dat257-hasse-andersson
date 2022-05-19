@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import React from "react"
-import { AuthService } from "../../lib/auth.service"
+import { AuthService } from "../../lib/admin.service"
 import { Icon } from "@iconify/react"
+import Link from "next/link"
 
 const auth = new AuthService()
 
@@ -35,9 +36,16 @@ export default function LargeLoginwindow() {
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    auth.verify().then(setLoggedInUser)
+    (
+      async () => {
+        const username = await auth.verify()
+        setLoggedInUser(username)
+        setIsAdmin(username === "admin")
+      }
+    )()
   }, [loggedInUser])
   
 
@@ -48,15 +56,24 @@ export default function LargeLoginwindow() {
         <span className="font-medium text-xl">Login</span>
       </button>
       {isOpen && (
-        <div className="absolute right-4 top-20 w-64 bg-gray-200 p-4 flex flex-col gap-3 z-50">
+        <div className="absolute right-4 top-20 w-64 bg-gray-200/95 rounded p-4 flex flex-col gap-3 z-50">
           {loggedInUser ? (
             <>
               <div>
                 Logged in as <span className="font-bold">{loggedInUser}</span>
               </div>
-              <button onClick={logout} className=" rounded-md px-2 py-1 border-2 border-black">
-                Logout
-              </button>
+              <div className="flex flex-row justify-around w-full gap-4">
+                <button onClick={logout} className=" rounded-md px-2 py-1 border-2 border-black grow">
+                  Logout
+                </button>
+                { isAdmin && (
+                  <Link href="/users">
+                    <a className="rounded-md px-2 py-1 border-2 border-black">
+                      Manage users
+                    </a>
+                  </Link>
+                )}
+              </div>
             </>
           ) : (
             <>

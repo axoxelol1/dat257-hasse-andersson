@@ -3,7 +3,7 @@
  */
 
 import { NextApiRequest, NextApiResponse } from "next";
-import { AuthService } from "../../../lib/auth.service";
+import { AuthService } from "../../../lib/admin.service";
 import { DatabaseService } from "../../../lib/db.service";
 
 export default async function deleteEvent(req: NextApiRequest, res: NextApiResponse) {

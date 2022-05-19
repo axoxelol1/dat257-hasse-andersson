@@ -12,7 +12,7 @@ import { User } from "../../../lib/types";
 */
 export default async function login(req: NextApiRequest, res: NextApiResponse) {
 
-  const TOKEN_EXPIRATION = 200 // Time in seconds
+  const TOKEN_EXPIRATION = 3600 // Time in seconds
 
   const username = req.body.username
   const clientHash = req.body.hashedPassword
