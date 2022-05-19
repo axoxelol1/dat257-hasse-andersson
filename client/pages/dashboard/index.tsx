@@ -2,13 +2,13 @@
  * Dashboard page used to add events manually to the database.
  */
 
-import EventForm from "../src/components/dashboard/EventForm";
-import EventList from "../src/components/dashboard/EventList";
-import { Event, Host } from "../lib/types";
-import { DatabaseService } from "../lib/db.service";
+import EventForm from "../../src/components/dashboard/EventForm";
+import EventList from "../../src/components/dashboard/EventList";
+import { Event, Host } from "../../lib/types";
+import { DatabaseService } from "../../lib/db.service";
 import { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
-import Header from "../src/components/Header";
+import Header from "../../src/components/Header";
 
 export async function getServerSideProps() {
   return {

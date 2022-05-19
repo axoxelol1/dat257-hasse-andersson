@@ -4,12 +4,10 @@ import TimelineSearch from "../src/components/TimelineSearch";
 import Filters from "../src/components/Filters";
 import { useState } from "react";
 import { DatabaseService } from "../lib/db.service";
-import { Page } from "../src/components/Page";
 import '@fullcalendar/common/main.css'; // @fullcalendar/react imports @fullcalendar/common
 import '@fullcalendar/daygrid/main.css'; // @fullcalendar/timegrid imports @fullcalendar/daygrid
 import Navbar from "../src/components/Header";
 import SlideShow from "../src/components/SlideShow";
-
 
 /**
  * This function runs in the backend and is used to fetch the events from the data sources.
@@ -30,14 +28,14 @@ export default function Index({ events, hosts }: { events: Event[], hosts: Host[
   return (
     <>
       <div className="fixed h-screen w-screen scale-110 -z-20 opacity-50">
-        <SlideShow/>
+        <SlideShow />
       </div>
-            
-      <div>
-        <Navbar/>
-        <Page>
+
+      <div className="w-screen overflow-hidden">
+        <Navbar />
+        <div className="flex flex-col items-center m-8">
           <div className="max-w-screen-xl w-full">
-            <div className="flex flex-col md:flex-row w-full gap-4">
+            <div className="flex flex-col md:flex-row w-full gap-4 h-fit">
               <Filters
                 eventSetter={setDisplayedEvents}
                 events={events}
@@ -46,7 +44,7 @@ export default function Index({ events, hosts }: { events: Event[], hosts: Host[
               <TimelineSearch events={displayedEvents} hosts={hosts} />
             </div>
           </div>
-        </Page>
+        </div>
       </div>
     </>
   );
