@@ -30,6 +30,12 @@ export default function MobileLogin () {
     setLoggedInUser(null);
   }
 
+  const handleKeypress = (e: { keyCode: number }) => {
+    if (e.keyCode === 13) {
+      login();
+    }
+  };
+
   const [errorMessage, setErrorMessage] = useState("");
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -71,9 +77,9 @@ export default function MobileLogin () {
         {isOpen && 
           <div className="flex mx-6 flex-col">
             <p>Username</p>
-            <input type="text" id="name" className="border border-gray-300 p-2 rounded-md" />
+            <input type="text" id="name" onKeyDown={handleKeypress} className="border border-gray-300 p-2 rounded-md" />
             <p>Password</p>
-            <input type="password" id="pw" className="border border-gray-300 p-2 rounded-md" />
+            <input type="password" id="pw" onKeyDown={handleKeypress} className="border border-gray-300 p-2 rounded-md" />
             <p className="text-red-500 py-2 text-xs italic">{errorMessage}</p>
             <button type="button" onClick={login} className="my-2 py-2 flex justify-center items-center text-white bg-gray-900 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
               <span>Login</span>
