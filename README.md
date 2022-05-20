@@ -3,8 +3,11 @@ Project for DAT257 Agile software project management. 2022 group Hasse Andersson
 
 A website that aggregates and shows upcoming events happening within the student union at Chalmers University of Technology.
 
-## Reflection
-The reflections for each week, both individual and the team's, can be found in the folder `/reflection`
+## Project structure
+The reflections for each week, both individual and the team's, can be found in the folder `/reflection` and other documents can be found in `/documents`.
+The actual application/website can be found in `/client`.
+In `/tools` a python script used for parsing events from facebook event pages can be found.
+
 
 ## Project setup
 To run the project you will need to clone the repository. You also need to have Node.js installed on your machine.
