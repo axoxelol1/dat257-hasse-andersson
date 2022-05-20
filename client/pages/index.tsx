@@ -49,18 +49,18 @@ export default function Index({
               <div className="md:hidden">
                 <ExportCalendar hosts={selectedHosts} />
               </div>
-              <TimelineSearch
-                events={
-                  selectedHosts.length === 0
-                    ? events
-                    : events.filter((e) =>
-                        selectedHosts.some((h) => h.longName == e.host)
-                      )
-                }
-                hosts={hosts}
-                selectedHosts={selectedHosts}
-              />
             </div>
+            <TimelineSearch
+              events={
+                selectedHosts.length === 0
+                  ? events
+                  : events.filter((e) =>
+                      selectedHosts.some((h) => h.longName == e.host)
+                    )
+              }
+              hosts={hosts}
+              selectedHosts={selectedHosts}
+            />
           </div>
         </div>
       </div>
