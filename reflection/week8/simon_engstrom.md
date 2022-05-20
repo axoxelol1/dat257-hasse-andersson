@@ -5,10 +5,12 @@ I feel satisfied with my knowledge as of now. I guess I could get some more unde
 As of now only two team member has started with it. I'll do this by reading in and parttaking in the process.
 
 ## How can I help someone else, or the entire team, to learn something new? 
-I don't know as of now. This was the last sprint so we won't work that much on implementing new features now. Only bug fixing.
+I don't know as of now. This was the last sprint so we won't work that much on implementing new features now. 
+I think some of us will be busy with math next week also.
 
 ## What's my contribution towards my team's use of scrum? 
-I've taken on userstories and bugs and solved them in the sprint. I feel like I could've done more though.
+I've taken on user stories and bugs and solved them in the sprint. I feel like I could've done more though.
+I've participated in the scheduled stand up scrum meetings and I have been on time.
 
 ## What's my contribution towards my team's deliveries? 
 Same as last week but I can parttake more with writing the actual report now. I plan on doing this next week.
