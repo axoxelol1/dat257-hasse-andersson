@@ -6,6 +6,14 @@ A website that aggregates and shows upcoming events happening within the student
 The application is made using react framework NextJS along with a MongoDB database. Python is used for the facebook event parser (not scraper).
 We use typescript and tailwind to make development more enjoyable.
 
+Team members:
+- Simon Engström
+- Axel Larsson
+- Anton Ekström
+- Jacob Bengtsson
+- Jens Sandgren
+- Casper Lindh
+
 ## Project structure
 The reflections for each week, both individual and the team's, can be found in the folder `/reflection` and other documents can be found in `/documents`.
 
