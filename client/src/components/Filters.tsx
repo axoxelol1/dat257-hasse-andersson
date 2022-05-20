@@ -14,7 +14,7 @@ interface FiltersProps {
 
 export default function Filters(props: FiltersProps) {
   return (
-    <div className="flex flex-row h-12 w-full">
+    <div className="flex flex-row h-12">
       <HostFilter {...props} />
     </div>
   );
