@@ -13,9 +13,9 @@ export function ExportCalendar({ hosts }: ExportCalendarProps) {
   const url = createCalendarUrl({ hosts });
 
   return (
-    <div className="relative flex flex-row h-full bg-white px-4 rounded-md place-items-center justify-between">
+    <div className="relative flex flex-row h-full px-4 rounded-md place-items-center justify-between gap-3">
       <span className="h-full flex place-items-center w-max font-semibold">
-        Export calendar
+        Export calendar:
       </span>
       <div className="flex flex-row place-items-center">
         <button
