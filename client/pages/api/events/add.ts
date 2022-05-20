@@ -4,7 +4,7 @@
  */
 
 import { NextApiRequest, NextApiResponse } from "next";
-import { AuthService } from "../../../lib/auth.service";
+import { AuthService } from "../../../lib/admin.service";
 import { DatabaseService } from "../../../lib/db.service";
 import { Event } from "../../../lib/types";
 

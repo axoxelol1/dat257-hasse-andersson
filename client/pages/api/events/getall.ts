@@ -4,7 +4,7 @@
  */
 
 import { NextApiRequest, NextApiResponse } from "next";
-import { BackendAuthService } from "../../../lib/backend_auth.service";
+import { BackendAuthService } from "../../../lib/admin.service";
 import { DatabaseService } from "../../../lib/db.service";
 
 export default async function getall(req: NextApiRequest, res: NextApiResponse) {

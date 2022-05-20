@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { AuthService } from "../lib/auth.service"
+import { AuthService } from "../lib/admin.service"
 
 /*
   Simple page to show that users can be verified as logged in

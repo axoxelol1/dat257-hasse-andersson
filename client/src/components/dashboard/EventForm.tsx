@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from "react";
 import { Host, Event } from "../../../lib/types";
 import Select from 'react-select';
-import { AuthService } from "../../../lib/auth.service";
+import { AuthService } from "../../../lib/admin.service";
 
 interface EventFormProps {
   updateEventList: () => void;

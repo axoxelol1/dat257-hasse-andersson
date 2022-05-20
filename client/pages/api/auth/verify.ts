@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { BackendAuthService } from "../../../lib/backend_auth.service";
+import { BackendAuthService } from "../../../lib/admin.service";
 
 /*
   Takes in a JSON web token and checks against the JWT secret if it is valid. 
