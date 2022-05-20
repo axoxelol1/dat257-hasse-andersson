@@ -1,4 +1,4 @@
-# Axel Larsson - Week 5
+# Axel Larsson - Week 7
 
 ## What do I want to learn or understand better?
 There is not much more to learn about now relating to the project. We will be focusing on getting rid of bugs and minor visual redesigns this week.
