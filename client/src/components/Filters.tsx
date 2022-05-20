@@ -21,7 +21,7 @@ export default function Filters(props: FiltersProps) {
 }
 
 function HostFilter({ onChange, hosts }: FiltersProps) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedHosts, setSelectedHosts] = useState<Host[]>([]);
   const [query, setQuery] = useState("");
 
