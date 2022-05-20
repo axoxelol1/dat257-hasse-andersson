@@ -3,15 +3,12 @@
  */
 
 import { NextApiRequest, NextApiResponse } from "next";
-import { AuthService } from "../../../lib/auth.service";
+import { AuthService } from "../../../lib/admin.service";
 import { DatabaseService } from "../../../lib/db.service";
 
 export default async function deleteEvent(req: NextApiRequest, res: NextApiResponse) {
   const id = JSON.parse(req.body).id;
   const host = JSON.parse(req.body).host;
-
-  const db = new DatabaseService();
-  const result = await db.deleteEvent(id);
 
   const auth = new AuthService()
   const authedUser = await auth.verify()
@@ -24,6 +21,9 @@ export default async function deleteEvent(req: NextApiRequest, res: NextApiRespo
     res.status(403).send({ error: "User can only delete events that they host themselves" });
     return;
   }
+
+  const db = new DatabaseService();
+  const result = await db.deleteEvent(id);
 
   if(result.acknowledged && result.deletedCount === 1) {
     res.status(200).send({ message: "Event deleted successfully" });

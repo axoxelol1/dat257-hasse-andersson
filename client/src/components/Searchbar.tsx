@@ -11,9 +11,9 @@ export type SearchbarProps = {
 
 export default function Searchbar({searchHandler}: SearchbarProps) {
   return (
-    <div className="flex flex-row h-12 w-full mb-2">
+    <div className="flex flex-row h-12 w-full">
       <div className="h-full w-full">
-        <input className="h-full w-full border-transparent border-b-black border-2" type="text" placeholder="Search" onChange={searchHandler} />
+        <input className="h-full w-full text-lg bg-transparent pl-2 outline-none border-b-black border-b-2 placeholder:text-black/80 placeholder:italic" type="text" placeholder="Search" onChange={searchHandler} />
       </div>
     </div>
   )
