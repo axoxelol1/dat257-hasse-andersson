@@ -14,14 +14,14 @@ interface FiltersProps {
 
 export default function Filters(props: FiltersProps) {
   return (
-    <div className="flex flex-row h-12 w-full">
+    <div className="flex flex-row h-12">
       <HostFilter {...props} />
     </div>
   );
 }
 
 function HostFilter({ onChange, hosts }: FiltersProps) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedHosts, setSelectedHosts] = useState<Host[]>([]);
   const [query, setQuery] = useState("");
 
