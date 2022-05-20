@@ -14,6 +14,8 @@ The actual application/website can be found in `/client`.
 In `/tools` a python script used for parsing events from facebook event pages can be found.
 
 ## Project setup
+OBS: Project unfortunately does not work on Safari as it does not support YYYY-MM-DD date format. Please use chrome/firefox on mac.
+
 To run the project you will need to clone the repository. You also need to have Node.js installed on your machine.
 
 First, you will have to make sure that your terminal in VSCode is in the `/client` directory.
