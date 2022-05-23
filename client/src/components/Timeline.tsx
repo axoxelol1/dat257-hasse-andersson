@@ -94,7 +94,7 @@ function TimelineEventLarge(event : Event) {
                 href={event.link.toString()}
                 rel="noreferrer"
               >
-                <h1 className="text-4xl leading-none">{event.title}</h1>
+                <h1 className="text-4xl leading-none break-all">{event.title}</h1>
               </a>
             </div>
             <span>{event.host}</span>
