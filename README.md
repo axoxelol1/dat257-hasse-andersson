@@ -3,6 +3,9 @@ Project for DAT257 Agile software project management. 2022 group Hasse Andersson
 
 A website that aggregates and shows upcoming events happening within the student union at Chalmers University of Technology.
 
+Features a timeline view with filtering, a calendar view, a dashboard where logged in users can manage their events and a page where the admin can manage all users.
+You can also export the events to your own calendar.
+
 The application is made using react framework NextJS along with a MongoDB database. Python is used for the facebook event parser (not scraper).
 We use typescript and tailwind to make development more enjoyable.
 
@@ -51,4 +54,9 @@ JWT_SECRET=<random byte string>
 To run the development server you can now write the following:
 ```powershell
 npm run dev
+```
+The only user that can add new users is the user with the username 'admin'. We run in to a bit of a chicken/egg situation. Therefore you have to add the admin user manually to the database. To make sure the login works you first have to hash your intended password using SHA256, then hash the SHA256-hash using bcrypt and insert the bcrypt-hash into the database along with the username like this:
+```
+"username": "admin",
+"salthash": "<bcrypt-hash>"
 ```
