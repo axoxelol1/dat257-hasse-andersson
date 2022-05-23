@@ -37,7 +37,7 @@ export default function Index({
         <SlideShow />
       </div>
 
-      <div className="w-screen overflow-hidden">
+      <div className="w-auto">
         <Navbar />
         <div className="flex flex-col items-center m-8">
           <div className="max-w-screen-xl w-full">
