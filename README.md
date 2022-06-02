@@ -24,6 +24,9 @@ The actual application/website can be found in `/client`.
 
 In `/tools` a python script used for parsing events from facebook event pages can be found.
 
+## Scrum Board
+Our scrum board for all sprints is available in this github repo under Projects -> Projects (not beta version).
+
 ## Project setup
 OBS: Project unfortunately does not work on Safari as it does not support YYYY-MM-DD date format. Please use chrome/firefox on mac.
 
